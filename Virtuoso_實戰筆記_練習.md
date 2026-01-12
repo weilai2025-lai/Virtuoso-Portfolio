@@ -403,17 +403,26 @@ I_D ∝ μ × (W / L)
 4. 讓 Poly 可以被 Metal1 連接
 
 ### 建立 Pin
-1. 選擇 **metal1** layer
+1. 選擇 **metal1 drawing** layer（很重要！）
 2. `Create` → `Pin...`
 3. 設定：
    - Terminal Names：`vdd gnd in out`
    - Pin Shape：rectangle
-   - Create Label：✅ 勾選
    - I/O Type：vdd/gnd/in = input，out = output
-4. 點擊三次：畫矩形 → 完成矩形 → 放置 label
+4. 放置 Pin 矩形（要覆蓋在 Metal1 上面）
+
+### 建立 Pin Label（重要！）
+> ⚠️ Create Pin 視窗內的 "Create Label" 選項**沒有用**！
+
+需要**手動建立 Label**：
+1. 選擇 **metal1 pin** 或 **text** layer
+2. `Create` → `Label`
+3. 輸入 Pin 名稱（例如 `vdd`）
+4. 放置在對應的 Pin 矩形上
+5. 對每個 Pin 重複此步驟
 
 ### Pin Label 大小
-- 在 Create Pin 視窗的 Options 中
+- 在 Create Label 視窗中設定 Height
 - Height 設為 **0.1**（預設太大）
 
 ---
@@ -476,3 +485,213 @@ I_D ∝ μ × (W / L)
 | `V` | 垂直線 |
 | `M` | 加入新 Marker |
 | `D` | 加入第二 Marker（量測距離） |
+
+---
+
+## 14. LVS（Layout vs Schematic）
+
+### LVS 是什麼？
+檢查 Layout 和 Schematic 是否**電氣上一致**：連線正確、Pin 名稱對應、電晶體參數一致。
+
+### 執行 LVS
+1. 在 Layout Editor 中：`Calibre` → `Run LVS`
+2. 設定 **Rules**：
+   - LVS Rules File：`/vol/eecs391/FreePDK45/ncsu_basekit/techfile/calibre/calibreLVS.rul`
+3. 設定 **Inputs > Layout Tab**：
+   - Hierarchical ✅
+   - Layout vs Netlist ✅
+   - Export from layout viewer ✅
+   - Format：GDSII
+4. 設定 **Inputs > Netlist Tab**：
+   - **Export from schematic viewer ✅**（很重要！）
+   - Format：SPICE
+5. 點擊 **Run LVS**
+
+### LVS 結果
+- ✅ **CORRECT**（笑臉）= 通過
+- ❌ **Discrepancies** = 需要修復
+
+---
+
+## 15. LVS 常見錯誤與解決方法
+
+### EP=0（External Ports = 0）
+**問題**：Layout 的 subcircuit 沒有識別到任何 port。
+
+**原因**：
+1. Pin 沒有正確放置在 Metal1 上
+2. 使用了錯誤的 Create Pin 方式
+
+**解決方法**：
+- **不要用** Create Pin 視窗內的 "Create Label"（沒用！）
+- **要用** 選單 `Create` → `Pin...`
+- 確保選擇 **metal1 drawing** layer
+- Pin 矩形要**覆蓋在 Metal1 上面**
+
+### Pin 名稱大小寫不一致
+**問題**：Layout 用 `vdd`，Schematic 用 `VDD`。
+
+**解決方法**：統一大小寫（LVS 區分大小寫）。
+
+### Body 未連接
+**問題**：ntap/ptap 沒有和 VDD/GND 的 Metal1 連接。
+
+**解決方法**：確保 ntap 的 Metal1 和 VDD Pin 的 Metal1 **重疊連接**。
+
+---
+
+## 16. Pin Names 顯示設定
+
+如果 Layout 中的 Pin Label 看不到：
+
+1. 選單：`Options` → `Display...`
+2. 在 **Display Controls** 區域
+3. 勾選 **Pin Names** ✅
+
+這樣 Pin 的名稱才會顯示在 Layout 上。
+
+---
+
+## 17. Layout Extraction（PEX）
+
+### PEX 是什麼？
+萃取 Layout 中的**寄生電容和電阻**（Parasitic RC），讓模擬更接近實際晶片。
+
+### 執行 PEX
+1. 在 Layout Editor 中：`Calibre` → `Run PEX`
+2. 如果有 "Load Runset File" popup，瀏覽到：
+   `/vol/eecs391/FreePDK45/ncsu_basekit/techfile/calibre/runset.calibre.pex`
+
+### Rules 設定
+- PEX Rules File：`/vol/eecs391/FreePDK45/ncsu_basekit/techfile/calibre/calibrexRC.rul`
+- PEX Run Directory：`/home/netID/cadence/LIBRARY/CELL`
+
+### Inputs 設定
+**Layout Tab：**
+- File：`CELL.calibre.db`
+- Format：GDSII
+- **Export from layout viewer** ✅（很重要！）
+- Top Cell、Library、View
+
+**Netlist Tab：**
+- Files：`CELL.src.net`
+- Format：CALIBRVIEW
+- **Export from schematic viewer** ✅（很重要！）
+
+### Outputs 設定
+- Extraction Type：**Transistor level, R+C+CC, No Inductance**
+- Format：**CALIBRVIEW**
+- Use Names From：**SCHEMATIC**
+- File：`CELL.pex.netlist`
+- **View netlist after PEX finishes** ✅
+
+### Nets 設定
+- Extract parasitics for：**All Nets**
+
+### Reports 設定
+- PEX Report：`CELL.pex.report`（box 應該填滿 pink）
+- **SVDB** ✅
+- SVDB Directory：`/home/netID/cadence/LIBRARY/CELL/svdb/`
+- **Start RVE after PEX** ✅
+- **Generate cross-reference data for RVE** ✅
+
+### PEX Options 設定（重要！）
+1. 點擊 `Setup`
+2. 勾選 **PEX options**
+3. 在右側出現的面板中，於 **Include** 區域輸入：
+   - `LAYOUT CASE YES`
+   - `SOURCE CASE YES`
+
+### 執行
+1. 點擊 **Run PEX**
+2. 如果詢問是否 overwrite，點擊 OK
+3. 成功後會彈出兩個視窗：
+   - **Calibre View Setup**：用於設定 calibre view 以進行模擬
+   - **RVE**：顯示萃取結果（寄生電容值）
+
+---
+
+## 18. Simulate Extracted Layout
+
+### Step 1：設定 Calibre View Setup
+1. 確認 **cellmap file** 路徑正確（應該在 cadence directory）
+2. 點擊 **View** 確認 cellmap 內容
+3. 點擊 **OK**
+4. 會顯示 "Calibre View generation completed with 0 WARNINGs and 0 ERRORs"
+
+### Step 2：建立 Config View
+1. 關閉 extracted layout 圖和 ADE 視窗
+2. 回到 **Library Manager**
+3. 選擇 Library 和 **Sim_inv** cell
+4. `File` → `New` → `Cell View`
+5. Type 選擇 **config**
+6. 點擊 OK
+
+### Step 3：設定 New Configuration
+1. **Top Cell** 區域：
+   - Library：你的 Library
+   - Cell：Sim_inv
+   - View：schematic
+2. 點擊 **Use Template** 按鈕
+3. 選擇 **spectre**，點擊 OK
+4. **Global Bindings** 會自動填入
+5. 點擊 OK
+
+### Step 4：設定使用 calibre view
+1. 在 **Hierarchy Editor** 的 **Cell Bindings** 中找到 **inv**
+2. **右鍵點擊** inv
+3. 選擇 **Set Cell View**
+4. View To Use 選擇 **calibre**
+5. **儲存** Config
+
+### Step 5：載入模擬設定並執行
+1. 開啟 **Sim_inv**
+2. `Launch` → `ADE L`
+3. `Session` → `Load State`
+4. Load State Option：**Cellview**
+5. 選擇 Library、Cell、之前儲存的 State 名稱
+6. 點擊 OK
+7. 執行模擬
+
+### 切換 schematic / calibre 模式
+| View To Use | 說明 |
+|-------------|------|
+| **schematic** | 使用原始 Schematic（無寄生 RC）|
+| **calibre** | 使用萃取後的 Layout（有寄生 RC）|
+
+在 Hierarchy Editor 中右鍵點擊 inv，選擇 Set Cell View 即可切換。
+
+---
+
+## 19. Dealing with Locked Items
+
+如果電腦凍結導致檔案被鎖定（可讀但無法編輯或重新儲存），使用以下步驟解鎖：
+
+### 解鎖步驟
+1. 確保 Cadence 已關閉，保持 terminal 開啟
+2. 輸入：
+   ```
+   clsAdminTool
+   ```
+3. 查看可用命令：
+   ```
+   help
+   ```
+4. 列出被鎖定的檔案：
+   ```
+   ale Project_Dir
+   ```
+   （將 `Project_Dir` 替換為你的專案資料夾名稱）
+5. 解鎖檔案：
+   ```
+   asre file_info
+   ```
+   （將 `file_info` 替換為上一步列出的完整資訊行）
+6. 退出 admin tool：
+   ```
+   ctrl+c
+   ```
+7. 重新啟動 Cadence：
+   ```
+   virtuoso
+   ```
