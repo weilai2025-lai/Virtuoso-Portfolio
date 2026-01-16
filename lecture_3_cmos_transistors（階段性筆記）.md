@@ -87,9 +87,9 @@
 
 ## 6. Terminal Voltages（端點電壓定義）
 
-- \(V_{GS} = V_G - V_S\)
-- \(V_{GD} = V_G - V_D\)
-- \(V_{DS} = V_D - V_S = V_{GS} - V_{GD}\)
+- $V_{GS} = V_G - V_S$
+- $V_{GD} = V_G - V_D$
+- $V_{DS} = V_D - V_S = V_{GS} - V_{GD}$
 
 ### Source / Drain 的定義
 
@@ -103,14 +103,16 @@
 ## 7. 操作區域（Operating Regions, NMOS）
 
 ### 7.1 Cutoff
-- \(V_{GS} < V_{th}\)
+- $V_{GS} < V_{th}$
 - 無反轉層，MOS 關閉
 
 ### 7.2 Linear（Triode）
-\[\begin{cases}
+$$
+\begin{cases}
 V_{GS} > V_{th} \\
 V_{DS} < V_{GS} - V_{th}
-\end{cases}\]
+\end{cases}
+$$
 
 **物理意義：**
 - 通道「整條都存在」
@@ -118,10 +120,12 @@ V_{DS} < V_{GS} - V_{th}
 - MOS 行為近似為 **受控電阻**
 
 ### 7.3 Saturation
-\[\begin{cases}
+$$
+\begin{cases}
 V_{GS} > V_{th} \\
 V_{DS} \ge V_{GS} - V_{th}
-\end{cases}\]
+\end{cases}
+$$
 
 **物理意義：**
 - Drain 端通道被拉斷（pinch-off）
@@ -135,9 +139,9 @@ V_{DS} \ge V_{GS} - V_{th}
 > **Vds 決定「這條路會不會被拉斷」**
 
 - Vds 是加在 **整條通道上的高度差 / 拉扯力**
-- 分界條件中的 \(-V_{th}\) 代表：
+- 分界條件中的 $-V_{th}$ 代表：
   - Gate 必須先超過 Vth
-  - 剩下的 \(V_{GS} - V_{th}\) 才是真正能對抗 Drain 拉扯的有效控制力
+  - 剩下的 $V_{GS} - V_{th}$ 才是真正能對抗 Drain 拉扯的有效控制力
 
 ---
 
@@ -188,4 +192,3 @@ V_{DS} \ge V_{GS} - V_{th}
 > - Id–Vg / Id–Vd 模型
 > - Short-channel effects
 > - Delay / Energy / Power 的正式分析
-
