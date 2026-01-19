@@ -42,7 +42,7 @@
 - Source / Drain 為 **n+ diffusion**
 - n+ 與 p-substrate 之間形成 **PN junction（反向偏壓）**，產生耗盡區
 
-### Gate 加正電時（$V_G > 0$）：
+### Gate 加正電時（$V_{G} > 0$）：
 
 1. 吸引電子到 $\text{Si–SiO}_2$ 表面
 2. 先推走 hole → **depletion（耗盡）**
@@ -77,7 +77,7 @@
 - **$V_{th}$ = 剛好在表面形成穩定反轉層的 Gate 電壓**
 - 物理上可定義、理論上可推導
 - 工程上：
-  - 由 **量測 $I_d–V_g$ 曲線** 萃取
+  - 由 **量測 $I_{d}–V_{g}$ 曲線** 萃取
 
 **重要直覺：**
 > Gate 並不是一加電就能控制通道，
@@ -87,9 +87,9 @@
 
 ## 6. Terminal Voltages（端點電壓定義）
 
-- $V_{GS} = V_G - V_S$
-- $V_{GD} = V_G - V_D$
-- $V_{DS} = V_D - V_S = V_{GS} - V_{GD}$
+- $V_{GS} = V_{G} - V_{S}$
+- $V_{GD} = V_{G} - V_{D}$
+- $V_{DS} = V_{D} - V_{S} = V_{GS} - V_{GD}$
 
 ### Source / Drain 的定義
 
@@ -151,7 +151,7 @@ $$
   - NMOS：電子由 Source → Drain
   - PMOS：電洞由 Source → Drain
 
-- **電路定義角度（$I_d, I_{ds}$）**：
+- **電路定義角度（$I_{d}, I_{ds}$）**：
   - 一律定義為 **Drain → Source 為正**
 
 **結論：**
@@ -169,7 +169,7 @@ $$
 在開始之前，先鎖死這三個定義：
 
 1. **$I_{DS}$ 定義**：傳統正電流，Drain → Source 為正
-2. **$V_{DS}$ 定義**：$V_{DS} = V_D - V_S$
+2. **$V_{DS}$ 定義**：$V_{DS} = V_{D} - V_{S}$
 3. **Source 定義**：
    - NMOS：電壓較低的一端是 Source
    - PMOS：電壓較高的一端是 Source
@@ -187,12 +187,12 @@ $$
 #### 切換瞬間（真正有電流的時候）
 
 假設某一個切換瞬間：
-- Source：$V_S = 1.1 \text{ V}$
-- Drain（輸出端，還在被充電中）：$V_D = 0.6 \text{ V}$
+- Source：$V_{S} = 1.1 \text{ V}$
+- Drain（輸出端，還在被充電中）：$V_{D} = 0.6 \text{ V}$
 
 #### $V_{DS}$ 的正負號
 
-$V_{DS} = V_D - V_S = 0.6 - 1.1 = -0.5 \text{ V}$
+$V_{DS} = V_{D} - V_{S} = 0.6 - 1.1 = -0.5 \text{ V}$
 
 ✅ **$V_{DS}$ 是負的**
 
@@ -218,7 +218,7 @@ $V_{DS} = V_D - V_S = 0.6 - 1.1 = -0.5 \text{ V}$
 #### 充電完成（穩態）
 
 充完電後：
-- $V_D \to 1.1 \text{ V}$，$V_S = 1.1 \text{ V}$
+- $V_{D} \to 1.1 \text{ V}$，$V_{S} = 1.1 \text{ V}$
 - $V_{DS} = 1.1 - 1.1 = 0$（沒有壓差）
 - $I_{DS} \to 0$（電流停止）
 
@@ -236,12 +236,12 @@ $V_{DS} = V_D - V_S = 0.6 - 1.1 = -0.5 \text{ V}$
 #### 切換瞬間（真正有電流的時候）
 
 假設某一個放電瞬間：
-- Source（接地）：$V_S = 0 \text{ V}$
-- Drain（輸出端，還沒放完電）：$V_D = 0.6 \text{ V}$
+- Source（接地）：$V_{S} = 0 \text{ V}$
+- Drain（輸出端，還沒放完電）：$V_{D} = 0.6 \text{ V}$
 
 #### $V_{DS}$ 的正負號
 
-$V_{DS} = V_D - V_S = 0.6 - 0 = +0.6 \text{ V}$
+$V_{DS} = V_{D} - V_{S} = 0.6 - 0 = +0.6 \text{ V}$
 
 ✅ **$V_{DS}$ 是正的**
 
@@ -268,7 +268,7 @@ $I_{DS} > 0$
 #### 放電完成（穩態）
 
 放電完成後：
-- $V_D \to 0 \text{ V}$，$V_S = 0 \text{ V}$
+- $V_{D} \to 0 \text{ V}$，$V_{S} = 0 \text{ V}$
 - $V_{DS} = 0 - 0 = 0$（沒有壓差）
 - $I_{DS} \to 0$（電流停止）
 
@@ -286,13 +286,13 @@ $I_{DS} > 0$
 ### 10.4 可直接進筆記的總結段落
 
 **PMOS 版本：**
-> 以 PMOS 為例，在輸出由 0 充電至 $V_{DD}$ 的切換期間，Source 端維持在 $V_{DD}$，而 Drain 端電壓尚未上升完成，因此 $V_D < V_S$，使得 $V_{DS} = V_D - V_S < 0$。
+> 以 PMOS 為例，在輸出由 0 充電至 $V_{DD}$ 的切換期間，Source 端維持在 $V_{DD}$，而 Drain 端電壓尚未上升完成，因此 $V_{D} < V_{S}$，使得 $V_{DS} = V_{D} - V_{S} < 0$。
 >
 > 此時實際正電流由 Source 流向 Drain，但由於 $I_{DS}$ 的正方向定義為 Drain → Source，因此量測到的 $I_{DS}$ 為負值。
 > 當輸出電壓上升至與 Source 對齊後，$V_{DS} \to 0$，電流隨即消失，系統進入穩態。
 
 **NMOS 版本：**
-> 以 NMOS 為例，在輸出由 $V_{DD}$ 放電至 0 的切換期間，Source 端維持在 0 V，而 Drain 端電壓尚未下降完成，因此 $V_D > V_S$，使得 $V_{DS} = V_D - V_S > 0$。
+> 以 NMOS 為例，在輸出由 $V_{DD}$ 放電至 0 的切換期間，Source 端維持在 0 V，而 Drain 端電壓尚未下降完成，因此 $V_{D} > V_{S}$，使得 $V_{DS} = V_{D} - V_{S} > 0$。
 >
 > 此時電子實際由 Source 流向 Drain，而傳統正電流方向為 Drain → Source；由於 $I_{DS}$ 的正方向亦定義為 Drain → Source，因此量測到的 $I_{DS}$ 為正值。
 > 當輸出電壓下降至與 Source 對齊後，$V_{DS} \to 0$，電流隨即消失，系統進入穩態。
