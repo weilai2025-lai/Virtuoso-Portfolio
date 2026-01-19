@@ -169,7 +169,7 @@ $$
 在開始之前，先鎖死這三個定義：
 
 1. **Ids 定義**：傳統正電流，Drain → Source 為正
-2. **Vds 定義**：$V_{DS} = V_D - V_S$
+2. **Vds 定義**：V<sub>DS</sub> = V<sub>D</sub> - V<sub>S</sub>
 3. **Source 定義**：
    - NMOS：電壓較低的一端是 Source
    - PMOS：電壓較高的一端是 Source
