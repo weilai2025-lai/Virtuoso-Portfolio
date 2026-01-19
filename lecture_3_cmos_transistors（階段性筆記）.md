@@ -236,8 +236,8 @@ $$V_{DS} = V_D - V_S = 0.6 - 1.1 = -0.5 \text{ V}$$
 #### 切換瞬間（真正有電流的時候）
 
 假設某一個放電瞬間：
-- Source（接地）：$$V_S = 0 \text{ V}$$
-- Drain（輸出端，還沒放完電）：$$V_D = 0.6 \text{ V}$$
+- Source（接地）：V<sub>S</sub> = 0 V
+- Drain（輸出端，還沒放完電）：V<sub>D</sub> = 0.6 V
 
 #### Vds 的正負號
 
@@ -259,7 +259,7 @@ $$V_{DS} = V_D - V_S = 0.6 - 0 = +0.6 \text{ V}$$
 
 對照 Ids 定義（正方向 = Drain → Source）：
 
-$$I_{DS} > 0$$
+I<sub>DS</sub> > 0
 
 ✅ **Ids 是正的**
 
@@ -268,9 +268,9 @@ $$I_{DS} > 0$$
 #### 放電完成（穩態）
 
 放電完成後：
-- $$V_D \to 0 \text{ V}$$，$$V_S = 0 \text{ V}$$
-- $$V_{DS} = 0 - 0 = 0$$（沒有壓差）
-- $$I_{DS} \to 0$$（電流停止）
+- V<sub>D</sub> → 0 V，V<sub>S</sub> = 0 V
+- V<sub>DS</sub> = 0 - 0 = 0（沒有壓差）
+- I<sub>DS</sub> → 0（電流停止）
 
 ---
 
