@@ -59,15 +59,15 @@
 
 ## 4. Accumulation / Depletion / Inversion
 
-### Accumulation（累積）
+### Accumulation（累積）｜V<sub>G</sub> < 0
 - Gate 電壓讓多數載子聚集在表面
 - 但 **沒有形成導通通道**
 
-### Depletion（耗盡）
+### Depletion（耗盡）｜0 < V<sub>G</sub> < V<sub>th</sub>
 - Gate 電壓推走多數載子
 - 表面留下固定離子 → 耗盡區
 
-### Inversion（反轉）
+### Inversion（反轉）｜V<sub>G</sub> > V<sub>th</sub>
 - Gate 電壓夠大（> Vth）
 - 吸引少數載子形成反轉層
 - **形成可導通的 channel**
