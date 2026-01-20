@@ -294,19 +294,19 @@ I<sub>DS</sub> > 0
 
 ---
 
-### 10.4 可直接進筆記的總結段落
+### 10.4 總結段落
 
 **PMOS 版本：**
 > 以 PMOS 為例，在輸出由 0 充電至 $V_{DD}$ 的切換期間，Source 端維持在 $V_{DD}$，而 Drain 端電壓尚未上升完成，因此 $V_D < V_S$，使得 $V_{DS} = V_D - V_S < 0$。
 >
 > 此時實際正電流由 Source 流向 Drain，但由於 Ids 的正方向定義為 Drain → Source，因此量測到的 $I_{DS}$ 為負值。
-> 當輸出電壓上升至與 Source 對齊後，$V_{DS} \to 0$，電流隨即消失，系統進入穩態。
+> 當輸出電壓上升至與 Source 對齊後，V<sub>DS</sub> → 0，電流隨即消失，系統進入穩態。
 
 **NMOS 版本：**
 > 以 NMOS 為例，在輸出由 $V_{DD}$ 放電至 0 的切換期間，Source 端維持在 0 V，而 Drain 端電壓尚未下降完成，因此 $V_D > V_S$，使得 $V_{DS} = V_D - V_S > 0$。
 >
 > 此時電子實際由 Source 流向 Drain，而傳統正電流方向為 Drain → Source；由於 Ids 的正方向亦定義為 Drain → Source，因此量測到的 $I_{DS}$ 為正值。
-> 當輸出電壓下降至與 Source 對齊後，$V_{DS} \to 0$，電流隨即消失，系統進入穩態。
+> 當輸出電壓下降至與 Source 對齊後，V<sub>DS</sub> → 0，電流隨即消失，系統進入穩態。
 
 ---
 
