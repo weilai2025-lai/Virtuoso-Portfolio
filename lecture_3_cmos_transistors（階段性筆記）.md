@@ -53,6 +53,8 @@
 > 輸出電壓是由「哪一顆 MOS 的通道導通」決定，
 > 耗盡區的角色是隔離與防止接面導通，而不是直接設定電壓。
 
+![CMOS 橫截面示意圖](assets/cmos_cross_section.png)
+
 ---
 
 ## 4. Accumulation / Depletion / Inversion
