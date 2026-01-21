@@ -336,12 +336,113 @@ I<sub>DS</sub> > 0
 
 ---
 
-## 12. 延伸（先記概念，後續再補）
+## 13. Bulk Charge Model（Page 12）— 用電容近似通道電荷的第一步
 
-- 切換時，MOS 常經歷 **Saturation → Linear**
-- 飽和 / 線性分段：
-  - 主要用來理解 **波形與延遲**
-  - 不一定是能量計算的必要步驟
+> 本段目標：把 MOS 當成「平行板電容」，用 $Q = C \cdot V$ 估算通道電荷。  
+> 你當初卡住的核心是兩個：  
+> 1) 為什麼會出現 $V_{gs}-V_{ds}/2$（中點近似的空間直覺）  
+> 2) 為什麼還要扣 $V_t$（「有沒有通道」 vs 「通道有多少電荷」是不同層級）
+
+---
+
+### 13.1 模型骨架：先把 $Q = C \cdot V$ 立起來
+
+本頁從
+
+$$Q_{\text{channel}} = C \cdot V$$
+
+出發，其中把 gate–oxide–channel 視為平行板電容：
+
+- 單位面積氧化層電容：
+  $$C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}$$
+
+- gate 覆蓋面積約為 $W \cdot L$，所以整體 gate 電容（本頁用來近似 gate 對 channel 的耦合）為：
+  $$C = C_g = C_{ox}WL = \frac{\varepsilon_{ox}WL}{t_{ox}}$$
+
+**這裡 $C_g$ 的角色：**  
+> 它是「比例尺」：告訴你 gate 的有效控制電壓（$V$）能拉出多少 channel charge（$Q$）。
+
+---
+
+### 13.2 你一開始最卡的點：$V$ 到底是哪個電壓？為什麼是 $V_{gs}-V_{ds}/2$？
+
+#### (a) 先抓住事實：channel 電位沿著 $x$ 方向會變
+當 $V_{ds}\neq 0$ 時，通道由 source 到 drain 的電位大致從 $V_s$ 漸變到 $V_d$。  
+因此 gate-to-channel 電壓 $V_{gc}$ 不是單一值，而是會隨位置改變。
+
+#### (b) 老師採用的近似：用「channel 中點」代表平均狀態
+定義中點 channel 電位
+
+$$V_{\text{ch,mid}} \approx \frac{V_s + V_d}{2}$$
+
+中點的 gate-to-channel 電壓為
+
+$$V_{gc,\text{mid}} = V_g - V_{\text{ch,mid}} = V_g - \frac{V_s + V_d}{2}$$
+
+改寫成端點電壓：
+
+- $V_{gs} = V_g - V_s$
+- $V_{ds} = V_d - V_s$
+
+先改寫平均項：
+
+$$\frac{V_s+V_d}{2} = V_s + \frac{V_d - V_s}{2} = V_s + \frac{V_{ds}}{2}$$
+
+代回去：
+
+$$
+\begin{aligned}
+V_{gc,\text{mid}}
+&= V_g - \left( V_s + \frac{V_{ds}}{2} \right) \\
+&= (V_g - V_s) - \frac{V_{ds}}{2} \\
+&= V_{gs} - \frac{V_{ds}}{2}
+\end{aligned}
+$$
+
+**空間直覺（當初卡住的點）：**  
+> Gate 在「上方」覆蓋整條 channel；channel 在「下方」沿著 source→drain 電位形成斜坡。  
+> $V_{gc,\text{mid}} = V_g - V_{\text{ch,mid}}$ 是「上下方向」的電壓差，不是左右接觸的概念。  
+> 用中點近似，是用「平均 channel 電位」來代表 gate 對 channel 的平均控制力。
+
+---
+
+### 13.3 為什麼還要扣 $V_t$？以及最常見的誤會怎麼解
+
+這裡要分清楚兩個層級（這是你後來真正想通的關鍵）：
+
+- **開關層級（有沒有通道）**：  
+  $$V_{gs} \ge V_t$$  
+  這回答的是「MOS 有沒有被打開」的 yes/no 問題。
+
+- **電荷層級（通道有多少反轉電荷）**：  
+  反轉層「開始形成」所需的那段 gate 電壓可以視為入場成本，因此有效能增加反轉電荷的部分要扣掉 $V_t$：
+
+  $$V = V_{gc} - V_t \approx \left( V_{gs} - \frac{V_{ds}}{2} \right) - V_t$$
+
+**關鍵澄清：**  
+> 這不是在說 $V_{gs} = V_{gs}-V_{ds}/2$。  
+> $V_{gs}$ 用來判斷「是否開通」，而 $V_{gs}-V_{ds}/2$ 是用來估算「平均 gate 控制力（進而估平均 charge）」。
+
+---
+
+### 13.4 邊界條件：Bulk charge model 什麼時候才「站得住腳」？
+
+本頁的中點平均近似隱含假設：
+
+> $V_{gs}-V_t$ 要「夠大」，使得 channel 大部分區域都能維持 strong inversion。
+
+因此：
+- 當 $V_{gs}$ 只比 $V_t$ 大一點點時，$V = (V_{gs}-V_{ds}/2)-V_t$ 可能很快變成負值。  
+- 這不代表「實際完全沒有電流」，更合理的解讀是：**這個平均模型在該操作點開始失效，不應硬套**。
+
+---
+
+### 13.5 一句話封印 Page 12（回想用）
+
+> **Page 12 做的事情：**  
+> 用 $Q = C\cdot V$，其中 $C = C_{ox}WL$ 是比例尺，  
+> $V \approx (V_{gs}-V_{ds}/2)-V_t$ 是 gate 對 channel 的平均有效控制力（中點近似 + 扣入場費）。
+
 
 ---
 
