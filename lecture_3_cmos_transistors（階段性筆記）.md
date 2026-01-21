@@ -1307,9 +1307,7 @@ Gate 與 channel：
 
 因此它們本質上形成一個平行板電容，其單位面積電容為：
 
-$$
-C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}
-$$
+$$C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}$$
 
 **物理意義：**
 
@@ -1332,8 +1330,8 @@ Source 與 Drain 和 Body 之間形成的是 **反向偏壓的 PN 接面**。
 - depletion region 沒有自由載子 → 等效為絕緣層
 
 因此：
-- Source–Body → C<sub>sb</sub>
-- Drain–Body → C<sub>db</sub>
+- Source–Body → $C_{sb}$
+- Drain–Body → $C_{db}$
 
 這類電容因為來自 source / drain 的擴散區，
 故稱為 **diffusion capacitance**。
@@ -1369,7 +1367,10 @@ Source 與 Drain 和 Body 之間形成的是 **反向偏壓的 PN 接面**。
 >
 > 因為這個電容來自 **source / drain 的擴散區（diffusion region）**，
 > 所以稱為 **diffusion capacitance**，
-> 並以 C<sub>sb</sub>、C<sub>db</sub> 表示。
+> 並以 $C_{sb}$、$C_{db}$ 表示。
+
+![MOS 寄生電容圖](assets/mos_parasitic_capacitance.png)
+
 
 ---
 
@@ -1384,14 +1385,10 @@ Source 與 Drain 和 Body 之間形成的是 **反向偏壓的 PN 接面**。
 你腦中同時存在這兩件事：
 
 - 電流定義：
-$$
-I_{ds} = \frac{Q}{t}
-$$
+$$I_{ds} = \frac{Q}{t}$$
 
 - 電荷與電容關係：
-$$
-Q = C V
-$$
+$$Q = C V$$
 
 於是你自然會想：
 
@@ -1434,9 +1431,7 @@ $$
 
 而這個時間尺度，之後你會看到它長成：
 
-$$
-t_{\text{delay}} \sim \frac{C \cdot V}{I}
-$$
+$$t_{\text{delay}} \sim \frac{C \cdot V}{I}$$
 
 現在先不用背，只抓直覺：
 
