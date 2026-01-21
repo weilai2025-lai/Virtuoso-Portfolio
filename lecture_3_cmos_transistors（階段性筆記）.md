@@ -1732,3 +1732,60 @@ Diffusion capacitance 主要來自兩個地方：
 - 電壓較高的一端 → drain
 
 因此在 **兩顆 NMOS 串接**時：
+
+Vout
+|
+NMOS2
+|
+（共享 diffusion 節點）
+|
+NMOS1
+|
+GND
+
+- 中間那塊 diffusion：
+  - **沒有固定身分**
+  - 它只是「兩顆 NMOS 共用的內部節點」
+- 當 NMOS1 導通時：
+  - 它是 NMOS1 的 drain
+- 當 NMOS2 導通時：
+  - 它是 NMOS2 的 source
+
+👉 **source / drain 是動態角色，不是靜態標籤**
+
+---
+
+### 21.6 為什麼要把兩顆 NMOS 串接在一起？
+
+這件事其實同時滿足兩個目的：
+
+#### (1) 邏輯功能（Pull-Down Network）
+
+兩顆 NMOS 串接代表：
+
+- 只有 **A = 1 且 B = 1**
+- 才能形成一條完整導通路徑到 GND
+
+這正是 **AND 條件的實體實現**  
+（在 CMOS 中，對應到 NAND 的 pull-down network）。
+
+#### (2) Layout 與效能最佳化
+
+- 串接 → 可以 **共享 diffusion**
+- 共享 diffusion → **減少 area 與 perimeter**
+- area / perimeter 減少 → **diffusion capacitance 下降**
+- diffusion capacitance 下降 → **切換更快、功耗更低**
+
+---
+
+### 21.7 本章一眼回想重點
+
+- Diffusion capacitance 來自 **n⁺ diffusion 與 p-type body 的 PN 接面**
+- 它是 **寄生電容**，對效能不利
+- 電容大小與 **擴散區的面積與周長** 有關
+- **共享 / 合併 diffusion** 是為了：
+  - 實現邏輯功能
+  - 同時減少 diffusion capacitance
+- 串接 NMOS 中間節點：
+  - **不是固定的 source 或 drain**
+  - 而是依電壓動態決定角色的內部節點
