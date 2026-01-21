@@ -760,10 +760,7 @@ $$
 
 根據第 13 節的 bulk charge model，在 strong inversion 且採用中點近似時：
 
-$$
-Q_{\text{channel}}
-= C_{ox} W L \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right)
-$$
+$$Q_{\text{channel}} = C_{ox} W L \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right)$$
 
 這個式子的物理意義是：
 
@@ -828,25 +825,11 @@ $$
 
 代入前兩節得到的結果：
 
-$$
-I_{ds}
-=
-\frac{
-C_{ox} W L \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right)
-}{
-\frac{L^2}{\mu V_{ds}}
-}
-$$
+$$I_{ds} = \frac{ C_{ox} W L \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) }{ \frac{L^2}{\mu V_{ds}} }$$
 
 除以分數等於乘以倒數：
 
-$$
-I_{ds}
-=
-C_{ox} W L \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right)
-\cdot
-\frac{\mu V_{ds}}{L^2}
-$$
+$$I_{ds} = C_{ox} W L \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) \cdot \frac{\mu V_{ds}}{L^2}$$
 
 將幾何因子整理：
 
@@ -856,13 +839,7 @@ $$
 
 得到線性區的 I–V 關係式：
 
-$$
-I_{ds}
-=
-\mu C_{ox} \frac{W}{L}
-\left( V_{gs} - V_t - \frac{V_{ds}}{2} \right)
-V_{ds}
-$$
+$$I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}$$
 
 ---
 
@@ -876,13 +853,7 @@ $$
 
 則線性區的 NMOS 汲極電流可寫成：
 
-$$
-I_{ds}
-=
-\beta
-\left( V_{gs} - V_t - \frac{V_{ds}}{2} \right)
-V_{ds}
-$$
+$$I_{ds} = \beta \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}$$
 
 ---
 
@@ -903,9 +874,7 @@ $$
 ### 15.7 本節重點整理（一眼回想用）
 
 - 電流的本質：
-  $$
-  I_{ds} = \frac{Q_{\text{channel}}}{t}
-  $$
+  $$I_{ds} = \frac{Q_{\text{channel}}}{t}$$
 - 線性區電流同時受到兩個 V<sub>ds</sub> 效應影響：
   - 括號外的 V<sub>ds</sub>：  
     → 推動載子移動（速度變快）
