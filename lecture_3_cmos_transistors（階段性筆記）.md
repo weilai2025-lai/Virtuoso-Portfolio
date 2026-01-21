@@ -1093,9 +1093,7 @@ $$\beta = \mu C_{ox} \frac{W}{L}$$
 
 這裡的「夠大」不是只要求：
 
-$$
-V_{gs} \ge V_t
-$$
+$$V_{gs} \ge V_t$$
 
 而是指：
 
@@ -1108,15 +1106,7 @@ $$
 
 線性區電流模型：
 
-$$
-I_{ds}
-=
-\beta
-\left(
-V_{gs} - V_t - \frac{V_{ds}}{2}
-\right)
-V_{ds}
-$$
+$$I_{ds} = \beta \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}$$
 
 是建立在以下假設之上：
 
@@ -1135,14 +1125,7 @@ $$
 
 飽和區模型：
 
-$$
-I_{ds}
-=
-\frac{\beta}{2}
-\left(
-V_{gs} - V_t
-\right)^2
-$$
+$$I_{ds} = \frac{\beta}{2} \left( V_{gs} - V_t \right)^2$$
 
 同樣假設：
 
