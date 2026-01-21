@@ -359,12 +359,12 @@ $$Q_{\text{channel}} = C \cdot V$$
 - gate 覆蓋面積約為 $W \cdot L$，所以整體 gate 電容（本頁用來近似 gate 對 channel 的耦合）為：
   $$C = C_g = C_{ox}WL = \frac{\varepsilon_{ox}WL}{t_{ox}}$$
 
-**這裡 $C_g$ 的角色：**  
-> 它是「比例尺」：告訴你 gate 的有效控制電壓（$V$）能拉出多少 channel charge（$Q$）。
+**這裡 C<sub>g</sub> 的角色：**  
+> 它是「比例尺」：告訴你 gate 的有效控制電壓（V）能拉出多少 channel charge（Q）。
 
 ---
 
-### 13.2 你一開始最卡的點：$V$ 到底是哪個電壓？為什麼是 $V_{gs}-V_{ds}/2$？
+### 13.2 你一開始最卡的點：V 到底是哪個電壓？為什麼是 V<sub>gs</sub> - V<sub>ds</sub>/2？
 
 #### (a) 先抓住事實：channel 電位沿著 $x$ 方向會變
 當 $V_{ds}\neq 0$ 時，通道由 source 到 drain 的電位大致從 $V_s$ 漸變到 $V_d$。  
@@ -420,8 +420,8 @@ $$
   $$V = V_{gc} - V_t \approx \left( V_{gs} - \frac{V_{ds}}{2} \right) - V_t$$
 
 **關鍵澄清：**  
-> 這不是在說 $V_{gs} = V_{gs}-V_{ds}/2$。  
-> $V_{gs}$ 用來判斷「是否開通」，而 $V_{gs}-V_{ds}/2$ 是用來估算「平均 gate 控制力（進而估平均 charge）」。
+> 這不是在說 V<sub>gs</sub> = V<sub>gs</sub> - V<sub>ds</sub>/2。  
+> V<sub>gs</sub> 用來判斷「是否開通」，而 V<sub>gs</sub> - V<sub>ds</sub>/2 是用來估算「平均 gate 控制力（進而估平均 charge）」。
 
 ---
 
@@ -429,10 +429,10 @@ $$
 
 本頁的中點平均近似隱含假設：
 
-> $V_{gs}-V_t$ 要「夠大」，使得 channel 大部分區域都能維持 strong inversion。
+> V<sub>gs</sub> - V<sub>t</sub> 要「夠大」，使得 channel 大部分區域都能維持 strong inversion。
 
 因此：
-- 當 $V_{gs}$ 只比 $V_t$ 大一點點時，$V = (V_{gs}-V_{ds}/2)-V_t$ 可能很快變成負值。  
+- 當 V<sub>gs</sub> 只比 V<sub>t</sub> 大一點點時，V = (V<sub>gs</sub> - V<sub>ds</sub>/2) - V<sub>t</sub> 可能很快變成負值。  
 - 這不代表「實際完全沒有電流」，更合理的解讀是：**這個平均模型在該操作點開始失效，不應硬套**。
 
 ---
