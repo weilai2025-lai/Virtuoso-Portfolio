@@ -1002,14 +1002,10 @@ NMOS 的汲極電流 $I_{ds}$ 可依操作條件分為三個區域：
 #### (1) Cutoff（截止區）
 
 條件：
-$$
-V_{gs} < V_t
-$$
+$$V_{gs} < V_t$$
 
 電流：
-$$
-I_{ds} = 0
-$$
+$$I_{ds} = 0$$
 
 物理意義：
 - 尚未形成反轉層
@@ -1021,27 +1017,13 @@ $$
 #### (2) Linear / Triode（線性區）
 
 條件：
-$$
-V_{gs} \ge V_t
-\quad \text{且} \quad
-V_{ds} < V_{dsat}
-$$
+$$V_{gs} \ge V_t \quad \text{且} \quad V_{ds} < V_{dsat}$$
 
 其中：
-$$
-V_{dsat} = V_{gs} - V_t
-$$
+$$V_{dsat} = V_{gs} - V_t$$
 
 電流模型：
-$$
-I_{ds}
-=
-\beta
-\left(
-V_{gs} - V_t - \frac{V_{ds}}{2}
-\right)
-V_{ds}
-$$
+$$I_{ds} = \beta \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}$$
 
 物理意義：
 - 整條 channel 從 source 到 drain 都存在
@@ -1055,21 +1037,10 @@ $$
 #### (3) Saturation（飽和區）
 
 條件：
-$$
-V_{gs} \ge V_t
-\quad \text{且} \quad
-V_{ds} \ge V_{dsat}
-$$
+$$V_{gs} \ge V_t \quad \text{且} \quad V_{ds} \ge V_{dsat}$$
 
 電流模型：
-$$
-I_{ds}
-=
-\frac{\beta}{2}
-\left(
-V_{gs} - V_t
-\right)^2
-$$
+$$I_{ds} = \frac{\beta}{2} \left( V_{gs} - V_t \right)^2$$
 
 物理意義：
 - drain 端的 channel 發生 pinch-off
@@ -1081,9 +1052,7 @@ $$
 
 ### 17.2 參數定義（統一記法）
 
-$$
-\beta = \mu C_{ox} \frac{W}{L}
-$$
+$$\beta = \mu C_{ox} \frac{W}{L}$$
 
 其中：
 
