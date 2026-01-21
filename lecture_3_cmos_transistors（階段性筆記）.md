@@ -1568,3 +1568,135 @@ $$C_g = C_{per\_micron} \cdot W$$
 
 > 本章僅建立 **Gate 電容的靜態等效模型**，  
 > 尚未討論不同操作區域下 $C_{gs}$ 與 $C_{gd}$ 的分配方式。
+
+## 21. Diffusion Capacitance 與 NMOS 串接 Layout 的真正用途
+
+本章的重點不是再背一種電容名稱，  
+而是理解 **為什麼在實際電路與 layout 中，工程師會刻意把 NMOS 的 source / drain 合併**，  
+以及這個動作同時在做兩件事：
+
+1. **實現邏輯功能（例如 NAND 的 AND 條件）**
+2. **降低不必要的 diffusion capacitance（提升速度、降低功耗）**
+
+---
+
+### 21.1 Diffusion Capacitance 的物理來源（從製程角度看）
+
+以 **NMOS** 為例：
+
+- Body（Bulk / Base）：**p-type 半導體**
+- Source / Drain：**n⁺ 重摻雜擴散區**
+- 這些 n⁺ 區域是透過 **擴散（diffusion）或離子佈植製程**形成
+
+因此：
+
+- Source–Body 與 Drain–Body 之間
+  **天然形成 PN 接面**
+- 在正常操作下，這些 PN 接面多半處於 **反向偏壓**
+
+對反向偏壓的 PN 接面而言：
+
+- 接面附近形成 **耗盡區（depletion region）**
+- 耗盡區內幾乎沒有自由載子
+- 在電氣行為上等效為 **絕緣層**
+
+於是：
+
+> n⁺ diffusion（Source / Drain）  
+> + depletion region（絕緣）  
+> + p-type body  
+>  
+> ⇨ 等效為一個電容
+
+這些電容分別記為：
+
+- C<sub>sb</sub>：Source–Body diffusion capacitance  
+- C<sub>db</sub>：Drain–Body diffusion capacitance  
+
+因為它們來自 **source / drain 的擴散區（diffusion region）**，  
+所以稱為 **diffusion capacitance**。
+
+---
+
+### 21.2 為什麼 diffusion capacitance 是「不想要的」？
+
+Diffusion capacitance 的特性是：
+
+- 與 **邏輯功能無關**
+- 只會：
+  - 增加節點負載
+  - 降低切換速度
+  - 增加動態功耗（charging / discharging）
+
+因此在電路設計中，它被歸類為：
+
+> **Parasitic capacitance（寄生電容）**
+
+工程上的目標永遠是：
+
+> **在不影響邏輯功能的前提下，讓 diffusion capacitance 越小越好**
+
+---
+
+### 21.3 Diffusion Capacitance 為什麼與「面積 + 周長」有關？
+
+Diffusion capacitance 主要來自兩個地方：
+
+1. **接面面積（area component）**
+2. **接面邊緣（sidewall / perimeter component）**
+
+因此：
+
+- 擴散區面積越大 → C 越大
+- 擴散區周長越長 → C 越大
+
+這就是為什麼老師在投影片與逐字稿中強調：
+
+> Capacitance depends on **area and perimeter**
+
+---
+
+### 21.4 為什麼「共享 diffusion」可以減少電容？
+
+對比三種 layout 情況：
+
+#### (1) Isolated diffusion（完全分開）
+- 每個 NMOS 都有獨立的 source / drain 擴散區
+- 面積與周長最大
+- diffusion capacitance 最大
+
+#### (2) Shared diffusion（共享擴散區）
+- 相鄰 NMOS 共用一塊 diffusion
+- 總面積與總周長減少
+- diffusion capacitance 下降
+
+#### (3) Merged diffusion（合併擴散區）
+- 中間節點完全合併
+- 甚至可移除不必要的 via
+- diffusion capacitance 最小
+
+這就是投影片底下那條紅字：
+
+> **Smaller diffusion capacitance**
+
+真正想傳達的意思。
+
+---
+
+### 21.5 關鍵觀念釐清：中間那塊「不是 source 也不是 drain」
+
+你之前會卡住，是因為腦中一直想問：
+
+>「中間那塊到底是 source 還是 drain？」
+
+**正確觀念是：**
+
+> Source 與 Drain **不是由擴散區本身決定的**，  
+> 而是由「當下操作時的電壓高低」決定。
+
+對 NMOS 而言：
+
+- 電壓較低的一端 → source
+- 電壓較高的一端 → drain
+
+因此在 **兩顆 NMOS 串接**時：
