@@ -1338,6 +1338,39 @@ Source 與 Drain 和 Body 之間形成的是 **反向偏壓的 PN 接面**。
 這類電容因為來自 source / drain 的擴散區，
 故稱為 **diffusion capacitance**。
 
+> **補充提醒（從製程與材料角度理解 diffusion capacitance）**  
+>
+> 以 **NMOS** 為例：
+>
+> - Body（Bulk / Base）為 **p-type 半導體**
+> - Source 與 Drain 為 **n⁺ 重摻雜區**
+> - 這些 n⁺ 區域是透過 **擴散（diffusion）或離子佈植製程** 形成的
+>
+> 因此：
+>
+> - Source–Body 與 Drain–Body 之間  
+>   **天然形成 n–p 接面（PN junction）**
+> - 在正常操作下，這些 PN 接面多半處於 **反向偏壓**
+>
+> 對反向偏壓的 PN 接面而言：
+>
+> - 接面附近會形成 **耗盡區（depletion region）**
+> - 耗盡區內幾乎沒有自由載子
+> - 在電氣行為上等效為 **絕緣層**
+>
+> 於是：
+>
+> - n⁺ diffusion（Source / Drain）與 p-type Body  
+>   就構成了：
+>
+>   > **導體 – 絕緣層 – 導體**
+>
+> 這正是「電容」的定義。
+>
+> 因為這個電容來自 **source / drain 的擴散區（diffusion region）**，
+> 所以稱為 **diffusion capacitance**，
+> 並以 C<sub>sb</sub>、C<sub>db</sub> 表示。
+
 ---
 
 ### 19.4 核心釐清：電容到底是「越大越好」還是「越小越好」？
