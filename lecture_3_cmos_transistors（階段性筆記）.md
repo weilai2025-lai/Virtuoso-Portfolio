@@ -480,16 +480,61 @@ $$V_{gc,\text{mid}} = V_g - V_{\text{ch,mid}}$$
 
 ---
 
-#### (c) 改寫成端點電壓後的結果
+(c) 改寫成端點電壓後的結果（完整推導，不省略）
+從中點定義開始：
 
-代數推導後得到：
+$$V_{\text{ch,mid}} \approx \frac{V_s + V_d}{2}$$
+
+以及中點的 gate-to-channel 電壓定義：
+
+$$V_{gc,\text{mid}} = V_g - V_{\text{ch,mid}}$$
+
+將第一式代入第二式：
 
 $$
+\begin{aligned}
 V_{gc,\text{mid}}
-= V_{gs} - \frac{V_{ds}}{2}
+&= V_g - \frac{V_s + V_d}{2}
+\end{aligned}
+$$
+
+接著把平均項改寫成「以 V_s 為基準」的形式（這一步是關鍵）：
+
+$$
+\begin{aligned}
+\frac{V_s + V_d}{2}
+&= \frac{V_s + \big(V_s + (V_d - V_s)\big)}{2} \
+&= \frac{2V_s + (V_d - V_s)}{2} \
+&= V_s + \frac{V_d - V_s}{2}
+\end{aligned}
+$$
+
+將上式再代回 V_{gc,\text{mid}}：
+
+$$
+\begin{aligned}
+V_{gc,\text{mid}}
+&= V_g - \left( V_s + \frac{V_d - V_s}{2} \right) \
+&= (V_g - V_s) - \frac{V_d - V_s}{2}
+\end{aligned}
+$$
+
+最後用端點電壓定義：
+	•	V_{gs} = V_g - V_s
+	•	V_{ds} = V_d - V_s
+
+代入得：
+
+$$
+\begin{aligned}
+V_{gc,\text{mid}}
+&= V_{gs} - \frac{V_{ds}}{2}
+\end{aligned}
 $$
 
 這一項的直覺可以讀成：
+
+「在平均意義下，gate 對 channel 還剩多少控制力」
 
 > **「在平均意義下，gate 對 channel 還剩多少控制力」**
 
