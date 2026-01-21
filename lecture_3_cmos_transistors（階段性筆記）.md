@@ -520,8 +520,8 @@ V_{gc,\text{mid}}
 $$
 
 最後用端點電壓定義：
-	•	V_{gs} = V_g - V_s
-	•	V_{ds} = V_d - V_s
+- V<sub>gs</sub> = V<sub>g</sub> - V<sub>s</sub>
+- V<sub>ds</sub> = V<sub>d</sub> - V<sub>s</sub>
 
 代入得：
 
