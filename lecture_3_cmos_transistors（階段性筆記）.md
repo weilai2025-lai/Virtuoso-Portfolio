@@ -1214,15 +1214,11 @@ $$I_{ds} = \frac{\beta}{2} \left( V_{gs} - V_t \right)^2$$
 
 回到你已經熟悉的參數：
 
-$$
-\beta = \mu C_{ox} \frac{W}{L}
-$$
+$$\beta = \mu C_{ox} \frac{W}{L}$$
 
 由於：
 
-$$
-\mu_p < \mu_n
-$$
+$$\mu_p < \mu_n$$
 
 若希望在 CMOS 中：
 
@@ -1245,7 +1241,9 @@ $$
 
 ### 18.5 如何「正確閱讀」PMOS I–V 曲線？
 
-在 PMOS I–V 圖中（如本頁右圖）：
+![PMOS I-V 曲線](assets/pmos_iv_curve.png)
+
+在 PMOS I–V 圖中（如上圖）：
 
 - 橫軸：$V_{ds}$（負方向）
 - 縱軸：$I_{ds}$（負方向）
