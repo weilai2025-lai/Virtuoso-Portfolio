@@ -984,3 +984,129 @@ $$I_{ds} = \frac{1}{2} \mu C_{ox} \frac{W}{L} (V_{gs} - V_t)^2$$
 > 不是因為電子跑不動，  
 > 而是因為 drain 端的 channel 被 gate 夾斷，  
 > 電流只剩下由 V<sub>gs</sub> 能提供多少反轉電荷來決定。**
+
+## 17. NMOS I–V 行為總整理（Cutoff / Linear / Saturation）
+
+本章將前面第 13–16 章推導出的結果，
+整理成一張「操作區域 × 電流模型」的對照表，
+作為之後分析電路時的快速查閱基準。
+
+---
+
+### 17.1 三個操作區域與對應條件
+
+NMOS 的汲極電流 $I_{ds}$ 可依操作條件分為三個區域：
+
+---
+
+#### (1) Cutoff（截止區）
+
+條件：
+$$
+V_{gs} < V_t
+$$
+
+電流：
+$$
+I_{ds} = 0
+$$
+
+物理意義：
+- 尚未形成反轉層
+- channel 不存在
+- MOS 關閉（off）
+
+---
+
+#### (2) Linear / Triode（線性區）
+
+條件：
+$$
+V_{gs} \ge V_t
+\quad \text{且} \quad
+V_{ds} < V_{dsat}
+$$
+
+其中：
+$$
+V_{dsat} = V_{gs} - V_t
+$$
+
+電流模型：
+$$
+I_{ds}
+=
+\beta
+\left(
+V_{gs} - V_t - \frac{V_{ds}}{2}
+\right)
+V_{ds}
+$$
+
+物理意義：
+- 整條 channel 從 source 到 drain 都存在
+- gate 可控制整條通道的反轉電荷
+- 電流同時受：
+  - 通道電荷量（由 $V_{gs}$ 決定）
+  - 橫向電場（由 $V_{ds}$ 決定）
+
+---
+
+#### (3) Saturation（飽和區）
+
+條件：
+$$
+V_{gs} \ge V_t
+\quad \text{且} \quad
+V_{ds} \ge V_{dsat}
+$$
+
+電流模型：
+$$
+I_{ds}
+=
+\frac{\beta}{2}
+\left(
+V_{gs} - V_t
+\right)^2
+$$
+
+物理意義：
+- drain 端的 channel 發生 pinch-off
+- gate 對通道的控制已達上限
+- 電流只由 source 端可提供的反轉電荷決定
+- 再增加 $V_{ds}$，理想模型下不再增加 $I_{ds}$
+
+---
+
+### 17.2 參數定義（統一記法）
+
+$$
+\beta = \mu C_{ox} \frac{W}{L}
+$$
+
+其中：
+
+- $\mu$：載子遷移率（mobility）
+- $C_{ox}$：單位面積氧化層電容
+- $W$：通道寬度
+- $L$：通道長度
+
+---
+
+### 17.3 一句話快速回想整個 Chapter
+
+- $V_{gs}$：  
+  → 決定 **通道能不能存在、以及有多少反轉電荷**
+- $V_{ds}$（小）：  
+  → 提供橫向電場，推動載子（Linear）
+- $V_{ds}$（大）：  
+  → 夾斷 drain 端 channel，電流進入飽和（Saturation）
+
+> **NMOS 的 I–V 行為，本質上就是  
+> gate 能拉多少 charge、以及 drain 能推多快。**
+
+---
+
+> 本節為 Lecture 3  
+> **NMOS I–V 模型（long-channel、low-field）** 的完整總結頁。
