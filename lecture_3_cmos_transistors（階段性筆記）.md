@@ -740,9 +740,7 @@ $$
 
 電流的物理定義為「單位時間內通過的電荷量」：
 
-$$
-I_{ds} = \frac{Q}{t}
-$$
+$$I_{ds} = \frac{Q}{t}$$
 
 在 NMOS 中，我們關心的是：
 - 通道內的總反轉電荷 Q<sub>channel</sub>
@@ -750,9 +748,7 @@ $$
 
 因此可直接寫成：
 
-$$
-I_{ds} = \frac{Q_{\text{channel}}}{t}
-$$
+$$I_{ds} = \frac{Q_{\text{channel}}}{t}$$
 
 ---
 
@@ -780,27 +776,19 @@ $$Q_{\text{channel}} = C_{ox} W L \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right)
 
 根據第 14 節，載子穿越整條通道所需的時間為：
 
-$$
-t = \frac{L}{v}
-$$
+$$t = \frac{L}{v}$$
 
 而在低電場假設（low-field regime）下：
 
-$$
-v = \mu \cdot E
-$$
+$$v = \mu \cdot E$$
 
 通道內的平均橫向電場近似為：
 
-$$
-E \approx \frac{V_{ds}}{L}
-$$
+$$E \approx \frac{V_{ds}}{L}$$
 
 將電場代入速度：
 
-$$
-v = \mu \cdot \frac{V_{ds}}{L}
-$$
+$$v = \mu \cdot \frac{V_{ds}}{L}$$
 
 再代回時間定義式：
 
@@ -819,9 +807,7 @@ $$
 
 回到電流定義：
 
-$$
-I_{ds} = \frac{Q_{\text{channel}}}{t}
-$$
+$$I_{ds} = \frac{Q_{\text{channel}}}{t}$$
 
 代入前兩節得到的結果：
 
@@ -847,9 +833,7 @@ $$I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right)
 
 為了讓式子更簡潔，定義一個常數：
 
-$$
-\beta = \mu C_{ox} \frac{W}{L}
-$$
+$$\beta = \mu C_{ox} \frac{W}{L}$$
 
 則線性區的 NMOS 汲極電流可寫成：
 
@@ -857,7 +841,7 @@ $$I_{ds} = \beta \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}$$
 
 ---
 
-### 15.6 關於 \(-V_{ds}/2\) 的關鍵物理意義（常見困惑釐清）
+### 15.6 關於 $-V_{ds}/2$ 的關鍵物理意義（常見困惑釐清）
 
 - $-\frac{V_{ds}}{2}$ **不是直接在減電流**
 - 它代表的是：
