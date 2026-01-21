@@ -866,3 +866,173 @@ $$I_{ds} = \beta \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}$$
     → 平均通道電荷變少
 - 在線性區中，電流仍隨 V<sub>ds</sub> 增加，
   但增加速度逐漸變慢，為後續進入飽和區鋪路
+
+## 16. NMOS Saturation I–V：通道被夾斷後，電流為什麼不再增加？
+
+> **本節核心目的**  
+> 承接前一節的線性區模型，說明：  
+> 當 V<sub>ds</sub> 持續增加時，為什麼 I<sub>ds</sub> 會「停止隨 V<sub>ds</sub> 增加」，  
+> 並推導出 NMOS 在飽和區的 I–V 關係式。
+
+---
+
+### 16.1 從線性區模型出發（所有推導的起點）
+
+在前一節（Linear I–V），我們已經建立：
+
+$$
+I_{ds}
+=
+\beta
+\left(
+V_{gs} - V_t - \frac{V_{ds}}{2}
+\right)
+V_{ds}
+$$
+
+其中：
+
+- $\beta = \mu C_{ox}\dfrac{W}{L}$
+- 括號內代表 **通道平均反轉電荷的強度**
+- 括號外的 $V_{ds}$ 代表 **橫向電場造成的載子推進效果**
+
+⚠️ **此公式的隱含前提：**
+
+> 整條 channel 從 source 到 drain 都仍然存在  
+>（gate 對整條通道都還有控制力）
+
+---
+
+### 16.2 什麼時候這個前提會失效？——Pinch-off 的出現
+
+回到 gate-to-channel 的觀點：
+
+在通道某一位置 $x$，有：
+
+$$
+V_{gc}(x) = V_g - V_{ch}(x)
+$$
+
+當 $V_{ds}$ 增加時：
+
+- drain 端的 channel 電位 $V_{ch}$ 被拉高
+- 導致 drain 端的 $V_{gc}$ 持續下降
+
+在 **drain 端那一點**：
+
+$$
+V_{gc,\text{drain}} = V_{gs} - V_{ds}
+$$
+
+當這個值剛好等於門檻電壓：
+
+$$
+V_{gs} - V_{ds} = V_t
+$$
+
+即可得到臨界條件：
+
+$$
+V_{dsat} = V_{gs} - V_t
+$$
+
+**物理意義：**
+
+> drain 端的反轉層剛好消失，  
+> channel 在 drain 附近被「夾斷（pinch off）」。
+
+---
+
+### 16.3 為什麼進入飽和後，V<sub>ds</sub> 不再增加電流？
+
+這是本頁最重要的觀念，不是數學，而是「控制權」。
+
+在 pinch-off 發生之後：
+
+- drain 附近 **已經沒有 channel**
+- gate 無法再對那一段施加控制
+- 通道中可被 gate 控制、可被注入的反轉電荷數量  
+  **完全由 source 端決定**
+
+因此：
+
+> 即使再增加 V<sub>ds</sub>，  
+> gate 能提供的反轉電荷數量已經不再增加，  
+> I<sub>ds</sub> 也就不再隨 V<sub>ds</sub> 上升。
+
+這就是投影片所說的：
+
+> **Now drain voltage no longer increases current**
+
+⚠️ 關鍵澄清：
+
+- 飽和 **不是** 電子停止移動  
+- 飽和 **不是** 速度飽和  
+- 飽和是：**gate 對 channel 的控制已經達到極限**
+
+---
+
+### 16.4 飽和區電流的完整推導（不省略步驟）
+
+從線性區公式出發：
+
+$$
+I_{ds}
+=
+\beta
+\left(
+V_{gs} - V_t - \frac{V_{ds}}{2}
+\right)
+V_{ds}
+$$
+
+在進入飽和的臨界點：
+
+$$
+V_{ds} = V_{dsat} = V_{gs} - V_t
+$$
+
+直接代入：
+
+$$
+\begin{aligned}
+I_{ds}
+&=
+\beta
+\left(
+V_{gs} - V_t - \frac{V_{gs} - V_t}{2}
+\right)
+(V_{gs} - V_t) \\
+&=
+\beta
+\left(
+\frac{V_{gs} - V_t}{2}
+\right)
+(V_{gs} - V_t) \\
+&=
+\frac{\beta}{2}
+(V_{gs} - V_t)^2
+\end{aligned}
+$$
+
+再將 $\beta$ 展開：
+
+$$
+I_{ds}
+=
+\frac{1}{2}
+\mu C_{ox}
+\frac{W}{L}
+(V_{gs} - V_t)^2
+$$
+
+這就是 **NMOS 飽和區 I–V 方程式**。
+
+---
+
+### 16.5 一句話封印本頁（回想用）
+
+> **NMOS 進入飽和區，  
+> 不是因為電子跑不動，  
+> 而是因為 drain 端的 channel 被 gate 夾斷，  
+> 電流只剩下由 V<sub>gs</sub> 能提供多少反轉電荷來決定。**
