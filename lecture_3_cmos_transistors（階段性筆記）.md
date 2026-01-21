@@ -880,19 +880,11 @@ $$I_{ds} = \beta \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}$$
 
 在前一節（Linear I–V），我們已經建立：
 
-$$
-I_{ds}
-=
-\beta
-\left(
-V_{gs} - V_t - \frac{V_{ds}}{2}
-\right)
-V_{ds}
-$$
+$$I_{ds} = \beta \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}$$
 
 其中：
 
-- $\beta = \mu C_{ox}\dfrac{W}{L}$
+- $\beta = \mu C_{ox}\frac{W}{L}$
 - 括號內代表 **通道平均反轉電荷的強度**
 - 括號外的 $V_{ds}$ 代表 **橫向電場造成的載子推進效果**
 
@@ -909,9 +901,7 @@ $$
 
 在通道某一位置 $x$，有：
 
-$$
-V_{gc}(x) = V_g - V_{ch}(x)
-$$
+$$V_{gc}(x) = V_g - V_{ch}(x)$$
 
 當 $V_{ds}$ 增加時：
 
@@ -920,21 +910,15 @@ $$
 
 在 **drain 端那一點**：
 
-$$
-V_{gc,\text{drain}} = V_{gs} - V_{ds}
-$$
+$$V_{gc,\text{drain}} = V_{gs} - V_{ds}$$
 
 當這個值剛好等於門檻電壓：
 
-$$
-V_{gs} - V_{ds} = V_t
-$$
+$$V_{gs} - V_{ds} = V_t$$
 
 即可得到臨界條件：
 
-$$
-V_{dsat} = V_{gs} - V_t
-$$
+$$V_{dsat} = V_{gs} - V_t$$
 
 **物理意義：**
 
@@ -976,55 +960,19 @@ $$
 
 從線性區公式出發：
 
-$$
-I_{ds}
-=
-\beta
-\left(
-V_{gs} - V_t - \frac{V_{ds}}{2}
-\right)
-V_{ds}
-$$
+$$I_{ds} = \beta \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}$$
 
 在進入飽和的臨界點：
 
-$$
-V_{ds} = V_{dsat} = V_{gs} - V_t
-$$
+$$V_{ds} = V_{dsat} = V_{gs} - V_t$$
 
 直接代入：
 
-$$
-\begin{aligned}
-I_{ds}
-&=
-\beta
-\left(
-V_{gs} - V_t - \frac{V_{gs} - V_t}{2}
-\right)
-(V_{gs} - V_t) \\
-&=
-\beta
-\left(
-\frac{V_{gs} - V_t}{2}
-\right)
-(V_{gs} - V_t) \\
-&=
-\frac{\beta}{2}
-(V_{gs} - V_t)^2
-\end{aligned}
-$$
+$$\begin{aligned} I_{ds} &= \beta \left( V_{gs} - V_t - \frac{V_{gs} - V_t}{2} \right) (V_{gs} - V_t) \\ &= \beta \left( \frac{V_{gs} - V_t}{2} \right) (V_{gs} - V_t) \\ &= \frac{\beta}{2} (V_{gs} - V_t)^2 \end{aligned}$$
 
 再將 $\beta$ 展開：
 
-$$
-I_{ds}
-=
-\frac{1}{2}
-\mu C_{ox}
-\frac{W}{L}
-(V_{gs} - V_t)^2
-$$
+$$I_{ds} = \frac{1}{2} \mu C_{ox} \frac{W}{L} (V_{gs} - V_t)^2$$
 
 這就是 **NMOS 飽和區 I–V 方程式**。
 
