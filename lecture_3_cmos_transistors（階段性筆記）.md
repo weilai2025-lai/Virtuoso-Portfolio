@@ -1472,3 +1472,117 @@ $$t_{\text{delay}} \sim \frac{C \cdot V}{I}$$
 
 > 本章為 Lecture 3  
 > **從 I–V 過渡到 Delay / Power 模型的關鍵轉折點**。
+
+## 20. Gate–Channel Capacitance：Gate 電容如何建模成電路元件
+
+> **本章定位**  
+> 本章建立「Gate–Channel 電容」的基本模型，  
+> 將 MOS 的幾何結構轉換為之後可用於 delay 與 power 分析的電路電容。
+
+---
+
+### 20.1 建模近似：將 channel 視為與 source 相連
+
+在電容模型中，採用一個常見的工程近似：
+
+> **Approximate channel as connected to source**
+
+也就是在分析 gate 電容時，
+暫時將 channel 視為電氣上與 source 相連的導體節點。
+
+⚠️ 這是一種 **電路模型近似**，
+並非指物理上 channel 與 source 短路。
+
+---
+
+### 20.2 Gate–Channel 電容的總量 C<sub>g</sub>
+
+Gate 與 channel：
+- 皆為導體
+- 中間隔著 SiO₂ gate oxide（絕緣層）
+
+因此可直接用平行板電容模型描述。
+
+單位面積氧化層電容為：
+
+$$
+C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}
+$$
+
+Gate 覆蓋的 channel 面積約為 $W \cdot L$，
+因此整體 gate–channel 電容為：
+
+$$
+C_g
+=
+\frac{\varepsilon_{ox}WL}{t_{ox}}
+=
+C_{ox}WL
+$$
+
+---
+
+### 20.3 Gate 電容在電路中的分解方式
+
+在電路等效模型中，
+Gate 不會直接連接到「channel」這個抽象節點，
+而是透過 source 與 drain 兩個實際端點產生作用。
+
+因此：
+
+$$
+C_g = C_{gs} + C_{gd}
+$$
+
+其中：
+
+- $C_{gs}$：Gate–Source 電容
+- $C_{gd}$：Gate–Drain 電容
+
+這兩個電容的總和，
+等於整個 gate–channel 電容 $C_g$。
+
+---
+
+### 20.4 以設計觀點重寫 Gate 電容
+
+由於在同一製程中：
+
+- $C_{ox}$ 為固定參數
+- $L$ 通常由製程或設計目標決定
+
+可將其合併為一個常數：
+
+$$
+C_{per\_micron} \equiv C_{ox}L
+$$
+
+因此 Gate 電容可寫成：
+
+$$
+C_g = C_{per\_micron} \cdot W
+$$
+
+**重要設計意義：**
+
+> Gate 電容與晶體管寬度 $W$ 成正比。
+
+---
+
+### 20.5 本章重點整理
+
+- Gate–Channel 本質上是一個由 oxide 隔開的電容
+- Gate–Channel 總電容為：
+  $$
+  C_g = C_{ox}WL
+  $$
+- 在電路模型中，Gate 電容需拆分為：
+  $$
+  C_g = C_{gs} + C_{gd}
+  $$
+- Gate 電容大小與晶體管寬度 $W$ 線性相關
+
+---
+
+> 本章僅建立 **Gate 電容的靜態等效模型**，  
+> 尚未討論不同操作區域下 $C_{gs}$ 與 $C_{gd}$ 的分配方式。
