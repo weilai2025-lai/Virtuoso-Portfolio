@@ -338,10 +338,16 @@ I<sub>DS</sub> > 0
 
 ## 13. Bulk Charge Model（Page 12）— 用電容近似通道電荷的第一步
 
-> 本段目標：把 MOS 當成「平行板電容」，用 $Q = C \cdot V$ 估算通道電荷。  
-> 你當初卡住的核心是兩個：  
-> 1) 為什麼會出現 $V_{gs}-V_{ds}/2$（中點近似的空間直覺）  
-> 2) 為什麼還要扣 $V_t$（「有沒有通道」 vs 「通道有多少電荷」是不同層級）
+> **開宗明義（先說這個模型在幹嘛）**  
+> Bulk charge model 的目的，不是在判斷 MOS「有沒有打開」，  
+> 而是在 **MOS 已經打開（strong inversion）之後**，  
+> 用一個 *好算但不失直覺* 的方式，估算：
+>
+> 👉 **整條 channel 裡「大約有多少反轉電荷」**  
+>
+> 因此它回答的是「多少（how much）」的問題，  
+> 而不是你前面已經熟悉的「有沒有（on/off）」問題。  
+> 這也是它和 $V_{gs} \ge V_t$ 那套開關判斷**層級不同**的地方。
 
 ---
 
@@ -351,103 +357,193 @@ I<sub>DS</sub> > 0
 
 $$Q_{\text{channel}} = C \cdot V$$
 
-出發，其中把 gate–oxide–channel 視為平行板電容：
+出發，其中把 gate–oxide–channel 視為**平行板電容**。
 
-- 單位面積氧化層電容：
-  $$C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}$$
+這裡的想像非常具體：
 
-- gate 覆蓋面積約為 $W \cdot L$，所以整體 gate 電容（本頁用來近似 gate 對 channel 的耦合）為：
-  $$C = C_g = C_{ox}WL = \frac{\varepsilon_{ox}WL}{t_{ox}}$$
+- 上方：gate（金屬）
+- 中間：oxide（SiO₂，絕緣）
+- 下方：channel（反轉層，導電）
 
-**這裡 C<sub>g</sub> 的角色：**  
-> 它是「比例尺」：告訴你 gate 的有效控制電壓（V）能拉出多少 channel charge（Q）。
+只要你接受這個幾何結構，$Q = C \cdot V$ 就是最自然的第一步。
 
 ---
 
-### 13.2 你一開始最卡的點：V 到底是哪個電壓？為什麼是 V<sub>gs</sub> - V<sub>ds</sub>/2？
+### 13.1.1 為什麼會有 $C_{ox}$？——「材料與距離」的係數
+
+單位面積的氧化層電容定義為：
+
+$$C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}$$
+
+這一項只跟兩件事有關：
+
+- $\varepsilon_{ox}$：  
+  氧化層材料的介電常數  
+  → **材料本身有多容易被極化**
+- $t_{ox}$：  
+  氧化層厚度  
+  → **gate 跟 channel 隔多遠**
+
+因此 $C_{ox}$ 的物理意義可以直接讀成：
+
+> **「每一單位面積，gate 對 channel 的電容有多強」**
+
+這是一個**純材料 + 製程**決定的係數，  
+與 MOS 有沒有打開、電壓多大 **完全無關**。
+
+---
+
+### 13.1.2 為什麼要乘上 $W \cdot L$？——「面積真的會線性放大電容」
+
+gate 在上方覆蓋整條 channel，而 channel 的幾何尺寸為：
+
+- 寬度：$W$（橫向，決定一次能排幾條電荷）
+- 長度：$L$（縱向，從 source 到 drain）
+
+因此 gate 覆蓋的有效面積約為：
+
+$$A \approx W \cdot L$$
+
+對平行板電容而言：
+
+> **面積放大幾倍，能儲存的電荷就放大幾倍**
+
+所以整體 gate 電容自然寫成：
+
+$$
+C = C_g = C_{ox} \cdot W L = \frac{\varepsilon_{ox}WL}{t_{ox}}
+$$
+
+你可以這樣記這一行：
+
+- $C_{ox}$：**每單位面積的能力（強度）**
+- $WL$：**你實際用掉多少面積**
+- $C_g$：**這顆 MOS gate 對 channel 的總耦合能力**
+
+---
+
+### 13.1.3 小總結：$C_g$ 在這一頁「只負責一件事」
+
+在 Page 12，$C_g$ **沒有任何動態、沒有任何非線性角色**，  
+它只做一件事：
+
+> 👉 把「gate 的有效控制電壓」  
+> 轉成「channel 裡能被拉出來的電荷量」
+
+也就是：
+
+$$Q_{\text{channel}} = C_g \cdot V$$
+
+---
+
+### 13.2 你一開始最卡的點：$V$ 到底是哪個電壓？為什麼是 $V_{gs} - V_{ds}/2$？
 
 #### (a) 先抓住事實：channel 電位沿著 $x$ 方向會變
-當 $V_{ds}\neq 0$ 時，通道由 source 到 drain 的電位大致從 $V_s$ 漸變到 $V_d$。  
-因此 gate-to-channel 電壓 $V_{gc}$ 不是單一值，而是會隨位置改變。
+當 $V_{ds} \neq 0$ 時，通道由 source 到 drain 的電位：
 
-#### (b) 老師採用的近似：用「channel 中點」代表平均狀態
-定義中點 channel 電位
+- 左端（source 端）約為 $V_s$
+- 右端（drain 端）約為 $V_d$
+
+因此 channel **不是等電位**，  
+gate-to-channel 電壓 $V_{gc}$ 也就不是單一數值。
+
+---
+
+#### (b) 中點近似的真正幾何意義（幫你之後快速回想）
+
+定義：
 
 $$V_{\text{ch,mid}} \approx \frac{V_s + V_d}{2}$$
 
-中點的 gate-to-channel 電壓為
+這個 $V_{\text{ch,mid}}$ 指的是：
 
-$$V_{gc,\text{mid}} = V_g - V_{\text{ch,mid}} = V_g - \frac{V_s + V_d}{2}$$
+> **channel 在「幾何正中央」那一點的電位**
 
-改寫成端點電壓：
+它的位置是：
 
-- $V_{gs} = V_g - V_s$
-- $V_{ds} = V_d - V_s$
+- 左右方向：source 與 drain 的正中間  
+- 上下方向：在 gate 正下方、channel 內部
 
-先改寫平均項：
+而 $V_g$ 則是：
 
-$$\frac{V_s+V_d}{2} = V_s + \frac{V_d - V_s}{2} = V_s + \frac{V_{ds}}{2}$$
+- gate 那整片金屬的電位
+- 對整片 gate 來說是同一個數值
 
-代回去：
+所以在「同一個橫向位置（中點）」上：
+
+$$V_{gc,\text{mid}} = V_g - V_{\text{ch,mid}}$$
+
+這是一個**純上下方向**的電壓差，  
+不是 gate 去「碰」source 或 drain 的左右概念。
+
+---
+
+#### (c) 改寫成端點電壓後的結果
+
+代數推導後得到：
 
 $$
-\begin{aligned}
 V_{gc,\text{mid}}
-&= V_g - \left( V_s + \frac{V_{ds}}{2} \right) \\
-&= (V_g - V_s) - \frac{V_{ds}}{2} \\
-&= V_{gs} - \frac{V_{ds}}{2}
-\end{aligned}
+= V_{gs} - \frac{V_{ds}}{2}
 $$
 
-**空間直覺（當初卡住的點）：**  
-> Gate 在「上方」覆蓋整條 channel；channel 在「下方」沿著 source→drain 電位形成斜坡。  
-> $V_{gc,\text{mid}} = V_g - V_{\text{ch,mid}}$ 是「上下方向」的電壓差，不是左右接觸的概念。  
-> 用中點近似，是用「平均 channel 電位」來代表 gate 對 channel 的平均控制力。
+這一項的直覺可以讀成：
+
+> **「在平均意義下，gate 對 channel 還剩多少控制力」**
 
 ---
 
 ### 13.3 為什麼還要扣 $V_t$？以及最常見的誤會怎麼解
 
-這裡要分清楚兩個層級（這是你後來真正想通的關鍵）：
+這裡一定要分清楚兩個層級（也是你一開始混在一起的地方）：
 
-- **開關層級（有沒有通道）**：  
+- **開關層級（有沒有通道）**  
   $$V_{gs} \ge V_t$$  
-  這回答的是「MOS 有沒有被打開」的 yes/no 問題。
+  → 判斷 MOS 是否打開（yes / no）
 
-- **電荷層級（通道有多少反轉電荷）**：  
-  反轉層「開始形成」所需的那段 gate 電壓可以視為入場成本，因此有效能增加反轉電荷的部分要扣掉 $V_t$：
+- **電荷層級（通道裡有多少反轉電荷）**  
+  $V_t$ 那一段 gate 電壓，只是「剛好把反轉層建立起來的成本」，  
+  **不會增加反轉層的厚度或電荷量**。
 
-  $$V = V_{gc} - V_t \approx \left( V_{gs} - \frac{V_{ds}}{2} \right) - V_t$$
+因此在算電荷時，有效電壓要寫成：
 
-**關鍵澄清：**  
-> 這不是在說 V<sub>gs</sub> = V<sub>gs</sub> - V<sub>ds</sub>/2。  
-> V<sub>gs</sub> 用來判斷「是否開通」，而 V<sub>gs</sub> - V<sub>ds</sub>/2 是用來估算「平均 gate 控制力（進而估平均 charge）」。
+$$
+V = V_{gc} - V_t
+\approx \left( V_{gs} - \frac{V_{ds}}{2} \right) - V_t
+$$
+
+**關鍵澄清（避免之後再卡一次）：**
+
+> 這不是在說  
+> $V_{gs} = V_{gs} - V_{ds}/2$  
+> 而是在說：
+>
+> - $V_{gs}$：用來判斷「MOS 有沒有開」
+> - $V_{gs} - V_{ds}/2$：用來估算「平均 gate 控制力」
+> - 再扣掉 $V_t$：得到「真正能增加反轉電荷的部分」
 
 ---
 
 ### 13.4 邊界條件：Bulk charge model 什麼時候才「站得住腳」？
 
-本頁的中點平均近似隱含假設：
+本頁的中點平均近似隱含一個很重要的前提：
 
-> V<sub>gs</sub> - V<sub>t</sub> 要「夠大」，使得 channel 大部分區域都能維持 strong inversion。
+> **$V_{gs} - V_t$ 要夠大**，  
+> 使得 channel 大部分區域都能維持 strong inversion。
 
 因此：
-- 當 V<sub>gs</sub> 只比 V<sub>t</sub> 大一點點時，V = (V<sub>gs</sub> - V<sub>ds</sub>/2) - V<sub>t</sub> 可能很快變成負值。  
-- 這不代表「實際完全沒有電流」，更合理的解讀是：**這個平均模型在該操作點開始失效，不應硬套**。
+
+- 當 $V_{gs}$ 只比 $V_t$ 大一點點時  
+  $V = (V_{gs} - V_{ds}/2) - V_t$ 很容易被算成負值
+- 這不代表「實際完全沒有電流」
+- 更合理的解讀是：  
+  **這個「整條 channel 平均」的模型在該操作點開始失效**
 
 ---
 
 ### 13.5 一句話封印 Page 12（回想用）
 
-> **Page 12 做的事情：**  
-> 用 $Q = C\cdot V$，其中 $C = C_{ox}WL$ 是比例尺，  
-> $V \approx (V_{gs}-V_{ds}/2)-V_t$ 是 gate 對 channel 的平均有效控制力（中點近似 + 扣入場費）。
-
-
----
-
-> 本筆記為 Lecture 3 **第一階段版本**。
-> 後續可隨課程進度補充：
-> - Id–Vg / Id–Vd 模型
-> - Short-channel effects
-> - Delay / Energy / Power 的正式分析
+> **Page 12 在做的事：**  
+> 在 strong inversion 前提下，用平行板電容模型  
+> 把 gate 的「平均有效控制電壓」  
+> 轉成「channel 裡的總反轉電荷量」。
