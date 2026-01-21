@@ -60,17 +60,17 @@
 ## 4. Accumulation / Depletion / Inversion
 
 ### Accumulation（累積）
-- **NMOS**：V<sub>G</sub> < 0 ｜ **PMOS**：V<sub>G</sub> > 0
+- **NMOS**：$V_{G}$ < 0 ｜ **PMOS**：$V_{G}$ > 0
 - Gate 電壓讓多數載子聚集在表面
 - 但 **沒有形成導通通道**
 
 ### Depletion（耗盡）
-- **NMOS**：0 < V<sub>G</sub> < V<sub>th</sub> ｜ **PMOS**：V<sub>th</sub> < V<sub>G</sub> < 0
+- **NMOS**：0 < $V_{G}$ < $V_{th}$ ｜ **PMOS**：$V_{th}$ < $V_{G}$ < 0
 - Gate 電壓推走多數載子
 - 表面留下固定離子 → 耗盡區
 
 ### Inversion（反轉）
-- **NMOS**：V<sub>G</sub> > V<sub>th</sub> ｜ **PMOS**：V<sub>G</sub> < V<sub>th</sub>
+- **NMOS**：$V_{G}$ > $V_{th}$ ｜ **PMOS**：$V_{G}$ < $V_{th}$
 - Gate 電壓夠大，吸引少數載子形成反轉層
 - **形成可導通的 channel**
 
@@ -91,9 +91,9 @@
 
 ## 6. Terminal Voltages（端點電壓定義）
 
-- V<sub>GS</sub> = V<sub>G</sub> - V<sub>S</sub>
-- V<sub>GD</sub> = V<sub>G</sub> - V<sub>D</sub>
-- V<sub>DS</sub> = V<sub>D</sub> - V<sub>S</sub> = V<sub>GS</sub> - V<sub>GD</sub>
+- $V_{GS}$ = $V_{G}$ - $V_{S}$
+- $V_{GD}$ = $V_{G}$ - $V_{D}$
+- $V_{DS}$ = $V_{D}$ - $V_{S}$ = $V_{GS}$ - $V_{GD}$
 
 ### Source / Drain 的定義
 
@@ -107,7 +107,7 @@
 ## 7. 操作區域（Operating Regions, NMOS）
 
 ### 7.1 Cutoff
-- V<sub>GS</sub> < V<sub>th</sub>
+- $V_{GS}$ < $V_{th}$
 - 無反轉層，MOS 關閉
 
 ### 7.2 Linear（Triode）
@@ -143,9 +143,9 @@ $$
 > **Vds 決定「通道會不會在 Drain 端被 pinch-off（夾斷）」**
 
 - Vds 是加在 **整條通道上的電位差**
-- 分界條件中的 -V<sub>th</sub> 代表：
+- 分界條件中的 -$V_{th}$ 代表：
   - Gate 必須先超過 Vth
-  - 剩下的 V<sub>GS</sub> - V<sub>th</sub> 才是真正能對抗 Drain 端電位的有效控制力
+  - 剩下的 $V_{GS}$ - $V_{th}$ 才是真正能對抗 Drain 端電位的有效控制力
 
 **常見誤解澄清：**
 
@@ -180,7 +180,7 @@ $$
 在開始之前，先鎖死這三個定義：
 
 1. **Ids 定義**：傳統正電流，Drain → Source 為正
-2. **Vds 定義**：V<sub>DS</sub> = V<sub>D</sub> - V<sub>S</sub>
+2. **Vds 定義**：$V_{DS}$ = $V_{D}$ - $V_{S}$
 3. **Source 定義**：
    - NMOS：電壓較低的一端是 Source
    - PMOS：電壓較高的一端是 Source
@@ -190,7 +190,7 @@ $$
 ### 10.1 PMOS 充電階段（0 → 1）
 
 #### 設定條件
-- V<sub>DD</sub> = 1.1 V
+- $V_{DD}$ = 1.1 V
 - PMOS source 接 VDD
 - PMOS n-well 接 VDD
 - Gate = 0（PMOS 打開）
@@ -198,8 +198,8 @@ $$
 #### 切換瞬間（真正有電流的時候）
 
 假設某一個切換瞬間：
-- Source：V<sub>S</sub> = 1.1 V
-- Drain（輸出端，還在被充電中）：V<sub>D</sub> = 0.6 V
+- Source：$V_{S}$ = 1.1 V
+- Drain（輸出端，還在被充電中）：$V_{D}$ = 0.6 V
 
 #### Vds 的正負號
 
@@ -219,7 +219,7 @@ $$V_{DS} = V_D - V_S = 0.6 - 1.1 = -0.5 \text{ V}$$
 但 Ids 的定義方向是：
 - Drain → Source 為正
 
-所以此時：I<sub>DS</sub> < 0
+所以此時：$I_{DS}$ < 0
 
 ✅ **Ids 是負的**
 
@@ -229,16 +229,16 @@ $$V_{DS} = V_D - V_S = 0.6 - 1.1 = -0.5 \text{ V}$$
 #### 充電完成（穩態）
 
 充完電後：
-- V<sub>D</sub> → 1.1 V，V<sub>S</sub> = 1.1 V
-- V<sub>DS</sub> = 1.1 - 1.1 = 0（沒有壓差）
-- I<sub>DS</sub> → 0（電流停止）
+- $V_{D}$ → 1.1 V，$V_{S}$ = 1.1 V
+- $V_{DS}$ = 1.1 - 1.1 = 0（沒有壓差）
+- $I_{DS}$ → 0（電流停止）
 
 ---
 
 ### 10.2 NMOS 放電階段（1 → 0）
 
 #### 設定條件
-- V<sub>DD</sub> = 1.1 V
+- $V_{DD}$ = 1.1 V
 - NMOS source 接 GND（0 V）
 - NMOS body（p-substrate）接 GND
 - Gate = 1.1 V（NMOS 打開）
@@ -247,8 +247,8 @@ $$V_{DS} = V_D - V_S = 0.6 - 1.1 = -0.5 \text{ V}$$
 #### 切換瞬間（真正有電流的時候）
 
 假設某一個放電瞬間：
-- Source（接地）：V<sub>S</sub> = 0 V
-- Drain（輸出端，還沒放完電）：V<sub>D</sub> = 0.6 V
+- Source（接地）：$V_{S}$ = 0 V
+- Drain（輸出端，還沒放完電）：$V_{D}$ = 0.6 V
 
 #### Vds 的正負號
 
@@ -270,7 +270,7 @@ $$V_{DS} = V_D - V_S = 0.6 - 0 = +0.6 \text{ V}$$
 
 對照 Ids 定義（正方向 = Drain → Source）：
 
-I<sub>DS</sub> > 0
+$I_{DS}$ > 0
 
 ✅ **Ids 是正的**
 
@@ -279,15 +279,15 @@ I<sub>DS</sub> > 0
 #### 放電完成（穩態）
 
 放電完成後：
-- V<sub>D</sub> → 0 V，V<sub>S</sub> = 0 V
-- V<sub>DS</sub> = 0 - 0 = 0（沒有壓差）
-- I<sub>DS</sub> → 0（電流停止）
+- $V_{D}$ → 0 V，$V_{S}$ = 0 V
+- $V_{DS}$ = 0 - 0 = 0（沒有壓差）
+- $I_{DS}$ → 0（電流停止）
 
 ---
 
 ### 10.3 總結對照表
 
-| 元件 | 切換方向 | V<sub>DS</sub> | I<sub>DS</sub> | 有電流的時機 |
+| 元件 | 切換方向 | $V_{DS}$ | $I_{DS}$ | 有電流的時機 |
 |------|----------|----------|----------|---------------|
 | NMOS | 1 → 0（放電） | 正 | 正 | Vout 尚未到 0 |
 | PMOS | 0 → 1（充電） | 負 | 負 | Vout 尚未到 VDD |
@@ -297,16 +297,16 @@ I<sub>DS</sub> > 0
 ### 10.4 總結段落
 
 **PMOS 版本：**
-> 以 PMOS 為例，在輸出由 0 充電至 V<sub>DD</sub> 的切換期間，Source 端維持在 V<sub>DD</sub>，而 Drain 端電腳尚未上升完成，因此 V<sub>D</sub> < V<sub>S</sub>，使得 V<sub>DS</sub> = V<sub>D</sub> - V<sub>S</sub> < 0。
+> 以 PMOS 為例，在輸出由 0 充電至 $V_{DD}$ 的切換期間，Source 端維持在 $V_{DD}$，而 Drain 端電腳尚未上升完成，因此 $V_{D}$ < $V_{S}$，使得 $V_{DS}$ = $V_{D}$ - $V_{S}$ < 0。
 >
-> 此時實際正電流由 Source 流向 Drain，但由於 Ids 的正方向定義為 Drain → Source，因此量測到的 I<sub>DS</sub> 為負值。
-> 當輸出電壓上升至與 Source 對齊後，V<sub>DS</sub> → 0，電流隨即消失，系統進入穩態。
+> 此時實際正電流由 Source 流向 Drain，但由於 Ids 的正方向定義為 Drain → Source，因此量測到的 $I_{DS}$ 為負值。
+> 當輸出電壓上升至與 Source 對齊後，$V_{DS}$ → 0，電流隨即消失，系統進入穩態。
 
 **NMOS 版本：**
-> 以 NMOS 為例，在輸出由 V<sub>DD</sub> 放電至 0 的切換期間，Source 端維持在 0 V，而 Drain 端電壓尚未下降完成，因此 V<sub>D</sub> > V<sub>S</sub>，使得 V<sub>DS</sub> = V<sub>D</sub> - V<sub>S</sub> > 0。
+> 以 NMOS 為例，在輸出由 $V_{DD}$ 放電至 0 的切換期間，Source 端維持在 0 V，而 Drain 端電壓尚未下降完成，因此 $V_{D}$ > $V_{S}$，使得 $V_{DS}$ = $V_{D}$ - $V_{S}$ > 0。
 >
-> 此時電子實際由 Source 流向 Drain，而傳統正電流方向為 Drain → Source；由於 Ids 的正方向亦定義為 Drain → Source，因此量測到的 I<sub>DS</sub> 為正值。
-> 當輸出電壓下降至與 Source 對齊後，V<sub>DS</sub> → 0，電流隨即消失，系統進入穩態。
+> 此時電子實際由 Source 流向 Drain，而傳統正電流方向為 Drain → Source；由於 Ids 的正方向亦定義為 Drain → Source，因此量測到的 $I_{DS}$ 為正值。
+> 當輸出電壓下降至與 Source 對齊後，$V_{DS}$ → 0，電流隨即消失，系統進入穩態。
 
 ---
 
@@ -347,7 +347,7 @@ I<sub>DS</sub> > 0
 >
 > 因此它回答的是「多少（how much）」的問題，  
 > 而不是你前面已經熟悉的「有沒有（on/off）」問題。  
-> 這也是它和 V<sub>gs</sub> &ge; V<sub>t</sub> 那套開關判斷**層級不同**的地方。
+> 這也是它和 $V_{gs}$ $\ge$ $V_{t}$ 那套開關判斷**層級不同**的地方。
 
 ---
 
@@ -369,7 +369,7 @@ $$Q_{\text{channel}} = C \cdot V$$
 
 ---
 
-### 13.1.1 為什麼會有 C<sub>ox</sub>？——「材料與距離」的係數
+### 13.1.1 為什麼會有 $C_{ox}$？——「材料與距離」的係數
 
 單位面積的氧化層電容定義為：
 
@@ -377,14 +377,14 @@ $$C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}$$
 
 這一項只跟兩件事有關：
 
-- &epsilon;<sub>ox</sub>：  
+- $\varepsilon_{ox}$：  
   氧化層材料的介電常數  
   → **材料本身有多容易被極化**
-- t<sub>ox</sub>：  
+- $t_{ox}$：  
   氧化層厚度  
   → **gate 跟 channel 隔多遠**
 
-因此 C<sub>ox</sub> 的物理意義可以直接讀成：
+因此 $C_{ox}$ 的物理意義可以直接讀成：
 
 > **「每一單位面積，gate 對 channel 的電容有多強」**
 
@@ -418,15 +418,15 @@ $$
 
 你可以這樣記這一行：
 
-- C<sub>ox</sub>：**每單位面積的能力（強度）**
+- $C_{ox}$：**每單位面積的能力（強度）**
 - WL：**你實際用掉多少面積**
-- C<sub>g</sub>：**這顆 MOS gate 對 channel 的總耦合能力**
+- $C_{g}$：**這顆 MOS gate 對 channel 的總耦合能力**
 
 ---
 
-### 13.1.3 小總結：C<sub>g</sub> 在這一頁「只負責一件事」
+### 13.1.3 小總結：$C_{g}$ 在這一頁「只負責一件事」
 
-在 Page 12，C<sub>g</sub> **沒有任何動態、沒有任何非線性角色**，  
+在 Page 12，$C_{g}$ **沒有任何動態、沒有任何非線性角色**，  
 它只做一件事：
 
 > 👉 把「gate 的有效控制電壓」  
@@ -438,16 +438,16 @@ $$Q_{\text{channel}} = C_g \cdot V$$
 
 ---
 
-### 13.2 你一開始最卡的點：V 到底是哪個電壓？為什麼是 V<sub>gs</sub> - V<sub>ds</sub>/2？
+### 13.2 你一開始最卡的點：V 到底是哪個電壓？為什麼是 $V_{gs}$ - $V_{ds}$/2？
 
 #### (a) 先抓住事實：channel 電位沿著 x 方向會變
-當 V<sub>ds</sub> ≠ 0 時，通道由 source 到 drain 的電位：
+當 $V_{ds}$ ≠ 0 時，通道由 source 到 drain 的電位：
 
-- 左端（source 端）約為 V<sub>s</sub>
-- 右端（drain 端）約為 V<sub>d</sub>
+- 左端（source 端）約為 $V_{s}$
+- 右端（drain 端）約為 $V_{d}$
 
 因此 channel **不是等電位**，  
-gate-to-channel 電壓 V<sub>gc</sub> 也就不是單一數值。
+gate-to-channel 電壓 $V_{gc}$ 也就不是單一數值。
 
 ---
 
@@ -457,7 +457,7 @@ gate-to-channel 電壓 V<sub>gc</sub> 也就不是單一數值。
 
 $$V_{\text{ch,mid}} \approx \frac{V_s + V_d}{2}$$
 
-這個 V<sub>ch,mid</sub> 指的是：
+這個 $V_{ch,mid}$ 指的是：
 
 > **channel 在「幾何正中央」那一點的電位**
 
@@ -466,7 +466,7 @@ $$V_{\text{ch,mid}} \approx \frac{V_s + V_d}{2}$$
 - 左右方向：source 與 drain 的正中間  
 - 上下方向：在 gate 正下方、channel 內部
 
-而 V<sub>g</sub> 則是：
+而 $V_{g}$ 則是：
 
 - gate 那整片金屬的電位
 - 對整片 gate 來說是同一個數值
@@ -520,8 +520,8 @@ V_{gc,\text{mid}}
 $$
 
 最後用端點電壓定義：
-- V<sub>gs</sub> = V<sub>g</sub> - V<sub>s</sub>
-- V<sub>ds</sub> = V<sub>d</sub> - V<sub>s</sub>
+- $V_{gs}$ = $V_{g}$ - $V_{s}$
+- $V_{ds}$ = $V_{d}$ - $V_{s}$
 
 代入得：
 
@@ -539,7 +539,7 @@ $$
 
 ---
 
-### 13.3 為什麼還要扣 V<sub>t</sub>？以及最常見的誤會怎麼解
+### 13.3 為什麼還要扣 $V_{t}$？以及最常見的誤會怎麼解
 
 這裡一定要分清楚兩個層級（也是你一開始混在一起的地方）：
 
@@ -548,7 +548,7 @@ $$
   → 判斷 MOS 是否打開（yes / no）
 
 - **電荷層級（通道裡有多少反轉電荷）**  
-  V<sub>t</sub> 那一段 gate 電壓，只是「剛好把反轉層建立起來的成本」，  
+  $V_{t}$ 那一段 gate 電壓，只是「剛好把反轉層建立起來的成本」，  
   **不會增加反轉層的厚度或電荷量**。
 
 因此在算電荷時，有效電壓要寫成：
@@ -561,12 +561,12 @@ $$
 **關鍵澄清（避免之後再卡一次）：**
 
 > 這不是在說  
-> V<sub>gs</sub> = V<sub>gs</sub> - V<sub>ds</sub>/2  
+> $V_{gs}$ = $V_{gs}$ - $V_{ds}$/2  
 > 而是在說：
 >
-> - V<sub>gs</sub>：用來判斷「MOS 有沒有開」
-> - V<sub>gs</sub> - V<sub>ds</sub>/2：用來估算「平均 gate 控制力」
-> - 再扣掉 V<sub>t</sub>：得到「真正能增加反轉電荷的部分」
+> - $V_{gs}$：用來判斷「MOS 有沒有開」
+> - $V_{gs}$ - $V_{ds}$/2：用來估算「平均 gate 控制力」
+> - 再扣掉 $V_{t}$：得到「真正能增加反轉電荷的部分」
 
 ---
 
@@ -574,13 +574,13 @@ $$
 
 本頁的中點平均近似隱含一個很重要的前提：
 
-> **V<sub>gs</sub> - V<sub>t</sub> 要夠大**，  
+> **$V_{gs}$ - $V_{t}$ 要夠大**，  
 > 使得 channel 大部分區域都能維持 strong inversion。
 
 因此：
 
-- 當 V<sub>gs</sub> 只比 V<sub>t</sub> 大一點點時  
-  V = (V<sub>gs</sub> - V<sub>ds</sub>/2) - V<sub>t</sub> 很容易被算成負值
+- 當 $V_{gs}$ 只比 $V_{t}$ 大一點點時  
+  V = ($V_{gs}$ - $V_{ds}$/2) - $V_{t}$ 很容易被算成負值
 - 這不代表「實際完全沒有電流」
 - 更合理的解讀是：  
   **這個「整條 channel 平均」的模型在該操作點開始失效**
@@ -598,7 +598,7 @@ $$
 
 > **本節在做什麼（先對齊角色）**  
 > 在前一節（Bulk charge model）中，我們已經用電容近似，
-> 估算出「通道裡大約有多少反轉電荷 Q<sub>channel</sub>」。
+> 估算出「通道裡大約有多少反轉電荷 $Q_{channel}$」。
 >
 > 接下來要回答的問題是：
 >
@@ -611,7 +611,7 @@ $$
 
 ### 14.1 橫向電場 E：推電子往前的來源
 
-當 NMOS 的 drain 與 source 之間存在電壓差 V<sub>ds</sub> 時，
+當 NMOS 的 drain 與 source 之間存在電壓差 $V_{ds}$ 時，
 在通道內沿著 **source → drain** 方向會形成一個**橫向電場**。
 
 在這裡採用的是平均近似：
@@ -624,14 +624,14 @@ $$
 
 - E：橫向電場（electric field）  
   → **每單位通道長度上，電子所感受到的平均推力大小**
-- V<sub>ds</sub>：汲極對源極電壓  
+- $V_{ds}$：汲極對源極電壓  
   → **沿著通道施加的總電壓差**
 - L：通道長度（channel length）  
   → **source 到 drain 的距離**
 
 **直覺理解：**
 
-> 把整個 V<sub>ds</sub> 平均分攤在長度 L 上，  
+> 把整個 $V_{ds}$ 平均分攤在長度 L 上，  
 > 得到「每單位通道長度，電位下降多少」，  
 > 也就是「每單位長度，對電子施加多大的推力」。
 
@@ -711,7 +711,7 @@ $$
 
 ### 14.5 本節重點整理（一眼回想用）
 
-- E = V<sub>ds</sub>/L：  
+- E = $V_{ds}$/L：  
   → 通道中的**平均橫向推力（電場）**
 - v = μE：  
   → 電子在材料中實際移動的速度（低電場假設）
@@ -725,14 +725,14 @@ $$
 
 > **本節在做什麼（先講目的）**  
 > 在第 13 節中，我們已經知道：
-> - 通道裡大約有多少反轉電荷 Q<sub>channel</sub>
+> - 通道裡大約有多少反轉電荷 $Q_{channel}$
 >
 > 在第 14 節中，我們也已經知道：
 > - 載子在通道裡移動的速度 v
 > - 以及穿越整條通道所需的時間 t
 >
 > 👉 本節要做的事只有一件：  
-> **把「電荷有多少」與「移動要多久」接起來，推導出線性區的電流 I<sub>ds</sub>。**
+> **把「電荷有多少」與「移動要多久」接起來，推導出線性區的電流 $I_{ds}$。**
 
 ---
 
@@ -743,7 +743,7 @@ $$
 $$I_{ds} = \frac{Q}{t}$$
 
 在 NMOS 中，我們關心的是：
-- 通道內的總反轉電荷 Q<sub>channel</sub>
+- 通道內的總反轉電荷 $Q_{channel}$
 - 載子穿越通道所需的時間 t
 
 因此可直接寫成：
@@ -752,7 +752,7 @@ $$I_{ds} = \frac{Q_{\text{channel}}}{t}$$
 
 ---
 
-### 15.2 通道電荷 Q<sub>channel</sub>（來自 Bulk charge model）
+### 15.2 通道電荷 $Q_{channel}$（來自 Bulk charge model）
 
 根據第 13 節的 bulk charge model，在 strong inversion 且採用中點近似時：
 
@@ -763,7 +763,7 @@ $$Q_{\text{channel}} = C_{ox} W L \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right)
 - 通道電荷 **正比於**
   - gate 對 channel 的平均有效控制電壓  
     $V_{gs} - \frac{V_{ds}}{2}$
-  - 再扣掉剛好形成反轉層所需的門檻電壓 V<sub>t</sub>
+  - 再扣掉剛好形成反轉層所需的門檻電壓 $V_{t}$
 
 其中：
 - $-\frac{V_{ds}}{2}$ 代表  
@@ -803,7 +803,7 @@ $$
 
 ---
 
-### 15.4 將 Q<sub>channel</sub> 與 t 代入電流定義式
+### 15.4 將 $Q_{channel}$ 與 t 代入電流定義式
 
 回到電流定義：
 
@@ -859,19 +859,19 @@ $$I_{ds} = \beta \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}$$
 
 - 電流的本質：
   $$I_{ds} = \frac{Q_{\text{channel}}}{t}$$
-- 線性區電流同時受到兩個 V<sub>ds</sub> 效應影響：
-  - 括號外的 V<sub>ds</sub>：  
+- 線性區電流同時受到兩個 $V_{ds}$ 效應影響：
+  - 括號外的 $V_{ds}$：  
     → 推動載子移動（速度變快）
   - 括號內的 $-V_{ds}/2$：  
     → 平均通道電荷變少
-- 在線性區中，電流仍隨 V<sub>ds</sub> 增加，
+- 在線性區中，電流仍隨 $V_{ds}$ 增加，
   但增加速度逐漸變慢，為後續進入飽和區鋪路
 
 ## 16. NMOS Saturation I–V：通道被夾斷後，電流為什麼不再增加？
 
 > **本節核心目的**  
 > 承接前一節的線性區模型，說明：  
-> 當 V<sub>ds</sub> 持續增加時，為什麼 I<sub>ds</sub> 會「停止隨 V<sub>ds</sub> 增加」，  
+> 當 $V_{ds}$ 持續增加時，為什麼 $I_{ds}$ 會「停止隨 $V_{ds}$ 增加」，  
 > 並推導出 NMOS 在飽和區的 I–V 關係式。
 
 ---
@@ -927,7 +927,7 @@ $$V_{dsat} = V_{gs} - V_t$$
 
 ---
 
-### 16.3 為什麼進入飽和後，V<sub>ds</sub> 不再增加電流？
+### 16.3 為什麼進入飽和後，$V_{ds}$ 不再增加電流？
 
 這是本頁最重要的觀念，不是數學，而是「控制權」。
 
@@ -940,9 +940,9 @@ $$V_{dsat} = V_{gs} - V_t$$
 
 因此：
 
-> 即使再增加 V<sub>ds</sub>，  
+> 即使再增加 $V_{ds}$，  
 > gate 能提供的反轉電荷數量已經不再增加，  
-> I<sub>ds</sub> 也就不再隨 V<sub>ds</sub> 上升。
+> $I_{ds}$ 也就不再隨 $V_{ds}$ 上升。
 
 這就是投影片所說的：
 
@@ -983,7 +983,7 @@ $$I_{ds} = \frac{1}{2} \mu C_{ox} \frac{W}{L} (V_{gs} - V_t)^2$$
 > **NMOS 進入飽和區，  
 > 不是因為電子跑不動，  
 > 而是因為 drain 端的 channel 被 gate 夾斷，  
-> 電流只剩下由 V<sub>gs</sub> 能提供多少反轉電荷來決定。**
+> 電流只剩下由 $V_{gs}$ 能提供多少反轉電荷來決定。**
 
 ## 17. NMOS I–V 行為總整理（Cutoff / Linear / Saturation）
 
@@ -1367,7 +1367,7 @@ Source 與 Drain 和 Body 之間形成的是 **反向偏壓的 PN 接面**。
 >
 > 因為這個電容來自 **source / drain 的擴散區（diffusion region）**，
 > 所以稱為 **diffusion capacitance**，
-> 並以 $C_{sb}$、$C_{db}$ 表示。
+> 並以 $C_{sb}$ 、 $C_{db}$ 表示。
 
 ![MOS 寄生電容圖](assets/mos_parasitic_capacitance.png)
 
@@ -1414,7 +1414,7 @@ $$Q = C V$$
 - 你要充的電荷量 Q = C·V **也跟著變大**
 - 不是免費的
 
-即使 I<sub>ds</sub> 很大：
+即使 $I_{ds}$ 很大：
 - 你還是必須把「更多的電荷」搬進去
 - 所需時間 **不一定變短，反而可能變長**
 
@@ -1424,7 +1424,7 @@ $$Q = C V$$
 
 真正的速度問題其實是：
 
-> **「輸出電壓要從 0 變成 V<sub>DD</sub>，需要多久？」**
+> **「輸出電壓要從 0 變成 $V_{DD}$，需要多久？」**
 
 而不是：
 > 「瞬間電流能不能很大？」
@@ -1448,7 +1448,7 @@ $$t_{\text{delay}} \sim \frac{C \cdot V}{I}$$
 更精準地說：
 
 - **對導通能力（drive strength）來說**：  
-  大 C<sub>ox</sub> 有助於形成更多通道電荷 → I<sub>ds</sub> 大
+  大 $C_{ox}$ 有助於形成更多通道電荷 → $I_{ds}$ 大
 - **對切換速度與功耗來說**：  
   大電容意味著：
   - 需要更多能量充放電
