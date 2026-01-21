@@ -1495,7 +1495,7 @@ $$t_{\text{delay}} \sim \frac{C \cdot V}{I}$$
 
 ---
 
-### 20.2 Gate–Channel 電容的總量 C<sub>g</sub>
+### 20.2 Gate–Channel 電容的總量 $C_g$
 
 Gate 與 channel：
 - 皆為導體
@@ -1505,20 +1505,12 @@ Gate 與 channel：
 
 單位面積氧化層電容為：
 
-$$
-C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}
-$$
+$$C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}$$
 
 Gate 覆蓋的 channel 面積約為 $W \cdot L$，
 因此整體 gate–channel 電容為：
 
-$$
-C_g
-=
-\frac{\varepsilon_{ox}WL}{t_{ox}}
-=
-C_{ox}WL
-$$
+$$C_g = \frac{\varepsilon_{ox}WL}{t_{ox}} = C_{ox}WL$$
 
 ---
 
@@ -1530,9 +1522,7 @@ Gate 不會直接連接到「channel」這個抽象節點，
 
 因此：
 
-$$
-C_g = C_{gs} + C_{gd}
-$$
+$$C_g = C_{gs} + C_{gd}$$
 
 其中：
 
@@ -1553,15 +1543,11 @@ $$
 
 可將其合併為一個常數：
 
-$$
-C_{per\_micron} \equiv C_{ox}L
-$$
+$$C_{per\_micron} \equiv C_{ox}L$$
 
 因此 Gate 電容可寫成：
 
-$$
-C_g = C_{per\_micron} \cdot W
-$$
+$$C_g = C_{per\_micron} \cdot W$$
 
 **重要設計意義：**
 
@@ -1573,13 +1559,9 @@ $$
 
 - Gate–Channel 本質上是一個由 oxide 隔開的電容
 - Gate–Channel 總電容為：
-  $$
-  C_g = C_{ox}WL
-  $$
+  $$C_g = C_{ox}WL$$
 - 在電路模型中，Gate 電容需拆分為：
-  $$
-  C_g = C_{gs} + C_{gd}
-  $$
+  $$C_g = C_{gs} + C_{gd}$$
 - Gate 電容大小與晶體管寬度 $W$ 線性相關
 
 ---
