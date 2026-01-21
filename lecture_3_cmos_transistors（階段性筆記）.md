@@ -1610,8 +1610,8 @@ $$C_g = C_{per\_micron} \cdot W$$
 
 這些電容分別記為：
 
-- C<sub>sb</sub>：Source–Body diffusion capacitance  
-- C<sub>db</sub>：Drain–Body diffusion capacitance  
+- $C_{sb}$：Source–Body diffusion capacitance  
+- $C_{db}$：Drain–Body diffusion capacitance  
 
 因為它們來自 **source / drain 的擴散區（diffusion region）**，  
 所以稱為 **diffusion capacitance**。
@@ -1676,6 +1676,8 @@ Diffusion capacitance 主要來自兩個地方：
 - diffusion capacitance 最小
 
 這就是投影片底下那條紅字：
+
+![Diffusion Layout 對比](assets/diffusion_layout_comparison.png)
 
 > **Smaller diffusion capacitance**
 
