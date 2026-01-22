@@ -2893,20 +2893,104 @@ $$
 
 #### 24.6.9 與 Square-Law 的連續性檢查（重要直覺）
 
-- 長通道極限（ $V_c \gg V_{gs} - V_t$ ）：
+速度飽和模型的關鍵要求是：
+
+> 在低電場、長通道極限下，  
+> 必須自然退化回我們熟悉的 square-law（bulk charge）模型。
+
+我們從速度飽和下的完整飽和電流式出發：
 
 $$
-V_{dsat} \approx V_{gs} - V_t, \quad I_{dsat} \approx \frac{1}{2} \mu C_{ox} \frac{W}{L} (V_{gs} - V_t)^2
+I_{dsat}
+=
+W C_{ox} v_{sat}
+\frac{(V_{gs}-V_t)^2}{V_{gs}-V_t+V_c}
 $$
 
-- 短通道極限（ $V_c \ll V_{gs} - V_t$ ）：
+---
+
+##### （一）長通道 / 低電場極限
+
+當通道很長、臨界電壓很大時：
 
 $$
-V_{dsat} \approx V_c, \quad I_{dsat} \propto (V_{gs} - V_t)
+V_c \gg V_{gs}-V_t
 $$
 
-因此速度飽和模型並非推翻 square-law，
-而是其在高電場下的自然延伸。
+分母可近似為：
+
+$$
+V_{gs}-V_t+V_c \approx V_c
+$$
+
+因此：
+
+$$
+I_{dsat}
+\approx
+W C_{ox} v_{sat}
+\frac{(V_{gs}-V_t)^2}{V_c}
+$$
+
+再代入臨界電壓定義：
+
+$$
+V_c = \frac{2 v_{sat}}{\mu}L
+$$
+
+得到：
+
+$$
+I_{dsat}
+\approx
+\frac{1}{2}\mu C_{ox}\frac{W}{L}(V_{gs}-V_t)^2
+$$
+
+這正是 **long-channel bulk charge model 的 square-law 飽和電流式**。
+
+---
+
+##### （二）短通道 / 高電場極限
+
+當通道很短、電場很強時：
+
+$$
+V_{gs}-V_t \gg V_c
+$$
+
+此時分母由 $(V_{gs}-V_t)$ 主導：
+
+$$
+V_{gs}-V_t+V_c \approx V_{gs}-V_t
+$$
+
+因此速度飽和模型退化為：
+
+$$
+I_{dsat}
+\approx
+W C_{ox} v_{sat}(V_{gs}-V_t)
+$$
+
+電流不再呈平方成長，
+而是 **線性依賴 overdrive voltage**。
+
+---
+
+##### （三）核心物理意義（這一頁真正想傳達的）
+
+- Square-law 模型不是錯
+- 它是 **低電場、長通道下的極限情況**
+- Velocity saturation 模型是其在高電場下的自然延伸
+- 真實短通道 MOS 的行為介於兩者之間
+
+這也是為什麼後續會使用：
+
+$$
+I_{ds} \propto V_{DD}^{\alpha}, \quad 1 < \alpha < 2
+$$
+
+來描述實際電晶體的 ON 電流行為。
 
 ---
 
