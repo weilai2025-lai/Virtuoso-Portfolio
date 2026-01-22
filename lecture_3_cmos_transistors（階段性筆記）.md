@@ -2366,11 +2366,11 @@ $$
 > 本節目標：  
 > 在**不推翻 bulk charge 與 square-law 推導骨架**的前提下，  
 > 只修正「載子速度如何隨電場變化」，  
-> 從而自然導出 **提早飽和的 \(V_{dsat}\)** 與 **非平方律的 \(I_{dsat}\)**。
+> 從而自然導出 **提早飽和的 $V_{dsat}$ ** 與 **非平方律的 $I_{dsat}$ **。
 >
 > 關鍵觀念：  
-> **通道電荷怎麼來（\(Q=CV\)）沒有變，  
-> 電流定義（\(I=Q/t\)）沒有變，  
+> **通道電荷怎麼來（ $Q = CV$ ）沒有變，  
+> 電流定義（ $I = Q/t$ ）沒有變，  
 > 變的只有「電子實際跑多快」。**
 
 ---
@@ -2379,45 +2379,42 @@ $$
 
 在長通道、低電場假設下，我們已經建立：
 
-- 通道在位置 \(x\) 的反轉電荷（線電荷密度）：
-  \[
-  Q'(x)=C_{ox}W\bigl(V_{gs}-V_t-V(x)\bigr)
-  \]
+- 通道在位置 $x$ 的反轉電荷（線電荷密度）：
+  $$
+  Q'(x) = C_{ox} W \bigl( V_{gs} - V_t - V(x) \bigr)
+  $$
 
 - 電流的最原始定義：
-  \[
-  I=\frac{Q}{t}
-  \]
+  $$
+  I = \frac{Q}{t}
+  $$
 
 - 載子穿越通道時間：
-  \[
-  t=\frac{L}{v}
-  \]
+  $$
+  t = \frac{L}{v}
+  $$
 
 - 因此得到漂移電流形式：
-  \[
-  I = Q'(x)\,v(x)
-  \]
+  $$
+  I = Q'(x) \, v(x)
+  $$
 
 - 低電場速度模型：
-  \[
-  v(x)=\mu E(x)= -\mu\frac{dV}{dx}
-  \]
+  $$
+  v(x) = \mu E(x) = -\mu \frac{dV}{dx}
+  $$
 
 積分整條通道後，得到線性區電流：
 
-\[
-I_{ds}
-=
-\mu C_{ox}\frac{W}{L}
-\left(V_{gs}-V_t-\frac{V_{ds}}{2}\right)V_{ds}
-\]
+$$
+I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
 
 並由 drain 端反轉電荷歸零（pinch-off）得到：
 
-\[
-V_{dsat}=V_{gs}-V_t
-\]
+$$
+V_{dsat} = V_{gs} - V_t
+$$
 
 ---
 
@@ -2425,22 +2422,22 @@ V_{dsat}=V_{gs}-V_t
 
 上述 square-law 推導隱含一個關鍵假設：
 
-> **電子速度可以隨橫向電場 \(E_{lat}\) 無限線性增加**
+> **電子速度可以隨橫向電場 $E_{lat}$ 無限線性增加**
 
 然而在實際 MOS 中，當：
 
 - 通道很短
-- \(V_{ds}\) 很大
+- $V_{ds}$ 很大
 - 橫向電場過強
 
 電子會頻繁與晶格散射，導致：
 
 - 電子數量（通道電荷）仍可增加
-- **但電子速度不再線性成長，最終趨近一個上限 \(v_{sat}\)**
+- **損電子速度不再線性成長，最終趨近一個上限 $v_{sat}$ **
 
 因此，square-law 失效的根本原因在於：
 
-> **速度模型 \(v=\mu E\) 失效，而不是通道電荷模型錯誤。**
+> **速度模型 $v = \mu E$ 失效，而不是通道電荷模型錯誤。**
 
 ---
 
@@ -2449,49 +2446,49 @@ V_{dsat}=V_{gs}-V_t
 在速度飽和模型中：
 
 - 低電場：
-  \[
+  $$
   v \approx \mu_{\text{eff}} E
-  \]
+  $$
 - 高電場：
-  \[
+  $$
   v \rightarrow v_{sat}
-  \]
+  $$
 
 常用的一個連續模型寫成：
 
-\[
-v(E)=\frac{\mu_{\text{eff}}E}{1+\dfrac{E}{E_c}}
-\]
+$$
+v(E) = \frac{\mu_{\text{eff}} E}{1 + \dfrac{E}{E_c}}
+$$
 
 其中：
 
-- \(E_c\)：臨界電場（critical field）
-- \(\mu_{\text{eff}}\)：有效遷移率
-- \(v_{sat}\)：速度上限
+- $E_c$ ：臨界電場（critical field）
+- $\mu_{\text{eff}}$ ：有效遷移率
+- $v_{sat}$ ：速度上限
 
 兩者關係為：
 
-\[
-E_c=\frac{2v_{sat}}{\mu_{\text{eff}}}
-\]
+$$
+E_c = \frac{2v_{sat}}{\mu_{\text{eff}}}
+$$
 
 ---
 
-#### 24.6.4 由臨界電場引入「臨界電壓」 \(V_c\)
+#### 24.6.4 由臨界電場引入「臨界電壓」 $V_c$ 
 
 通道平均橫向電場近似為：
 
-\[
-E_{lat}\approx\frac{V_{ds}}{L}
-\]
+$$
+E_{lat} \approx \frac{V_{ds}}{L}
+$$
 
-因此，對應臨界電場 \(E_c\) 的端點電壓定義為：
+因此，對應臨界電場 $E_c$ 的端點電壓定義為：
 
-\[
-V_c \triangleq E_c\,L
-\]
+$$
+V_c \triangleq E_c \, L
+$$
 
-此 \(V_c\) 代表：
+此 $V_c$ 代表：
 
 > **使整條通道平均橫向電場剛好達到速度飽和門檻的 drain 電壓。**
 
@@ -2501,26 +2498,21 @@ V_c \triangleq E_c\,L
 
 將速度模型改寫為端點電壓形式：
 
-\[
-v \approx \frac{\mu_{\text{eff}}(V_{ds}/L)}{1+\dfrac{V_{ds}}{V_c}}
-\]
+$$
+v \approx \frac{\mu_{\text{eff}} (V_{ds}/L)}{1 + \dfrac{V_{ds}}{V_c}}
+$$
 
-等效上，就是把 square-law 線性區中的 \(\mu\) 改為：
+等效上，就是把 square-law 線性區中的 $\mu$ 改為：
 
-\[
-\mu \longrightarrow \frac{\mu_{\text{eff}}}{1+\dfrac{V_{ds}}{V_c}}
-\]
+$$
+\mu \longrightarrow \frac{\mu_{\text{eff}}}{1 + \dfrac{V_{ds}}{V_c}}
+$$
 
 因此得到修正後的線性區電流：
 
-\[
-I_{ds,\text{lin}}
-=
-\frac{\mu_{\text{eff}}}{1+\dfrac{V_{ds}}{V_c}}
-\;
-C_{ox}\frac{W}{L}
-\left(V_{gs}-V_t-\frac{V_{ds}}{2}\right)V_{ds}
-\]
+$$
+I_{ds,\text{lin}} = \frac{\mu_{\text{eff}}}{1 + \dfrac{V_{ds}}{V_c}} C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
 
 ---
 
@@ -2528,49 +2520,45 @@ C_{ox}\frac{W}{L}
 
 一旦進入速度飽和區：
 
-\[
+$$
 v \approx v_{sat}
-\]
+$$
 
 電流仍由最基本的關係決定：
 
-\[
-I = Q'(x)\,v
-\]
+$$
+I = Q'(x) \, v
+$$
 
 在飽和邊界，採用 bulk charge 模型於該關鍵位置：
 
-\[
-Q' \approx C_{ox}W\bigl(V_{gs}-V_t-V_{dsat}\bigr)
-\]
+$$
+Q' \approx C_{ox} W \bigl( V_{gs} - V_t - V_{dsat} \bigr)
+$$
 
 因此飽和區電流為：
 
-\[
-I_{ds,\text{sat}}
-=
-C_{ox}W\bigl(V_{gs}-V_t-V_{dsat}\bigr)v_{sat}
-\]
+$$
+I_{ds,\text{sat}} = C_{ox} W \bigl( V_{gs} - V_t - V_{dsat} \bigr) v_{sat}
+$$
 
 ---
 
-#### 24.6.7 由「線性區 = 飽和區」聯立解出新的 \(V_{dsat}\)
+#### 24.6.7 由「線性區 = 飽和區」聯立解出新的 $V_{dsat}$ 
 
 在剛進入飽和的交界點：
 
-\[
-I_{ds,\text{lin}}(V_{ds}=V_{dsat}) = I_{ds,\text{sat}}
-\]
+$$
+I_{ds,\text{lin}} (V_{ds} = V_{dsat}) = I_{ds,\text{sat}}
+$$
 
 聯立前述兩式並整理後，得到：
 
-\[
+$$
 \boxed{
-V_{dsat}
-=
-\frac{(V_{gs}-V_t)\,V_c}{V_{gs}-V_t+V_c}
+V_{dsat} = \frac{(V_{gs} - V_t) \, V_c}{V_{gs} - V_t + V_c}
 }
-\]
+$$
 
 此結果顯示：
 
@@ -2578,34 +2566,29 @@ V_{dsat}
 
 ---
 
-#### 24.6.8 對應的飽和電流 \(I_{dsat}\)
+#### 24.6.8 對應的飽和電流 $I_{dsat}$ 
 
-將 \(V_{dsat}\) 代回飽和區電流式，可得：
+將 $V_{dsat}$ 代回飽和區電流式，可得：
 
-\[
+$$
 \boxed{
-I_{dsat}
-=
-WC_{ox}v_{sat}
-\frac{(V_{gs}-V_t)^2}{V_{gs}-V_t+V_c}
+I_{dsat} = W C_{ox} v_{sat} \frac{(V_{gs} - V_t)^2}{V_{gs} - V_t + V_c}
 }
-\]
+$$
 
 ---
 
 #### 24.6.9 與 Square-Law 的連續性檢查（重要直覺）
 
-- **長通道極限**（\(V_c \gg V_{gs}-V_t\)）：
-  \[
-  V_{dsat}\approx V_{gs}-V_t,\quad
-  I_{dsat}\approx \frac{1}{2}\mu C_{ox}\frac{W}{L}(V_{gs}-V_t)^2
-  \]
+- **長通道極限**（ $V_c \gg V_{gs} - V_t$ ）：
+  $$
+  V_{dsat} \approx V_{gs} - V_t, \quad I_{dsat} \approx \frac{1}{2} \mu C_{ox} \frac{W}{L} (V_{gs} - V_t)^2
+  $$
 
-- **短通道極限**（\(V_c \ll V_{gs}-V_t\)）：
-  \[
-  V_{dsat}\approx V_c,\quad
-  I_{dsat}\propto (V_{gs}-V_t)
-  \]
+- **短通道極限**（ $V_c \ll V_{gs} - V_t$ ）：
+  $$
+  V_{dsat} \approx V_c, \quad I_{dsat} \propto (V_{gs} - V_t)
+  $$
 
 因此速度飽和模型並非推翻 square-law，
 而是其在高電場下的自然延伸。
