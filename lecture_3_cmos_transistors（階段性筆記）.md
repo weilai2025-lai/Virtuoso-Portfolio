@@ -1907,13 +1907,13 @@ $$t = \frac{L}{v}$$
 ### 代回電流定義
 將 $t = L / v$ 代回 $I = Q / t$：
 
-$$I = \frac{Q}{L/v} = Q \cdot \frac{v}{L}$$
+$$I = \frac{Q}{\frac{L}{v}} = Q \cdot \frac{v}{L}$$
 
 因此可以看出：
 
 > **電流大小與兩件事成正比：**
-> - 通道中有多少電荷 ($Q$)
-> - 這些電荷移動得有多有效率 ($v$)
+> - 通道中有多少電荷（ $Q$ ）
+> - 這些電荷移動得有多有效率（ $v$ ）
 
 ---
 
@@ -1932,7 +1932,7 @@ $$v = \mu E$$
 $$I \sim Q \times (\text{電子移動效率})$$
 
 這只是把
-$$I \propto Q \cdot v \quad (\text{或 } Q \cdot \mu)$$
+$$I \propto Q \cdot v \quad \text{(或 } Q \cdot \mu \text{)}$$
 用直覺語言重新表達，而非引入新的物理模型。
 
 - $V_{gs} \uparrow$  
@@ -1972,13 +1972,13 @@ $$E \approx \frac{V_{ds}}{L}$$
 兩者都屬於 High Field Effects，但重點不同：
 
 - **Mobility Degradation**
-  - 關鍵量：μ
-  - 成因：強垂直電場、界面散射
-  - 效果：v = μE 中的「μ 變小」
+  - 關鍵量：$\mu$
+  - 成進：強垂直電場、界面散射
+  - 效果：$v = \mu E$ 中的「$\mu$ 變小」
 - **Velocity Saturation**
-  - 關鍵量：v
+  - 關鍵量：$v$
   - 成因：強橫向電場
-  - 效果：v 本身有上限，不再線性成長
+  - 效果：$v$ 本身有上限，不再線性成長
 
 可以這樣記：
 
