@@ -1907,13 +1907,13 @@ $$t = \frac{L}{v}$$
 ### 代回電流定義
 將 $t = L / v$ 代回 $I = Q / t$：
 
-$$I = \frac{Q}{\frac{L}{v}} = Q \cdot \frac{v}{L}$$
+$$I = \frac{Q}{L/v} = Q \cdot \frac{v}{L}$$
 
 因此可以看出：
 
 > **電流大小與兩件事成正比：**
-> - 通道中有多少電荷（ $Q$ ）
-> - 這些電荷移動得有多有效率（ $v$ ）
+> - 通道中有多少電荷 ($Q$)
+> - 這些電荷移動得有多有效率 ($v$)
 
 ---
 
@@ -1932,7 +1932,7 @@ $$v = \mu E$$
 $$I \sim Q \times (\text{電子移動效率})$$
 
 這只是把
-$$I \propto Q \cdot v \quad \text{(或 } Q \cdot \mu \text{)}$$
+$$I \propto Q \cdot v \quad (\text{或 } Q \cdot \mu)$$
 用直覺語言重新表達，而非引入新的物理模型。
 
 - $V_{gs} \uparrow$  
