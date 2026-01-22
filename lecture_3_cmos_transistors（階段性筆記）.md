@@ -2420,69 +2420,55 @@ $$
 從
 
 $$
-I = Q'(x)\,v(x)
+I = Q'(x) \, v(x)
 $$
 
 代入
 
 $$
-Q'(x) = C_{ox}W\bigl(V_{gs}-V_t-V(x)\bigr),
-\quad
-v(x) = -\mu\frac{dV}{dx}
+Q'(x) = C_{ox} W \bigl( V_{gs} - V_t - V(x) \bigr), \quad v(x) = -\mu \frac{dV}{dx}
 $$
 
 得到：
 
 $$
-I
-=
-C_{ox}W\bigl(V_{gs}-V_t-V(x)\bigr)\left(-\mu\frac{dV}{dx}\right)
+I = C_{ox} W \bigl( V_{gs} - V_t - V(x) \bigr) \left( -\mu \frac{dV}{dx} \right)
 $$
 
 把常數整理出來：
 
 $$
-I
-=
--\mu C_{ox}W\bigl(V_{gs}-V_t-V(x)\bigr)\frac{dV}{dx}
+I = -\mu C_{ox} W \bigl( V_{gs} - V_t - V(x) \bigr) \frac{dV}{dx}
 $$
 
-接著把微分項移項（把 \(dx\) 與 \(dV\) 分開）：
+接著把微分項移項（把 $dx$ 與 $dV$ 分開）：
 
 $$
-I\,dx
-=
--\mu C_{ox}W\bigl(V_{gs}-V_t-V\bigr)\,dV
+I \, dx = -\mu C_{ox} W \bigl( V_{gs} - V_t - V \bigr) \, dV
 $$
 
 現在對整條通道積分。  
 邊界條件是：
 
-- \(x: 0 \rightarrow L\)
-- \(V: V(0)=0 \rightarrow V(L)=V_{ds}\)
+- $x : 0 \rightarrow L$ 
+- $V : V(0) = 0 \rightarrow V(L) = V_{ds}$ 
 
 因此：
 
 $$
-\int_{0}^{L} I\,dx
-=
--\mu C_{ox}W \int_{0}^{V_{ds}} \bigl(V_{gs}-V_t-V\bigr)\,dV
+\int_{0}^{L} I \, dx = -\mu C_{ox} W \int_{0}^{V_{ds}} \bigl( V_{gs} - V_t - V \bigr) \, dV
 $$
 
-左邊因為 \(I\) 在穩態下沿通道為常數：
+左邊因為 $I$ 在穩態下沿通道為常數：
 
 $$
-\int_{0}^{L} I\,dx = IL
+\int_{0}^{L} I \, dx = I L
 $$
 
 右邊把積分展開（先拆成兩項）：
 
 $$
-\int_{0}^{V_{ds}} \bigl(V_{gs}-V_t-V\bigr)\,dV
-=
-\int_{0}^{V_{ds}} (V_{gs}-V_t)\,dV
--
-\int_{0}^{V_{ds}} V\,dV
+\int_{0}^{V_{ds}} \bigl( V_{gs} - V_t - V \bigr) \, dV = \int_{0}^{V_{ds}} ( V_{gs} - V_t ) \, dV - \int_{0}^{V_{ds}} V \, dV
 $$
 
 逐項算：
@@ -2490,54 +2476,36 @@ $$
 第一項：
 
 $$
-\int_{0}^{V_{ds}} (V_{gs}-V_t)\,dV
-=
-(V_{gs}-V_t)V_{ds}
+\int_{0}^{V_{ds}} ( V_{gs} - V_t ) \, dV = ( V_{gs} - V_t ) V_{ds}
 $$
 
 第二項：
 
 $$
-\int_{0}^{V_{ds}} V\,dV
-=
-\left.\frac{V^2}{2}\right|_{0}^{V_{ds}}
-=
-\frac{V_{ds}^2}{2}
+\int_{0}^{V_{ds}} V \, dV = \left. \frac{V^2}{2} \right|_{0}^{V_{ds}} = \frac{V_{ds}^2}{2}
 $$
 
 因此右邊整體為：
 
 $$
-\int_{0}^{V_{ds}} \bigl(V_{gs}-V_t-V\bigr)\,dV
-=
-(V_{gs}-V_t)V_{ds}-\frac{V_{ds}^2}{2}
+\int_{0}^{V_{ds}} \bigl( V_{gs} - V_t - V \bigr) \, dV = ( V_{gs} - V_t ) V_{ds} - \frac{V_{ds}^2}{2}
 $$
 
 代回主式：
 
 $$
-IL
-=
-\mu C_{ox}W\left[(V_{gs}-V_t)V_{ds}-\frac{V_{ds}^2}{2}\right]
+I L = \mu C_{ox} W \left[ ( V_{gs} - V_t ) V_{ds} - \frac{V_{ds}^2}{2} \right]
 $$
 
-兩邊除以 \(L\)：
+兩邊除以 $L$ ：
 
 $$
-I_{ds}
-=
-\mu C_{ox}\frac{W}{L}
-\left[(V_{gs}-V_t)V_{ds}-\frac{V_{ds}^2}{2}\right]
+I_{ds} = \mu C_{ox} \frac{W}{L} \left[ ( V_{gs} - V_t ) V_{ds} - \frac{V_{ds}^2}{2} \right]
 $$
 
-最後把 \(V_{ds}\) 提出來（整理成你熟悉的形式）：
+最後把 $V_{ds}$ 提出來（整理成你熟悉的形式）：
 
 $$
-\begin{aligned}
-I_{ds}
-&=
-\mu C_{ox}\frac{W}{L}
-\left(V_{gs}-V_t-\frac{V_{ds}}{2}\right)V_{ds}
 \end{aligned}
 $$
 
