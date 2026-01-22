@@ -2698,11 +2698,231 @@ $$
 
 在剛進入飽和的交界點： $I_{ds,lin} (V_{ds} = V_{dsat}) = I_{ds,sat}$ 
 
-聯立前述兩式並整理後，得到：
+聯立前述兩式並整理後（這裡把代數過程完整寫出來，不省略）。
+
+---
+
+#### (1) 先把兩條電流式子完整寫出來
+
+線性區（含速度飽和修正項）在 $V_{ds}=V_{dsat}$ 時：
 
 $$
-\boxed{ V_{dsat} = \frac{(V_{gs} - V_t) \cdot V_c}{V_{gs} - V_t + V_c} }
+I_{ds,lin}(V_{dsat})
+=
+\frac{\mu_{\text{eff}}}{1+\frac{V_{dsat}}{V_c}}
+\;
+C_{ox}\frac{W}{L}
+\left( V_{gs}-V_t-\frac{V_{dsat}}{2} \right)V_{dsat}
 $$
+
+飽和區（速度到頂 $v \approx v_{sat}$）：
+
+$$
+I_{ds,sat}
+=
+C_{ox}W\left( V_{gs}-V_t-V_{dsat} \right)v_{sat}
+$$
+
+---
+
+#### (2) 在交界點令兩者相等
+
+$$
+\frac{\mu_{\text{eff}}}{1+\frac{V_{dsat}}{V_c}}
+\;
+C_{ox}\frac{W}{L}
+\left( V_{gs}-V_t-\frac{V_{dsat}}{2} \right)V_{dsat}
+=
+C_{ox}W\left( V_{gs}-V_t-V_{dsat} \right)v_{sat}
+$$
+
+兩邊同除以 $C_{ox}W$（約掉共同因子）：
+
+$$
+\frac{\mu_{\text{eff}}}{1+\frac{V_{dsat}}{V_c}}
+\;
+\frac{1}{L}
+\left( V_{gs}-V_t-\frac{V_{dsat}}{2} \right)V_{dsat}
+=
+\left( V_{gs}-V_t-V_{dsat} \right)v_{sat}
+$$
+
+---
+
+#### (3) 用 $V_c$ 把 $v_{sat}$ 與 $\mu_{\text{eff}}/L$ 連起來
+
+由投影片的定義：
+
+$$
+E_c=\frac{2v_{sat}}{\mu_{\text{eff}}}
+$$
+
+且
+
+$$
+V_c \triangleq E_c L
+$$
+
+所以：
+
+$$
+V_c=\frac{2v_{sat}}{\mu_{\text{eff}}}L
+$$
+
+移項解出 $v_{sat}$：
+
+$$
+v_{sat}=\frac{\mu_{\text{eff}}V_c}{2L}
+$$
+
+把這個 $v_{sat}$ 代回剛剛的等式右邊：
+
+$$
+\frac{\mu_{\text{eff}}}{1+\frac{V_{dsat}}{V_c}}
+\;
+\frac{1}{L}
+\left( V_{gs}-V_t-\frac{V_{dsat}}{2} \right)V_{dsat}
+=
+\left( V_{gs}-V_t-V_{dsat} \right)\frac{\mu_{\text{eff}}V_c}{2L}
+$$
+
+兩邊同除以 $\mu_{\text{eff}}/L$（再次約掉共同因子）：
+
+$$
+\frac{1}{1+\frac{V_{dsat}}{V_c}}
+\left( V_{gs}-V_t-\frac{V_{dsat}}{2} \right)V_{dsat}
+=
+\left( V_{gs}-V_t-V_{dsat} \right)\frac{V_c}{2}
+$$
+
+---
+
+#### (4) 消掉分母並整理成只含 $V_{dsat}$ 的代數式
+
+先把左邊的分母消掉。注意：
+
+$$
+\frac{1}{1+\frac{V_{dsat}}{V_c}}
+=
+\frac{V_c}{V_c+V_{dsat}}
+$$
+
+因此等式變成：
+
+$$
+\frac{V_c}{V_c+V_{dsat}}
+\left( V_{gs}-V_t-\frac{V_{dsat}}{2} \right)V_{dsat}
+=
+\left( V_{gs}-V_t-V_{dsat} \right)\frac{V_c}{2}
+$$
+
+兩邊同除以 $V_c$：
+
+$$
+\frac{1}{V_c+V_{dsat}}
+\left( V_{gs}-V_t-\frac{V_{dsat}}{2} \right)V_{dsat}
+=
+\frac{1}{2}\left( V_{gs}-V_t-V_{dsat} \right)
+$$
+
+兩邊同乘 $(V_c+V_{dsat})$：
+
+$$
+\left( V_{gs}-V_t-\frac{V_{dsat}}{2} \right)V_{dsat}
+=
+\frac{1}{2}\left( V_{gs}-V_t-V_{dsat} \right)(V_c+V_{dsat})
+$$
+
+兩邊同乘 2：
+
+$$
+2\left( V_{gs}-V_t-\frac{V_{dsat}}{2} \right)V_{dsat}
+=
+\left( V_{gs}-V_t-V_{dsat} \right)(V_c+V_{dsat})
+$$
+
+把左邊展開（注意 $2(\cdot)$ 會消掉 $\frac{1}{2}$）：
+
+$$
+\left( 2(V_{gs}-V_t)-V_{dsat} \right)V_{dsat}
+=
+\left( V_{gs}-V_t-V_{dsat} \right)(V_c+V_{dsat})
+$$
+
+---
+
+#### (5) 令 $V_{ov}=V_{gs}-V_t$ 使代數更乾淨，解出 $V_{dsat}$
+
+定義：
+
+$$
+V_{ov}\triangleq V_{gs}-V_t
+$$
+
+則上式變成：
+
+$$
+(2V_{ov}-V_{dsat})V_{dsat}
+=
+(V_{ov}-V_{dsat})(V_c+V_{dsat})
+$$
+
+展開左邊：
+
+$$
+2V_{ov}V_{dsat}-V_{dsat}^2
+$$
+
+展開右邊：
+
+$$
+(V_{ov}-V_{dsat})V_c+(V_{ov}-V_{dsat})V_{dsat}
+=
+V_{ov}V_c - V_{dsat}V_c + V_{ov}V_{dsat}-V_{dsat}^2
+$$
+
+令左右相等並把相同項約掉（注意兩邊都有 $-V_{dsat}^2$ 可消掉）：
+
+$$
+2V_{ov}V_{dsat}
+=
+V_{ov}V_c - V_{dsat}V_c + V_{ov}V_{dsat}
+$$
+
+把右邊的 $V_{ov}V_{dsat}$ 移到左邊：
+
+$$
+V_{ov}V_{dsat}
+=
+V_{ov}V_c - V_{dsat}V_c
+$$
+
+把含 $V_{dsat}$ 的項收斂在一起：
+
+$$
+V_{ov}V_{dsat}+V_cV_{dsat}
+=
+V_{ov}V_c
+$$
+
+提出 $V_{dsat}$：
+
+$$
+V_{dsat}(V_{ov}+V_c)=V_{ov}V_c
+$$
+
+所以：
+
+$$
+V_{dsat}=\frac{V_{ov}V_c}{V_{ov}+V_c}
+$$
+
+最後代回 $V_{ov}=V_{gs}-V_t$：
+
+$$
+V_{dsat}=\frac{(V_{gs}-V_t)V_c}{V_{gs}-V_t+V_c}
+$$
+
 
 此結果顯示：在速度飽和存在時，MOS 會比 square-law 預測更早進入飽和。
 
