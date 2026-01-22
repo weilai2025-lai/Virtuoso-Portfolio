@@ -2415,48 +2415,48 @@ $$
 v(x) = \mu E(x) = -\mu \frac{dV}{dx}
 $$
 
-接下來把它**完整積分一次**（這一步就是 square-law 的核心，過程不省略）。
+接下來把它 **完整積分一次** （這一步就是 square-law 的核心，過程不省略）。
 
 從
 
 $$
-I = Q'(x) \, v(x)
+I = Q'(x) v(x)
 $$
 
 代入
 
 $$
-Q'(x) = C_{ox} W \bigl( V_{gs} - V_t - V(x) \bigr), \quad v(x) = -\mu \frac{dV}{dx}
+Q'(x) = C_{ox} W ( V_{gs} - V_t - V(x) ), \quad v(x) = -\mu \frac{dV}{dx}
 $$
 
 得到：
 
 $$
-I = C_{ox} W \bigl( V_{gs} - V_t - V(x) \bigr) \left( -\mu \frac{dV}{dx} \right)
+I = C_{ox} W ( V_{gs} - V_t - V(x) ) ( -\mu \frac{dV}{dx} )
 $$
 
 把常數整理出來：
 
 $$
-I = -\mu C_{ox} W \bigl( V_{gs} - V_t - V(x) \bigr) \frac{dV}{dx}
+I = -\mu C_{ox} W ( V_{gs} - V_t - V(x) ) \frac{dV}{dx}
 $$
 
 接著把微分項移項（把 $dx$ 與 $dV$ 分開）：
 
 $$
-I \, dx = -\mu C_{ox} W \bigl( V_{gs} - V_t - V \bigr) \, dV
+I \, dx = -\mu C_{ox} W ( V_{gs} - V_t - V ) \, dV
 $$
 
 現在對整條通道積分。  
 邊界條件是：
 
-- $x : 0 \rightarrow L$ 
-- $V : V(0) = 0 \rightarrow V(L) = V_{ds}$ 
+- $x : 0 \rightarrow L$
+- $V : V(0) = 0 \rightarrow V(L) = V_{ds}$
 
 因此：
 
 $$
-\int_{0}^{L} I \, dx = -\mu C_{ox} W \int_{0}^{V_{ds}} \bigl( V_{gs} - V_t - V \bigr) \, dV
+\int_{0}^{L} I \, dx = -\mu C_{ox} W \int_{0}^{V_{ds}} ( V_{gs} - V_t - V ) \, dV
 $$
 
 左邊因為 $I$ 在穩態下沿通道為常數：
@@ -2468,7 +2468,7 @@ $$
 右邊把積分展開（先拆成兩項）：
 
 $$
-\int_{0}^{V_{ds}} \bigl( V_{gs} - V_t - V \bigr) \, dV = \int_{0}^{V_{ds}} ( V_{gs} - V_t ) \, dV - \int_{0}^{V_{ds}} V \, dV
+\int_{0}^{V_{ds}} ( V_{gs} - V_t - V ) \, dV = \int_{0}^{V_{ds}} ( V_{gs} - V_t ) \, dV - \int_{0}^{V_{ds}} V \, dV
 $$
 
 逐項算：
@@ -2488,7 +2488,7 @@ $$
 因此右邊整體為：
 
 $$
-\int_{0}^{V_{ds}} \bigl( V_{gs} - V_t - V \bigr) \, dV = ( V_{gs} - V_t ) V_{ds} - \frac{V_{ds}^2}{2}
+\int_{0}^{V_{ds}} ( V_{gs} - V_t - V ) \, dV = ( V_{gs} - V_t ) V_{ds} - \frac{V_{ds}^2}{2}
 $$
 
 代回主式：
@@ -2506,86 +2506,71 @@ $$
 最後把 $V_{ds}$ 提出來（整理成你熟悉的形式）：
 
 $$
-I_{ds}
-=
-\mu C_{ox}\frac{W}{L}
-\left( V_{gs}-V_t-\frac{V_{ds}}{2} \right)V_{ds}
+I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
 $$
 
 ---
 
 接著補上「飽和條件」與「飽和電流」的完整收尾，避免筆記讀起來沒頭沒尾。
 
-#### (a) 為什麼飽和點是 $V_{dsat}=V_{gs}-V_t$？
+#### (a) 為什麼飽和點是 $V_{dsat} = V_{gs} - V_t$ ？
 
 在 bulk charge / 漸變通道假設下，通道在位置 $x$ 的線電荷密度為：
 
 $$
-Q'(x)=C_{ox}W\left( V_{gs}-V_t-V(x) \right)
+Q'(x) = C_{ox} W ( V_{gs} - V_t - V(x) )
 $$
 
-飽和（pinch-off）邊界的定義是：**drain 端的反轉電荷剛好降為 0**，也就是在 $x=L$：
+飽和（ pinch-off ）邊界的定義是： **drain 端的反轉電荷剛好降為 0** ，也就是在 $x = L$ ：
 
 $$
-Q'(L)=0
+Q'(L) = 0
 $$
 
-而 drain 端通道電位 $V(L)=V_{ds}$，代入：
+而 drain 端通道電位 $V(L) = V_{ds}$ ，代入：
 
 $$
-0=C_{ox}W\left( V_{gs}-V_t-V_{ds} \right)
+0 = C_{ox} W ( V_{gs} - V_t - V_{ds} )
 $$
 
 因此得到飽和邊界電壓：
 
 $$
-V_{dsat}=V_{gs}-V_t
+V_{dsat} = V_{gs} - V_t
 $$
 
 ---
 
-#### (b) 把 $V_{ds}=V_{dsat}$ 代回線性區電流式，得到飽和電流 $I_{dsat}$
+#### (b) 把 $V_{ds} = V_{dsat}$ 代回線性區電流式，得到飽和電流 $I_{dsat}$
 
 從線性區電流式出發：
 
 $$
-I_{ds}
-=
-\mu C_{ox}\frac{W}{L}
-\left( V_{gs}-V_t-\frac{V_{ds}}{2} \right)V_{ds}
+I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
 $$
 
-在飽和邊界令 $V_{ds}=V_{dsat}=V_{gs}-V_t$，則括號內變成：
+在飽和邊界令 $V_{ds} = V_{dsat} = V_{gs} - V_t$ ，則括號內變成：
 
 $$
-V_{gs}-V_t-\frac{V_{dsat}}{2}
-=
-V_{gs}-V_t-\frac{V_{gs}-V_t}{2}
-=
-\frac{V_{gs}-V_t}{2}
+V_{gs} - V_t - \frac{V_{dsat}}{2} = V_{gs} - V_t - \frac{V_{gs} - V_t}{2} = \frac{V_{gs} - V_t}{2}
 $$
 
 同時外面的 $V_{ds}$ 也變成：
 
 $$
-V_{ds}=V_{dsat}=V_{gs}-V_t
+V_{ds} = V_{dsat} = V_{gs} - V_t
 $$
 
 所以飽和電流為：
 
 $$
-I_{dsat}
-=
-\mu C_{ox}\frac{W}{L}
-\left( \frac{V_{gs}-V_t}{2} \right)(V_{gs}-V_t)
+I_{dsat} = \mu C_{ox} \frac{W}{L} \left( \frac{V_{gs} - V_t}{2} \right) ( V_{gs} - V_t )
 $$
 
 整理得到你熟悉的 square-law 飽和電流：
 
 $$
-I_{dsat}
-=
-\frac{1}{2}\mu C_{ox}\frac{W}{L}(V_{gs}-V_t)^2
+I_{dsat} = \frac{1}{2} \mu C_{ox} \frac{W}{L} ( V_{gs} - V_t )^2
 $$
 
 ---
