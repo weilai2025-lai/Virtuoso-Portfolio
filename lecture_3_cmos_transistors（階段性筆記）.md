@@ -1811,10 +1811,10 @@ GND
 所謂的 **High Field**，並不只指一種電場，而是包含兩個方向：
 
 - **垂直電場（vertical field）**
-  - 由 gate 電壓 V<sub>gs</sub> 造成
+  - 由 gate 電壓 $V_{gs}$ 造成
   - 影響電子被壓到 Si–SiO₂ 界面的程度
 - **橫向電場（lateral field）**
-  - 由 V<sub>ds</sub>/L 造成
+  - 由 $V_{ds}/L$ 造成
   - 直接推動電子沿著通道移動
 
 High field effects 指的是：  
@@ -1829,7 +1829,7 @@ High field effects 指的是：
 
 以 NMOS 為例：
 
-- 增加 V<sub>gs</sub>
+- 增加 $V_{gs}$
   - 會吸引 **更多電子** 到通道（反轉層）
   - 這件事本身是「好事」，因為通道電荷 Q 變多
 
@@ -1858,9 +1858,7 @@ High field effects 指的是：
 - 電子平均下來「比較跑不動」
 - 在模型中等效為：
   
-\[
-\mu \downarrow
-\]
+$$\mu \downarrow$$
 
 因此 mobility degradation 並不是：
 
@@ -1874,12 +1872,10 @@ High field effects 指的是：
 
 可以用你前面已經熟悉的觀念來理解：
 
-\[
-I \sim Q \times (\text{電子移動效率})
-\]
+$$I \sim Q \times (\text{電子移動效率})$$
 
-- V<sub>gs</sub> ↑  
-  → Q ↑（通道電子變多）
+- $V_{gs}$ ↑  
+  → $Q$ ↑（通道電子變多）
 - 但同時  
   → μ ↓（電子移動變慢）
 
@@ -1896,18 +1892,16 @@ Velocity saturation 來自 **橫向電場過大**，
 
 當：
 
-\[
-E \approx \frac{V_{ds}}{L}
-\]
+$$E \approx \frac{V_{ds}}{L}$$
 
 變得非常大（例如短通道或高 V<sub>ds</sub>）時：
 
 - 電子速度不再隨電場線性增加
-- 而是趨近一個最大值 v<sub>sat</sub>
+- 而是趨近一個最大值 $v_{sat}$
 
 這代表：
 
-> 就算再增加 V<sub>ds</sub>，  
+> 就算再增加 $V_{ds}$，  
 > 電子也無法跑得更快。
 
 ---
