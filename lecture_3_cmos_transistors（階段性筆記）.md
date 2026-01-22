@@ -2896,57 +2896,49 @@ $$
 速度飽和模型的關鍵要求是：
 
 > 在低電場、長通道極限下，  
-> 必須自然退化回我們熟悉的 square-law（bulk charge）模型。
+> 必須自然退化回我們熟悉的 square-law （ bulk charge ）模型。
 
 我們從速度飽和下的完整飽和電流式出發：
 
 $$
-I_{dsat}
-=
-W C_{ox} v_{sat}
-\frac{(V_{gs}-V_t)^2}{V_{gs}-V_t+V_c}
+I_{dsat} = W C_{ox} v_{sat} \frac{( V_{gs} - V_t )^2}{V_{gs} - V_t + V_c}
 $$
 
 ---
 
 ##### （一）長通道 / 低電場極限
 
-當通道很長、臨界電壓很大時：
+當通道很長、臨界電壓很時：
 
 $$
-V_c \gg V_{gs}-V_t
+V_c \gg V_{gs} - V_t
 $$
 
 分母可近似為：
 
 $$
-V_{gs}-V_t+V_c \approx V_c
+V_{gs} - V_t + V_c \approx V_c
 $$
 
 因此：
 
 $$
-I_{dsat}
-\approx
-W C_{ox} v_{sat}
-\frac{(V_{gs}-V_t)^2}{V_c}
+I_{dsat} \approx W C_{ox} v_{sat} \frac{( V_{gs} - V_t )^2}{V_c}
 $$
 
 再代入臨界電壓定義：
 
 $$
-V_c = \frac{2 v_{sat}}{\mu}L
+V_c = \frac{2 v_{sat}}{\mu} L
 $$
 
 得到：
 
 $$
-I_{dsat}
-\approx
-\frac{1}{2}\mu C_{ox}\frac{W}{L}(V_{gs}-V_t)^2
+I_{dsat} \approx \frac{1}{2} \mu C_{ox} \frac{W}{L} ( V_{gs} - V_t )^2
 $$
 
-這正是 **long-channel bulk charge model 的 square-law 飽和電流式**。
+這正是 **long-channel bulk charge model 的 square-law 飽和電流式** 。
 
 ---
 
@@ -2955,25 +2947,23 @@ $$
 當通道很短、電場很強時：
 
 $$
-V_{gs}-V_t \gg V_c
+V_{gs} - V_t \gg V_c
 $$
 
-此時分母由 $(V_{gs}-V_t)$ 主導：
+此時分母由 $( V_{gs} - V_t )$ 主導：
 
 $$
-V_{gs}-V_t+V_c \approx V_{gs}-V_t
+V_{gs} - V_t + V_c \approx V_{gs} - V_t
 $$
 
 因此速度飽和模型退化為：
 
 $$
-I_{dsat}
-\approx
-W C_{ox} v_{sat}(V_{gs}-V_t)
+I_{dsat} \approx W C_{ox} v_{sat} ( V_{gs} - V_t )
 $$
 
 電流不再呈平方成長，
-而是 **線性依賴 overdrive voltage**。
+而是 **線性依賴 overdrive voltage** 。
 
 ---
 
