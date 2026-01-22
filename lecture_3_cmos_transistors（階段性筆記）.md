@@ -1885,9 +1885,7 @@ $$I \sim Q \times (\text{電子移動效率})$$
 
 因此定義為：
 
-$$
-I = \frac{Q}{t}
-$$
+$$I = \frac{Q}{t}$$
 
 其中：
 - $Q$：通道中可參與導通的總電荷量
@@ -1898,9 +1896,7 @@ $$
 ### 載子穿越通道的時間從哪來？
 在前面的 carrier velocity 模型中，我們已經推過：
 
-$$
-t = \frac{L}{v}
-$$
+$$t = \frac{L}{v}$$
 
 其中：
 - $L$：通道長度
@@ -1911,9 +1907,7 @@ $$
 ### 代回電流定義
 將 $t = L / v$ 代回 $I = Q / t$：
 
-$$
-I = \frac{Q}{L/v} = Q \cdot \frac{v}{L}
-$$
+$$I = \frac{Q}{L/v} = Q \cdot \frac{v}{L}$$
 
 因此可以看出：
 
@@ -1926,9 +1920,7 @@ $$
 ### 為什麼可以寫成 $I \sim Q \times (\text{電子移動效率})$？
 因為在 low-field 假設下：
 
-$$
-v = \mu E
-$$
+$$v = \mu E$$
 
 而在討論「趨勢與直覺」時，  
 我們可以把 $v$ 的角色理解為：
@@ -1937,14 +1929,10 @@ $$
 
 因此：
 
-$$
-I \sim Q \times (\text{電子移動效率})
-$$
+$$I \sim Q \times (\text{電子移動效率})$$
 
 這只是把
-$$
-I \propto Q \cdot v \quad (\text{或 } Q \cdot \mu)
-$$
+$$I \propto Q \cdot v \quad (\text{或 } Q \cdot \mu)$$
 用直覺語言重新表達，而非引入新的物理模型。
 
 - $V_{gs}$ ↑  
