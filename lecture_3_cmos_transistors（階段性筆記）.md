@@ -2506,7 +2506,7 @@ $$
 最後把 $V_{ds}$ 提出來（整理成你熟悉的形式）：
 
 $$
-\end{aligned}
+I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
 $$
 
 並由 drain 端反轉電荷歸零（ pinch-off ）得到：
