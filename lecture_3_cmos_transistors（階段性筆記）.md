@@ -2210,7 +2210,7 @@ $$
 
 本節目的：  
 在維持原本 Linear I–V 架構下，將「高橫向電場時速度不再線性增加」的效應，  
-等效成 **\(\mu\) 不再是常數**，而是變成一個會隨 \(V_{ds}\) 被壓縮的有效遷移率。
+等效成 ** $\mu$ ** 不再是常數，而是變成一個會隨 $V_{ds}$ 被壓縮的有效遷移率。
 
 ---
 
@@ -2218,9 +2218,9 @@ $$
 
 通道內橫向電場（平均近似）為：
 
-\[
+$$
 E_{lat} \approx \frac{V_{ds}}{L}
-\]
+$$
 
 ---
 
@@ -2228,9 +2228,9 @@ E_{lat} \approx \frac{V_{ds}}{L}
 
 低電場時，載子漂移速度：
 
-\[
+$$
 v = \mu E_{lat}
-\]
+$$
 
 但在高電場下，這個線性關係會失效（速度開始 roll-off）。
 
@@ -2238,64 +2238,56 @@ v = \mu E_{lat}
 
 #### Step 3：引入速度飽和的「過渡模型」（投影片的 better model）
 
-投影片用一個可平滑過渡到飽和速度的模型（在 \(E < E_c\) 時）：
+投影片用一個可平滑過渡到飽和速度的模型（在 $E < E_c$ 時）：
 
-\[
-v(E)=\frac{\mu_{\text{eff}}E}{1+\frac{E}{E_c}}
-\]
+$$
+v(E) = \frac{\mu_{\text{eff}} E}{1 + \frac{E}{E_c}}
+$$
 
 其中：
 
-- \(\mu_{\text{eff}}\)：有效遷移率（在高場下會比理想值小）
-- \(E_c\)：臨界電場（critical electric field）
+- $\mu_{\text{eff}}$ ：有效遷移率（在高場下會比理想值小）
+- $E_c$ ：臨界電場（critical electric field）
 
 ---
 
-#### Step 4：把 \(E\) 換成 \(V_{ds}\)（用 \(E_{lat}=\frac{V_{ds}}{L}\)）
+#### Step 4：把 $E$ 換成 $V_{ds}$ （用 $E_{lat} = \frac{V_{ds}}{L}$ ）
 
-代入 \(E=\frac{V_{ds}}{L}\)：
+代入 $E = \frac{V_{ds}}{L}$ ：
 
-\[
-v
-=
-\frac{\mu_{\text{eff}}\left(\frac{V_{ds}}{L}\right)}
-{1+\frac{\frac{V_{ds}}{L}}{E_c}}
-\]
+$$
+v = \frac{\mu_{\text{eff}} \left( \frac{V_{ds}}{L} \right)}{1 + \frac{\frac{V_{ds}}{L}}{E_c}}
+$$
 
 先把分母整理：
 
-\[
-\frac{\frac{V_{ds}}{L}}{E_c}=\frac{V_{ds}}{E_cL}
-\]
+$$
+\frac{\frac{V_{ds}}{L}}{E_c} = \frac{V_{ds}}{E_c L}
+$$
 
 定義「臨界電壓」：
 
-\[
-V_c \triangleq E_cL
-\]
+$$
+V_c \triangleq E_c L
+$$
 
 因此：
 
-\[
-\frac{V_{ds}}{E_cL}=\frac{V_{ds}}{V_c}
-\]
+$$
+\frac{V_{ds}}{E_c L} = \frac{V_{ds}}{V_c}
+$$
 
 代回得到：
 
-\[
-v
-=
-\frac{\mu_{\text{eff}}\left(\frac{V_{ds}}{L}\right)}
-{1+\frac{V_{ds}}{V_c}}
-=
-\left(\frac{\mu_{\text{eff}}}{1+\frac{V_{ds}}{V_c}}\right)\frac{V_{ds}}{L}
-\]
+$$
+v = \frac{\mu_{\text{eff}} \left( \frac{V_{ds}}{L} \right)}{1 + \frac{V_{ds}}{V_c}} = \left( \frac{\mu_{\text{eff}}}{1 + \frac{V_{ds}}{V_c}} \right) \frac{V_{ds}}{L}
+$$
 
 到這一步，你可以把它讀成：
 
-> 原本的 \(v=\mu\frac{V_{ds}}{L}\)，  
-> 現在變成 \(v=\mu_{\text{eff,eq}}\frac{V_{ds}}{L}\)，其中  
-> \(\mu_{\text{eff,eq}}=\frac{\mu_{\text{eff}}}{1+\frac{V_{ds}}{V_c}}\)
+> 原本的 $v = \mu \frac{V_{ds}}{L}$ ，  
+> 現在變成 $v = \mu_{\text{eff,eq}} \frac{V_{ds}}{L}$ ，其中  
+> $\mu_{\text{eff,eq}} = \frac{\mu_{\text{eff}}}{1 + \frac{V_{ds}}{V_c}}$
 
 ---
 
@@ -2303,56 +2295,47 @@ v
 
 在 bulk charge model 的線性區近似中，通道平均有效 overdrive 仍採：
 
-\[
-V_{\text{eff}} \approx V_{gs}-V_t-\frac{V_{ds}}{2}
-\]
+$$
+V_{\text{eff}} \approx V_{gs} - V_t - \frac{V_{ds}}{2}
+$$
 
 而 Linear I–V 的結構本質是：
 
-\[
-I_{ds}
-\propto
-(\text{charge term}) \times (\text{drift term})
-\]
+$$
+I_{ds} \propto (\text{charge term}) \times (\text{drift term})
+$$
 
 在低場模型下，電流可寫成：
 
-\[
-I_{ds}
-=
-\mu C_{ox}\frac{W}{L}
-\left(V_{gs}-V_t-\frac{V_{ds}}{2}\right)V_{ds}
-\]
+$$
+I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
 
-現在只要把原本的 \(\mu\) 換成「被高場壓縮後的等效遷移率」：
+現在只要把原本的 $\mu$ 換成「被高場壓縮後的等效遷移率」：
 
-\[
-\mu \;\Rightarrow\; \frac{\mu_{\text{eff}}}{1+\frac{V_{ds}}{V_c}}
-\]
+$$
+\mu \Rightarrow \frac{\mu_{\text{eff}}}{1 + \frac{V_{ds}}{V_c}}
+$$
 
 即可得到修正版線性區電流：
 
-\[
-I_{ds}
-=
-\left(\frac{\mu_{\text{eff}}}{1+\frac{V_{ds}}{V_c}}\right)
-C_{ox}\frac{W}{L}
-\left(V_{gs}-V_t-\frac{V_{ds}}{2}\right)V_{ds}
-\]
+$$
+I_{ds} = \left( \frac{\mu_{\text{eff}}}{1 + \frac{V_{ds}}{V_c}} \right) C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
 
-這就是投影片在 Linear Region（\(V_{ds}<V_{dsat}\)）所寫的那條式子。
+這就是投影片在 Linear Region（ $V_{ds} < V_{dsat}$ ）所寫的那條式子。
 
 ---
 
 #### 本節重點（和你第 24 章的結論完全對齊）
 
 - 你原本的 Linear I–V 架構不變：  
-  \(\;C_{ox}\frac{W}{L}(\cdots)V_{ds}\)
-- 真正「被修正」的是 \(\mu\) 的表達式：  
-  低電場：\(\mu\) 當常數  
-  高電場：\(\mu \rightarrow \frac{\mu_{\text{eff}}}{1+\frac{V_{ds}}{V_c}}\)
+  $C_{ox} \frac{W}{L} ( \cdots ) V_{ds}$
+- 真正「被修正」的是 $\mu$ 的表達式：  
+  低電場： $\mu$ 當常數  
+  高電場： $\mu \rightarrow \frac{\mu_{\text{eff}}}{1 + \frac{V_{ds}}{V_c}}$
 
 也就是：  
-> **高 \(V_{ds}\) 會讓速度（或等效 \(\mu\)）roll-off，  
-> 因此電流不再像理想模型那樣隨 \(V_{ds}\) 成比例增長。**
+> **高 $V_{ds}$ 會讓速度（或等效 $\mu$ ）roll-off，  
+> 因此電流不再像理想模型那樣隨 $V_{ds}$ 成比例增長。**
 
