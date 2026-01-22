@@ -297,24 +297,24 @@ $I_{ds} > 0$
 ### 10.4 總結段落
 
 **PMOS 版本：**
-> 以 PMOS 為例，在輸出由 0 充電至 $V_{DD}$ 的切換期間，Source 端維持在 $V_{DD}$，而 Drain 端電腳尚未上升完成，因此 $V_{D}$ < $V_{S}$，使得 $V_{DS}$ = $V_{D}$ - $V_{S}$ < 0。
+> 以 PMOS 為例，在輸出由 0 充電至 $V_{DD}$ 的切換期間，Source 端維持在 $V_{DD}$ ，而 Drain 端電腳尚未上升完成，因此 $V_d < V_s$ ，使得 $V_{ds} = V_d - V_s < 0$ 。
 >
-> 此時實際正電流由 Source 流向 Drain，但由於 Ids 的正方向定義為 Drain → Source，因此量測到的 $I_{DS}$ 為負值。
-> 當輸出電壓上升至與 Source 對齊後，$V_{DS}$ → 0，電流隨即消失，系統進入穩態。
+> 此時實際正電流由 Source 流向 Drain，但由於 $I_{ds}$ 的正方向定義為 Drain → Source，因此量測到的 $I_{ds}$ 為負值。
+> 當輸出電壓上升至與 Source 對齊後， $V_{ds} \rightarrow 0$ ，電流隨即消失，系統進入穩態。
 
 **NMOS 版本：**
-> 以 NMOS 為例，在輸出由 $V_{DD}$ 放電至 0 的切換期間，Source 端維持在 0 V，而 Drain 端電壓尚未下降完成，因此 $V_{D}$ > $V_{S}$，使得 $V_{DS}$ = $V_{D}$ - $V_{S}$ > 0。
+> 以 NMOS 為例，在輸出由 $V_{DD}$ 放電至 0 的切換期間，Source 端維持在 0 V，而 Drain 端電壓尚未下降完成，因此 $V_d > V_s$ ，使得 $V_{ds} = V_d - V_s > 0$ 。
 >
-> 此時電子實際由 Source 流向 Drain，而傳統正電流方向為 Drain → Source；由於 Ids 的正方向亦定義為 Drain → Source，因此量測到的 $I_{DS}$ 為正值。
-> 當輸出電壓下降至與 Source 對齊後，$V_{DS}$ → 0，電流隨即消失，系統進入穩態。
+> 此時電子實際由 Source 流向 Drain，而傳統正電流方向為 Drain → Source；由於 $I_{ds}$ 的正方向亦定義為 Drain → Source，因此量測到的 $I_{ds}$ 為正值。
+> 當輸出電壓下降至與 Source 對齊後， $V_{ds} \rightarrow 0$ ，電流隨即消失，系統進入穩態。
 
 ---
 
 ### 10.5 一句話封印整個觀念
 
 > **只要輸出還沒和 Source 對齊，就一定有電流；**
-> **Source 是低端（NMOS）→ Vds、Ids 為正；**
-> **Source 是高端（PMOS）→ Vds、Ids 為負。**
+> **Source 是低端（NMOS）→ $V_{ds}$ 、 $I_{ds}$ 為正；**
+> **Source 是高端（PMOS）→ $V_{ds}$ 、 $I_{ds}$ 為負。**
 
 ---
 
