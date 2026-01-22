@@ -509,19 +509,19 @@ $$
 \end{aligned}
 $$
 
-將上式再代回 V_{gc,\text{mid}}：
+將上式再代回 $V_{gc,\text{mid}}$ ：
 
 $$
 \begin{aligned}
 V_{gc,\text{mid}}
-&= V_g - \left( V_s + \frac{V_d - V_s}{2} \right) \
+&= V_g - \left( V_s + \frac{V_d - V_s}{2} \right) \\
 &= (V_g - V_s) - \frac{V_d - V_s}{2}
 \end{aligned}
 $$
 
 最後用端點電壓定義：
-- $V_{gs}$ = $V_{g}$ - $V_{s}$
-- $V_{ds}$ = $V_{d}$ - $V_{s}$
+- $V_{gs} = V_g - V_s$ 
+- $V_{ds} = V_d - V_s$ 
 
 代入得：
 
@@ -2506,13 +2506,86 @@ $$
 最後把 $V_{ds}$ 提出來（整理成你熟悉的形式）：
 
 $$
-I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+I_{ds}
+=
+\mu C_{ox}\frac{W}{L}
+\left( V_{gs}-V_t-\frac{V_{ds}}{2} \right)V_{ds}
 $$
 
-並由 drain 端反轉電荷歸零（ pinch-off ）得到：
+---
+
+接著補上「飽和條件」與「飽和電流」的完整收尾，避免筆記讀起來沒頭沒尾。
+
+#### (a) 為什麼飽和點是 $V_{dsat}=V_{gs}-V_t$？
+
+在 bulk charge / 漸變通道假設下，通道在位置 $x$ 的線電荷密度為：
 
 $$
-V_{dsat} = V_{gs} - V_t
+Q'(x)=C_{ox}W\left( V_{gs}-V_t-V(x) \right)
+$$
+
+飽和（pinch-off）邊界的定義是：**drain 端的反轉電荷剛好降為 0**，也就是在 $x=L$：
+
+$$
+Q'(L)=0
+$$
+
+而 drain 端通道電位 $V(L)=V_{ds}$，代入：
+
+$$
+0=C_{ox}W\left( V_{gs}-V_t-V_{ds} \right)
+$$
+
+因此得到飽和邊界電壓：
+
+$$
+V_{dsat}=V_{gs}-V_t
+$$
+
+---
+
+#### (b) 把 $V_{ds}=V_{dsat}$ 代回線性區電流式，得到飽和電流 $I_{dsat}$
+
+從線性區電流式出發：
+
+$$
+I_{ds}
+=
+\mu C_{ox}\frac{W}{L}
+\left( V_{gs}-V_t-\frac{V_{ds}}{2} \right)V_{ds}
+$$
+
+在飽和邊界令 $V_{ds}=V_{dsat}=V_{gs}-V_t$，則括號內變成：
+
+$$
+V_{gs}-V_t-\frac{V_{dsat}}{2}
+=
+V_{gs}-V_t-\frac{V_{gs}-V_t}{2}
+=
+\frac{V_{gs}-V_t}{2}
+$$
+
+同時外面的 $V_{ds}$ 也變成：
+
+$$
+V_{ds}=V_{dsat}=V_{gs}-V_t
+$$
+
+所以飽和電流為：
+
+$$
+I_{dsat}
+=
+\mu C_{ox}\frac{W}{L}
+\left( \frac{V_{gs}-V_t}{2} \right)(V_{gs}-V_t)
+$$
+
+整理得到你熟悉的 square-law 飽和電流：
+
+$$
+I_{dsat}
+=
+\frac{1}{2}\mu C_{ox}\frac{W}{L}(V_{gs}-V_t)^2
 $$
 
 ---
