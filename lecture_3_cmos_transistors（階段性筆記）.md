@@ -2373,9 +2373,9 @@ $$
 
 電流的本質是：
 
-\[
+$$
 I = \frac{Q}{t}
-\]
+$$
 
 也就是：
 
@@ -2387,27 +2387,27 @@ I = \frac{Q}{t}
 
 #### 24.6.2 時間從哪裡來？（載子如何通過通道）
 
-電子要通過一條長度為 \(L\) 的通道，需要時間：
+電子要通過一條長度為 $L$ 的通道，需要時間：
 
-\[
+$$
 t = \frac{L}{v}
-\]
+$$
 
 其中：
-- \(L\)：通道長度
-- \(v\)：電子在通道中的平均漂移速度
+- $L$ ：通道長度
+- $v$ ：電子在通道中的平均漂移速度
 
 代回電流定義：
 
-\[
+$$
 I = \frac{Q}{L/v} = Q \cdot \frac{v}{L}
-\]
+$$
 
 這一步非常關鍵，因為它告訴我們：
 
 > **電流大小，永遠由兩件事共同決定：**
-> 1. 通道裡「有多少電荷」 \(Q\)
-> 2. 電子「跑得有多快」 \(v\)
+> 1. 通道裡「有多少電荷」 $Q$ 
+> 2. 電子「跑得有多快」 $v$ 
 
 ---
 
@@ -2417,24 +2417,21 @@ I = \frac{Q}{L/v} = Q \cdot \frac{v}{L}
 
 1️⃣ 通道電荷來自 bulk charge model：
 
-\[
-Q \sim C_{ox}WL\bigl(V_{gc}-V_t\bigr)
-\]
+$$
+Q \sim C_{ox} WL ( V_{gc} - V_t )
+$$
 
 2️⃣ 電子速度與橫向電場呈線性關係（低電場假設）：
 
-\[
-v = \mu E
-\quad,\quad
-E \approx \frac{V_{ds}}{L}
-\]
+$$
+v = \mu E \quad , \quad E \approx \frac{V_{ds}}{L}
+$$
 
 代入後，自然得到：
 
-\[
-I \propto Q \cdot v
-\propto \bigl(V_{gs}-V_t-\tfrac{V_{ds}}{2}\bigr)V_{ds}
-\]
+$$
+I \propto Q \cdot v \propto ( V_{gs} - V_t - \frac{V_{ds}}{2} ) V_{ds}
+$$
 
 這就是 square-law 線性區與飽和區的來源。
 
@@ -2444,20 +2441,20 @@ I \propto Q \cdot v
 
 現在請注意一件非常重要的事：
 
-> **Square-law 失效，並不是因為 \(Q\) 的推導錯了。**
+> **Square-law 失效，並不是因為 $Q$ 的推導錯了。**
 
 通道電荷：
 - 仍然由 gate 電壓控制
-- 仍然可以用 \(Q = CV\) 理解
+- 仍然可以用 $Q = CV$ 理解
 - 在短通道下仍然「大致成立」
 
 真正先出問題的是：
 
-> ❌ **電子速度 \(v\) 不再能無限制地隨電場增加**
+> ❌ **電子速度 $v$ 不再能無限制地隨電場增加**
 
 也就是：
-- \(\mu\) 不能再被當成常數
-- \(v = \mu E\) 不再永遠成立
+- $\mu$ 不能再被當成常數
+- $v = \mu E$ 不再永遠成立
 
 ---
 
@@ -2472,17 +2469,17 @@ I \propto Q \cdot v
 
 #### 24.7.1 為什麼電子速度會飽和？
 
-當通道很短、\(V_{ds}\) 很大時：
+當通道很短、 $V_{ds}$ 很大時：
 
-- 橫向電場 \(E = V_{ds}/L\) 會變得非常大
+- 橫向電場 $E = V_{ds}/L$ 會變得非常大
 - 電子與晶格碰撞頻率急遽上升
 - 電子無法再有效加速
 
 結果是：
 
-\[
+$$
 v \rightarrow v_{sat}
-\]
+$$
 
 也就是電子速度**趨近一個上限值**，而不是繼續線性成長。
 
@@ -2492,18 +2489,17 @@ v \rightarrow v_{sat}
 
 為了同時涵蓋低電場與高電場，常用模型寫成：
 
-\[
-v(E) =
-\frac{\mu_{\text{eff}} E}{1 + \dfrac{E}{E_c}}
-\]
+$$
+v(E) = \frac{\mu_{\text{eff}} E}{1 + \dfrac{E}{E_c}}
+$$
 
 其中：
-- \(E_c\)：臨界電場（critical field）
-- \(\mu_{\text{eff}}\)：低電場下的有效遷移率
+- $E_c$ ：臨界電場（critical field）
+- $\mu_{\text{eff}}$ ：低電場下的有效遷移率
 
 這個式子自動滿足：
-- \(E \ll E_c \Rightarrow v \approx \mu_{\text{eff}} E\)
-- \(E \gg E_c \Rightarrow v \approx \mu_{\text{eff}} E_c = v_{sat}\)
+- $E \ll E_c \Rightarrow v \approx \mu_{\text{eff}} E$ 
+- $E \gg E_c \Rightarrow v \approx \mu_{\text{eff}} E_c = v_{sat}$ 
 
 ---
 
@@ -2511,38 +2507,37 @@ v(E) =
 
 由於通道中的平均橫向電場近似為：
 
-\[
+$$
 E \approx \frac{V_{ds}}{L}
-\]
+$$
 
 因此對應的臨界電壓自然定義為：
 
-\[
+$$
 V_c \triangleq E_c \cdot L
-\]
+$$
 
 這一步不是新假設，只是把「電場門檻」改用「電壓尺度」表達。
 
 ---
 
-#### 24.7.4 回到電流定義：I = Q · v / L
+#### 24.7.4 回到電流定義： $I = Q \cdot v / L$ 
 
 現在我們把**修正後的速度模型**代回最原始的電流關係：
 
-\[
+$$
 I = Q \cdot \frac{v}{L}
-\]
+$$
 
 其中：
-- \(Q\)：仍由 bulk charge model 決定
-- \(v\)：改用速度飽和模型
+- $Q$ ：仍由 bulk charge model 決定
+- $v$ ：改用速度飽和模型
 
 也就是：
 
-\[
-v \approx
-\frac{\mu_{\text{eff}}(V_{ds}/L)}{1+\dfrac{V_{ds}}{V_c}}
-\]
+$$
+v \approx \frac{\mu_{\text{eff}} ( V_{ds} / L )}{1 + \dfrac{V_{ds}}{V_c}}
+$$
 
 ---
 
@@ -2550,25 +2545,18 @@ v \approx
 
 將上述速度代入，你會發現：
 
-> **等效上，只是把 square-law 中的 \(\mu\)，  
-> 換成一個會被 \(V_{ds}\) 壓縮的有效值**
+> **等效上，只是把 square-law 中的 $\mu$ ，  
+> 換成一個會被 $V_{ds}$ 壓縮的有效值**
 
-\[
-\mu
-\;\longrightarrow\;
-\frac{\mu_{\text{eff}}}{1+\dfrac{V_{ds}}{V_c}}
-\]
+$$
+\mu \longrightarrow \frac{\mu_{\text{eff}}}{1 + \dfrac{V_{ds}}{V_c}}
+$$
 
 因此修正後的線性區電流寫成：
 
-\[
-I_{ds}
-=
-\frac{\mu_{\text{eff}}}{1+\dfrac{V_{ds}}{V_c}}
-\;
-C_{ox}\frac{W}{L}
-\left(V_{gs}-V_t-\frac{V_{ds}}{2}\right)V_{ds}
-\]
+$$
+I_{ds} = \frac{\mu_{\text{eff}}}{1 + \dfrac{V_{ds}}{V_c}} C_{ox} \frac{W}{L} ( V_{gs} - V_t - \frac{V_{ds}}{2} ) V_{ds}
+$$
 
 這個式子自然包含了：
 - 低電場時回到 square-law
@@ -2579,7 +2567,7 @@ C_{ox}\frac{W}{L}
 > **重要提醒（你之後回來看用）：**  
 > 速度飽和模型不是推翻 square-law，  
 > 而是承認：  
-> 👉 \(Q\) 還在，但 \(v\) 不能再無限大。
+> 👉 $Q$ 還在，但 $v$ 不能再無限大。
 
 ### 24.8 速度飽和模型（Velocity Saturation）：從 Square-Law 自然延伸而來的完整推導
 
