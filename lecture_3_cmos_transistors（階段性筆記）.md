@@ -2410,7 +2410,7 @@ $$
 I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
 $$
 
-並由 drain 端反轉電荷歸零（pinch-off）得到：
+並由 drain 端反轉電荷歸零（ pinch-off ）得到：
 
 $$
 V_{dsat} = V_{gs} - V_t
