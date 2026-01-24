@@ -4304,7 +4304,7 @@ $$
 定義 subthreshold swing $S$ 為「電流增加一個 decade（10 倍）所需的 gate 電壓變化」：
 
 $$
-S \equiv \Delta V_{gs} = n \, \frac{kT}{q} \, \ln 10
+S \equiv \Delta V_{gs} = n \frac{kT}{q} \ln 10
 $$
 
 ---
@@ -4314,7 +4314,7 @@ $$
 由 $S$ 的定義可反推：
 
 $$
-n \, \frac{kT}{q} = \frac{S}{\ln 10}
+n \frac{kT}{q} = \frac{S}{\ln 10}
 $$
 
 代回一開始的指數模型：
