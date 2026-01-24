@@ -394,11 +394,6 @@ $$
 S \equiv \Delta V_{gs} = \frac{\ln 10}{m} = n \frac{kT}{q} \ln 10
 $$
 
-在室溫下（$kT/q \approx 26 \text{ mV}$）：
-
-$$
-S = n \cdot 26 \text{ mV} \cdot 2.3 \approx n \cdot 60 \text{ mV/decade}
-$$
 
 ---
 
