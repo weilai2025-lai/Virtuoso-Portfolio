@@ -3626,3 +3626,141 @@ Vt' = Vt − η · Vds
 - DIBL 加劇 short-channel 的 Vt roll-off
 - DIBL 是造成短通道電晶體 OFF-state leakage 的主要原因之一
 
+## 29. Halo Doping 與 Reverse Short Channel Effect（RSCE）
+
+本章說明：**Halo（Pocket）Doping 作為抑制 Short Channel Effect（SCE）與 DIBL 的製程手段，其物理效果與所引入的副作用——Reverse Short Channel Effect（RSCE）**。本章同時從「摻雜濃度」與「通道形成直覺」兩個角度，統一理解 RSCE 的來源。
+
+---
+
+### 29.1 為何需要 Halo Doping？
+
+在短通道 MOS 電晶體中：
+
+- Source / Drain 與 body 形成的 PN junction 耗盡區
+- 會向通道方向侵入
+- 導致 gate 對通道的電靜控制能力下降
+
+其後果包括：
+
+- Threshold voltage 隨 L 縮短而下降（SCE）
+- 高 Vds 時進一步惡化（DIBL）
+
+**Halo（Pocket）Doping** 的目的即是：
+
+> **在 Source / Drain 附近、通道底下局部提高 body 摻雜濃度，  
+> 以抑制耗盡區侵入通道。**
+
+---
+
+### 29.2 Halo Doping 如何抑制 SCE / DIBL？
+
+Halo Doping 的關鍵物理基礎為：
+
+- PN junction 的耗盡區寬度  
+  \[
+  W \propto \frac{1}{\sqrt{N}}
+  \]
+
+因此：
+
+- 在 Source / Drain 鄰近通道處引入 **P⁺ halo**
+- 提高局部 body 摻雜濃度
+- 使 S/D–body 接面的耗盡區變窄
+- 阻止耗盡區向通道中央延伸
+
+結果是：
+
+> **SCE 與 DIBL 得到有效抑制。**
+
+---
+
+### 29.3 RSCE 的實驗現象：Vt 在短 L 反而上升
+
+實際量測顯示：
+
+- 無 halo implant 時：
+  - 通道越短，Vt 持續下降（典型 SCE）
+- 有 halo implant 時：
+  - 在某一短通道區間內
+  - **Vt 反而隨 L 縮短而上升**
+
+此現象稱為：
+
+> **Reverse Short Channel Effect（RSCE）**
+
+---
+
+### 29.4 RSCE 的第一個理解角度：等效摻雜濃度（NA）的觀點
+
+在 Body Effect 中已知：
+
+- Body / channel 摻雜濃度 NA ↑
+- → 表面位能 φₛ ↑
+- → 需要更多 gate 電荷才能反轉
+- → Threshold voltage Vt ↑
+
+Halo Doping 在短通道下會導致：
+
+- 原本只存在於 Source / Drain 角落的 P⁺ halo
+- 因通道長度 L 縮短而佔據通道的主要比例
+- Gate 所控制的通道區域，其**平均（等效）摻雜濃度上升**
+
+因此：
+
+> **短 L → channel 等效 NA ↑ → Vt ↑**
+
+這裡的「等效摻雜」並非整條通道實際皆為 P⁺，  
+而是指 **gate 在電氣上所感受到的平均摻雜濃度變高**。
+
+---
+
+### 29.5 RSCE 的第二個理解角度：通道形成的直覺觀點
+
+除了摻雜濃度的數學描述，RSCE 亦可從「通道連通難度」來理解。
+
+在短通道且具有 halo implant 的情況下：
+
+- P⁺ halo 在通道兩側的實體寬度幾乎固定
+- 當 L 變短時，halo 區域在通道中所佔比例迅速增加
+- 對 gate 而言，通道連接 Source 與 Drain 時：
+  - 必須穿越更大比例的 **高摻雜 P⁺ 區域**
+
+因此可直覺地理解為：
+
+> **通道要形成連通，  
+> gate 需要克服更高的局部摻雜障礙，  
+> 必須付出更多電荷與電壓，  
+> 才能使整段通道反轉導通。**
+
+此直覺描述與前述的「等效摻雜濃度上升」在物理上完全一致。
+
+---
+
+### 29.6 Halo Doping 的完整因果關係總結
+
+Halo Doping 在短通道 MOS 中同時帶來正負效果：
+
+**正面效果**
+- 抑制 S/D 耗盡區侵入通道
+- 降低 SCE 與 DIBL
+- 改善 OFF-state leakage
+
+**副作用（RSCE）**
+- 短 L 時 channel 等效摻雜濃度上升
+- 通道反轉變得更困難
+- Threshold voltage 反而上升
+
+---
+
+### 29.7 本章重點整理
+
+- Halo（Pocket）Doping 是對抗 SCE / DIBL 的關鍵製程手段
+- Halo 透過提高局部 body 摻雜，抑制耗盡區擴張
+- 在短通道中，halo 區域佔據通道主要比例
+- Gate 所控制的有效通道呈現較高等效摻雜
+- Threshold voltage 在短 L 區間上升，形成 RSCE
+- RSCE 可同時從：
+  - 摻雜濃度（NA、φₛ）
+  - 通道形成難度（gate 需跨越高摻雜區）
+ 兩種觀點理解，兩者本質一致
+
