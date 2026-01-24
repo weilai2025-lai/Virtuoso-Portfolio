@@ -411,10 +411,11 @@ $$
 
 $S$ 越小，表示只要更小的 gate 電壓變化，就能讓漏電流下降一個量級，電晶體關得越乾淨。
 
-30.12 Subthreshold Swing（對照投影片的直覺解讀）
+### 30.12 Subthreshold Swing（對照投影片的直覺解讀）
 
 本節不再做數學推導，而是對照老師投影片的圖與逐字稿，整理每一個標示在圖上的物理意義。
 
+![alt text](ss_curve.png)
 ⸻
 
 (1) 為什麼要用 Log Scale 來看 Drain Current？
