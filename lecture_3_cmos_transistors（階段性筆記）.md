@@ -3384,4 +3384,111 @@ Vs < Vb  →  Vsb < 0
 - 理論上 PMOS γ 較大
 - 實務上 NMOS 更常受到體效應影響
 
+## 27. Short Channel Effect（短通道效應）
+
+本章說明：**當 MOS 電晶體的通道長度 L 縮短時，為何 threshold voltage（Vt）會下降，以及 gate 為何逐漸失去對通道的控制能力**。此現象稱為 Short Channel Effect（SCE），是短通道製程中的關鍵問題之一。
+
+---
+
+### 27.1 Short Channel Effect 的核心觀念
+
+在長通道（large L）MOS 電晶體中，通道底下的耗盡電荷主要由 **gate 電極** 來支撐，因此：
+
+- Gate 對 channel 具有良好的電靜控制能力
+- Threshold voltage 幾乎與通道長度 L 無關
+
+然而，當通道長度縮短時，這個假設會失效。
+
+---
+
+### 27.2 Source / Drain 耗盡區侵入通道
+
+在短通道電晶體中：
+
+- Source / Drain 與 body 形成的 PN junction 耗盡區
+- 不再只侷限於接面附近
+- 而是 **向通道中央延伸**
+
+結果是：
+
+> **Source / Drain 的耗盡區開始侵入原本屬於 channel 的區域**
+
+---
+
+### 27.3 耗盡電荷的「支撐者」改變
+
+Threshold voltage 的物理本質為：
+
+> **Gate 需要提供多少電荷，才能將矽表面反轉形成通道**
+
+在不同通道長度下，耗盡電荷的支撐來源不同：
+
+#### (1) Large L（長通道）
+
+- Source / Drain 耗盡區彼此距離遠
+- 通道中央的耗盡電荷
+  - 幾乎完全由 gate 來支撐
+- Gate 對 channel 具有完整控制能力
+
+---
+
+#### (2) Small L（短通道）
+
+- Source / Drain 耗盡區彼此接近
+- 耗盡區向通道中央延伸並重疊
+- 原本應由 gate 支撐的耗盡電荷
+  - **部分改由 Source / Drain 來分擔**
+
+關鍵結果是：
+
+> **Gate 對通道的電靜控制能力下降**
+
+---
+
+### 27.4 Short Channel Effect 對 Vt 的影響（Vt roll-off）
+
+由於 Source / Drain 分擔了部分耗盡電荷：
+
+- Gate 需要提供的電荷量減少
+- 通道更容易形成反轉
+
+因此：
+
+```
+通道長度 L ↓  →  Vt ↓
+```
+
+這種 **Vt 隨通道長度縮短而下降** 的現象稱為：
+
+> **Threshold voltage roll-off**
+
+---
+
+### 27.5 為何 Short Channel Effect 會導致漏電增加？
+
+當 Vt 因短通道效應下降時：
+
+- 即使 Gate 電壓為 0
+- 有效的 (Vgs − Vt) 變得較不負
+
+結果是：
+
+- 電晶體在 OFF 狀態下仍有顯著電流
+- **Subthreshold leakage 明顯增加**
+- 電晶體「無法完全關閉」
+
+因此 Short Channel Effect 是：
+
+> **短通道 CMOS 製程中的 critical drawback**
+
+---
+
+### 27.6 本章重點整理
+
+- Short Channel Effect 來自 Source / Drain 耗盡區侵入通道
+- 通道變短時，耗盡電荷不再完全由 gate 支撐
+- Gate 對 channel 的控制能力下降
+- Threshold voltage 隨通道長度縮短而下降（Vt roll-off）
+- Vt 下降導致 OFF-state leakage 增加
+- 本章僅討論 SCE 本身，**不包含 DIBL（另立一章說明）**
 
