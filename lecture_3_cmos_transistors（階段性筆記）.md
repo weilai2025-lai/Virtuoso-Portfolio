@@ -4342,94 +4342,158 @@ $$
 S 越小，表示只要更小的 gate 電壓變化，就能讓漏電流下降一個 decade，電晶體在 cutoff 區就越「關得乾淨」。
 
 
-### 30.11 Subthreshold Swing（逐步推導與模型簡化）
+30.11 Subthreshold Swing（逐步推導與模型簡化）
 
-> **本節目標：**  
-> 從指數型的漏電模型，推導出工程上最常用的 **Subthreshold Swing（S）**。  
-> 它的物理意義是：**「要讓漏電流下降一個量級（10 倍），Gate 電壓需要多關掉多少？」**
+本節目標：
+從指數型的漏電模型，推導出工程上最常用的 Subthreshold Swing（S）。
+物理意義：「漏電流變化一個 decade（10 倍），Gate 電壓需要改變多少？」
 
----
+⸻
 
-#### Step 1：回歸指數模型
-
-在 subthreshold 區域（ $V_{gs} < V_t$ ），漏電流公式如下：
+Step 1：從 subthreshold 的指數模型出發
+在 subthreshold 區域（V_{gs} < V_t），常用的漏電模型可寫成：
 
 $$
-I_{ds} = I_{ds0} \cdot \exp \left( \frac{V_{gs} - V_t}{n v_T} \right)
+I_{ds} = I_{ds0},\exp!\left(\frac{V_{gs}-V_t}{n,v_T}\right)
 $$
 
 其中：
-- $v_T = \frac{kT}{q} \approx 26 \text{ mV}$ (在室溫 300K 下)
-- $n$ 是下擺幅係數（subthreshold coefficient），通常 $n > 1$
+	•	熱電壓（thermal voltage）
+$$
+v_T \equiv \frac{kT}{q}
+$$
+	•	n：下擺幅係數（subthreshold coefficient，通常 n>1）
 
----
+⸻
 
-#### Step 2：定義 Subthreshold Swing ($S$)
-
-我們想知道當電流改變 10 倍時，$V_{gs}$ 的變化量（ $\Delta V_{gs}$ ）。這相當於對 $I_{ds}$ 取以 10 為底的對數後，求其變化的倒數。
-
-定義 $S$ 為：
+Step 2：把式子變成「直線」以方便定義斜率
+對兩邊取自然對數（\ln）：
 
 $$
-S = \ln(10) \cdot n \cdot \frac{kT}{q}
+\ln I_{ds} = \ln I_{ds0} + \frac{V_{gs}-V_t}{n,v_T}
 $$
 
----
-
-#### Step 3：常數帶入（為什麼會有 60 mV 這個數字？）
-
-讓我們帶入室溫下的數值來算算看：
-- $\ln(10) \approx 2.3$
-- $v_T = \frac{kT}{q} \approx 26 \text{ mV}$
+把 v_T=\frac{kT}{q} 代入：
 
 $$
-S = 2.3 \cdot n \cdot 26 \text{ mV} \approx n \cdot 60 \text{ mV/decade}
+\ln I_{ds} = \ln I_{ds0} + \frac{q}{n kT}(V_{gs}-V_t)
 $$
 
-**物理直覺：**
-> 如果是一個「完美的電晶體」（ $n=1$ ），每關掉 **60 mV** 的 Gate 電壓，漏電流就會下降 **10 倍**。
-> 在現實中，$n$ 通常大於 1（例如 1.3 ~ 1.5），所以 $S$ 通常落在 **80 ~ 100 mV/decade** 之間。
-
----
-
-#### Step 4：改寫成以 10 為底的工程公式
-
-為了方便計算，我們利用 $e^{\ln(10) \cdot x} = 10^x$ 的性質，將原本的自然指數公式改寫。
-
-已知 $\frac{1}{n v_T} = \frac{\ln(10)}{S}$，代入原式：
+展開並把「不隨 V_{gs} 變化」的項合併成常數 A：
 
 $$
-I_{ds} = I_{ds0} \cdot \exp \left( \ln(10) \cdot \frac{V_{gs} - V_t}{S} \right)
+\begin{aligned}
+\ln I_{ds}
+&= \left(\ln I_{ds0}-\frac{q}{n kT}V_t\right) + \frac{q}{n kT}V_{gs} \
+&\equiv A + \frac{q}{n kT}V_{gs}
+\end{aligned}
 $$
 
-得到最終最常用的工程形式：
+因此得到一條「\ln I_{ds} 對 V_{gs} 的直線」：
 
 $$
-\boxed{I_{ds} = I_{ds0} \cdot 10^{\frac{V_{gs} - V_t}{S}}}
+\ln I_{ds} = A + m V_{gs},
+\qquad
+m \equiv \frac{q}{n kT}
 $$
 
----
+⸻
 
-#### Step 5：這個公式怎麼讀？（一眼判定漏電量）
+Step 3：定義「電流變 10 倍」所需的 \Delta V_{gs}
+「電流增加 10 倍」定義為：
 
-這個形式非常直覺，它告訴我們：
+$$
+I’{ds} = 10,I{ds}
+$$
 
-1. **當 $V_{gs} = V_t$ 時**：
-   $I_{ds} = I_{ds0} \cdot 10^0 = I_{ds0}$。這再次驗證了 $I_{ds0}$ 是基準電流。
+同時令 gate 電壓增加：
 
-2. **當 $V_{gs}$ 比 $V_t$ 低了 3 個 $S$ 時**：
-   (例如 $V_{gs} - V_t = -300 \text{ mV}$, 而 $S = 100 \text{ mV}$)
-   $I_{ds} = I_{ds0} \cdot 10^{-3}$。代表漏電流縮小了 1000 倍。
+$$
+V’{gs} = V{gs} + \Delta V_{gs}
+$$
 
----
+新狀態也必須落在同一條直線上：
 
-### 30.11 總結：如何減少漏電？
+$$
+\ln(10 I_{ds}) = A + m,(V_{gs} + \Delta V_{gs})
+$$
 
-根據上述公式，要減少 OFF-state 的漏電（ $V_{gs}=0$ 時的電流 ），設計者有三個手段：
+用對數性質：
 
-1. **提高 $V_t$**：
-   讓指數項的分子更負（最直接，但會犧牲切換速度）。
-2. **減小 $S$（優化製程結構）**：
-   讓 $n$ 靠近 1（例如使用 FinFET 或 GAA 結構讓 Gate 控制力變強），讓電流在關閉時下降得更快。
-3. **降低溫度 ($T$)**：
-   $v_T$ 變小，$S$ 就會隨之變小（變陡），漏電也隨之下降。這就是為什麼晶片過熱時，靜態功耗會飆升。
+$$
+\ln(10 I_{ds}) = \ln 10 + \ln I_{ds}
+$$
+
+代入並與原本的 \ln I_{ds} = A + mV_{gs} 相減：
+
+$$
+\begin{aligned}
+\ln 10 + \ln I_{ds} &= A + mV_{gs} + m\Delta V_{gs} \
+\ln 10 + (A + mV_{gs}) &= A + mV_{gs} + m\Delta V_{gs} \
+\ln 10 &= m\Delta V_{gs}
+\end{aligned}
+$$
+
+所以：
+
+$$
+\Delta V_{gs} = \frac{\ln 10}{m}
+= \ln 10 \cdot \frac{n kT}{q}
+$$
+
+⸻
+
+Step 4：Subthreshold Swing 的最終公式（S）
+定義 subthreshold swing S 為「電流變化一個 decade（10 倍）所需的 gate 電壓變化」：
+
+$$
+S \equiv \Delta V_{gs} = n,\frac{kT}{q}\ln 10
+$$
+
+⸻
+
+Step 5：工程常用的「以 10 為底」表示式
+由 S 的定義可得：
+
+$$
+n\frac{kT}{q} = \frac{S}{\ln 10}
+$$
+
+代回原本的指數模型：
+
+$$
+\exp!\left(\frac{V_{gs}-V_t}{n kT/q}\right)
+= \exp!\left(\frac{(V_{gs}-V_t)\ln 10}{S}\right)
+$$
+
+使用恆等式：
+
+$$
+e^{x\ln 10} = 10^x
+$$
+
+得到常用的工程式：
+
+$$
+I_{ds} \approx I_{ds0}\cdot 10^{\frac{V_{gs}-V_t}{S}}
+$$
+
+⸻
+
+Step 6：為什麼室溫常看到「60 mV/dec」？
+在室溫 T\approx 300\text{ K}：
+	•	\ln 10 \approx 2.3
+	•	\dfrac{kT}{q} \approx 26\text{ mV}
+
+因此：
+
+$$
+S = \ln(10)\cdot n \cdot \frac{kT}{q}
+\approx 2.3 \cdot n \cdot 26\text{ mV}
+\approx n \cdot 60\text{ mV/dec}
+$$
+
+⸻
+
+Step 7：一句話抓住物理意義
+S 越小，代表只要更小的 gate 電壓變化，就能讓漏電流改變一個 decade，電晶體在 cutoff 區就越「關得乾淨」。  ￼
