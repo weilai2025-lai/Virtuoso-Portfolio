@@ -415,37 +415,36 @@ $S$ 越小，表示只要更小的 gate 電壓變化，就能讓漏電流下降�
 
 本節不再做數學推導，而是對照老師投影片的圖與逐字稿，整理每一個標示在圖上的物理意義。
 
-![alt text](ss_curve.png)
-⸻
+![Subthreshold Swing 曲線圖](ss_curve.png)
 
-(1) 為什麼要用 Log Scale 來看 Drain Current？
+---
+
+#### (1) 為什麼要用 Log Scale 來看 Drain Current？
 在次臨界區（ $V_{gs} < V_t$ ）時，漏電流非常小，且隨 $V_{gs}$ 呈指數變化。
 
-因此投影片左側使用 log scale 來呈現 $I_{ds}$，目的是：
-	•	清楚觀察「電流增加一個 decade（10 倍）」所需的 gate 電壓變化
-	•	衡量電晶體在 OFF 區被 gate 控制的效率
+因此投影片左側使用 log scale 來呈現 $I_{ds}$ ，目的是：
+- 清楚觀察「電流增加一個 decade（10 倍）」所需的 gate 電壓變化
+- 衡量電晶體在 OFF 區被 gate 控制的效率
 
 這正是 subthreshold swing 的定義基礎。
 
-⸻
+---
 
-(2) 圖中「One decade of current」的意義
+#### (2) 圖中「One decade of current」的意義
 投影片標示的：
-	•	One decade of current
-	•	對應的 gate 電壓變化 $\Delta V_{gs}$
+- One decade of current
+- 對應的 gate 電壓變化 $\Delta V_{gs}$
 
-表示：
+表示：當漏電流增加 10 倍時，gate 電壓必須增加多少？
 
-當漏電流增加 10 倍時，gate 電壓必須增加多少？
+這個 $\Delta V_{gs}$ 就是 Subthreshold Swing，記為 $S$ 。
 
-這個 $\Delta V_{gs}$ 就是 Subthreshold Swing，記為 $S$。
+---
 
-⸻
-
-(3) Subthreshold Swing 的定義（以圖來說）
+#### (3) Subthreshold Swing 的定義（以圖來說）
 根據圖上的標示：
-	•	紅色曲線：log scale 下的 $I_{ds}$
-	•	斜率的倒數：$\frac{1}{\text{slope}} = S$
+- 紅色曲線：log scale 下的 $I_{ds}$
+- 斜率的倒數： $\frac{1}{\text{slope}} = S$
 
 也就是：
 
@@ -459,23 +458,20 @@ $$
 \text{mV/decade}
 $$
 
-⸻
+---
 
-(4) 圖中標示的數值（室溫下的實際 CMOS）
+#### (4) 圖中標示的數值（室溫下的實際 CMOS）
 投影片中給出的典型數值為：
 
 $$
-S \approx 80\sim100\ \text{mV/decade}
+S \approx 80 \sim 100 \text{ mV/decade}
 $$
 
-這代表：
+這代表：Gate 電壓每下降約 80–100 mV，漏電流才能下降一個數量級（10 倍）。
 
-Gate 電壓每下降約 80–100 mV，
-漏電流才能下降一個數量級（10 倍）。
+---
 
-⸻
-
-(5) 右側公式與數值對照（老師要你知道的層級）
+#### (5) 右側公式與數值對照（老師要你知道的層級）
 投影片右側給出：
 
 $$
@@ -483,44 +479,42 @@ S = n \frac{kT}{q} \ln 10
 $$
 
 在室溫（約 300 K）下：
-	•	$\frac{kT}{q} \approx 26\ \text{mV}$
-	•	$\ln 10 \approx 2.3$
-	•	實際 CMOS 的 $n \approx 1.3$
+- $\frac{kT}{q} \approx 26 \text{ mV}$
+- $\ln 10 \approx 2.3$
+- 實際 CMOS 的 $n \approx 1.3$
 
 代入後得到：
 
 $$
-S \approx 1.3 \times 26 \times 2.3 \approx 78\ \text{mV/decade}
+S \approx 1.3 \times 26 \times 2.3 \approx 78 \text{ mV/decade}
 $$
 
 這正好對應圖中標示的數值。
 
-⸻
+---
 
-(6) 為什麼 CMOS 有 60 mV/dec 的極限？
-投影片最後一句指出：
-
-CMOS has a limit of 60 mV/dec @ room temperature (due to $n \ge 1$)
+#### (6) 為什麼 CMOS 有 60 mV/dec 的極限？
+投影片最後一句指出：CMOS has a limit of 60 mV/dec @ room temperature (due to $n \ge 1$ )
 
 其物理意義是：
-	•	當 $n = 1$ 時，subthreshold swing 達到理想下限
-	•	此時：
+- 當 $n = 1$ 時，subthreshold swing 達到理想下限
+- 此時：
 
 $$
-S_{\min} = \frac{kT}{q} \ln 10 \approx 60\ \text{mV/decade}
+S_{min} = \frac{kT}{q} \ln 10 \approx 60 \text{ mV/decade}
 $$
 
-實際 CMOS 中因為 $n > 1$，因此 永遠無法低於 60 mV/dec。
+實際 CMOS 中因為 $n > 1$ ，因此永遠無法低於 60 mV/dec。
 
-⸻
+---
 
-(7) 本頁投影片的核心結論（老師版）
-	•	Subthreshold swing 衡量的是：
-電晶體在 OFF 區，gate 關閉通道的效率
-	•	$S$ 越小：
-	•	關得越乾淨
-	•	靜態漏電越低
-	•	室溫 CMOS 的物理極限約為：
+#### (7) 本頁投影片的核心結論（老師版）
+- Subthreshold swing 衡量的是：電晶體在 OFF 區，gate 關閉通道的效率
+- $S$ 越小：
+    - 關得越乾淨
+    - 靜態漏電越低
+- 室溫 CMOS 的物理極限約為：
+
 $$
-60\ \text{mV/decade}
+60 \text{ mV/decade}
 $$
