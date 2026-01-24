@@ -2989,3 +2989,99 @@ $$
 > **速度飽和模型保留了 bulk charge 與電流定義的骨架，  
 > 只修正「電子能跑多快」，  
 > 因而解釋了為何短通道 MOS 的 ON current 不再遵循平方律。**
+
+## 25. Channel Length Modulation（通道長度調變）
+
+本節說明：**為何在「飽和區（saturation）」中，實際電晶體的汲極電流 Ids 仍會隨 Vds 增加**，以及工程上如何修正理想模型。
+
+---
+
+### 25.1 物理起源（老師逐字稿重點）
+
+在理想 long-channel MOS 模型中：
+
+- 進入飽和區後，通道在 drain 端 pinch-off
+- 假設 Ids 與 Vds 無關（Ids 為常數）
+
+但在真實電晶體中，此假設不成立。
+
+原因來自 **drain–body 的 PN 接面效應**：
+
+- 在飽和區時，drain–body PN junction 為反向偏壓
+- 反向偏壓增加會使耗盡區（depletion region）擴張
+- 耗盡區會由 drain 端向 source 方向侵入通道
+
+因此：
+
+- 原本設計的通道長度為 L
+- 部分通道被耗盡區「吃掉」，無法導電
+- 有效導電通道長度變為  
+  **Leff = L − Ld**
+
+---
+
+### 25.2 為何 Ids 會在飽和區隨 Vds 上升？
+
+隨著 Vds 增加：
+
+Vds ↑  
+→ drain–body 反向偏壓 ↑  
+→ depletion region 寬度 Ld ↑  
+→ 有效通道長度 Leff ↓  
+
+由於電流模型中：
+
+Ids ∝ W / L
+
+當 L 以 Leff 取代，且 Leff 隨 Vds 變小時：
+
+- 等效 W / Leff 增加
+- **即使在飽和區，Ids 仍會隨 Vds 上升**
+
+這個現象稱為 **Channel Length Modulation**。
+
+---
+
+### 25.3 工程模型：λ 的引入（經驗式修正）
+
+由於直接以物理方式計算 Ld(Vds) 與 Leff 會使模型過於複雜，  
+工程上採用 **經驗式（empirical）修正**：
+
+- 觀察到：飽和區的 Ids–Vds 關係近似線性上升
+- 以一個線性項補償此效應
+
+修正後的飽和區電流模型為：
+
+Ids = (β / 2) · (Vgs − Vt)² · (1 + λVds)
+
+其中：
+
+- β = μCox · (W / L)
+- λ 為 **channel length modulation coefficient**
+- λ 並非由物理推導而來，而是由 I–V 曲線擬合得到
+
+---
+
+### 25.4 λ 的物理與工程意義
+
+- λ 反映 **飽和區 Ids 對 Vds 的敏感度**
+- λ 越大：
+  - 飽和區斜率越明顯
+  - channel length modulation 越嚴重
+- **通道越長（L 越大），λ 越小**
+  - 因為 depletion 區相對佔比變小
+  - Leff 對 Vds 的變化較不敏感
+
+---
+
+### 25.5 本節理解重點整理（對齊自己的理解）
+
+- 本節僅針對 **飽和區模型修正**
+- 此修正 **基於低電場假設**
+  - 不處理 velocity saturation 或 mobility degradation
+- 物理本質：
+  - Vds 增加 → drain–body 耗盡區擴張
+  - → 有效通道長度縮短 → Ids 上升
+- 工程處理方式：
+  - 不直接計算 Leff
+  - 以 λ 將 Vds 對 Ids 的影響封裝進模型
