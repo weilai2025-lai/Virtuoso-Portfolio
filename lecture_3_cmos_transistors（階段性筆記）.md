@@ -3492,3 +3492,137 @@ Threshold voltage 的物理本質為：
 - Vt 下降導致 OFF-state leakage 增加
 - 本章僅討論 SCE 本身，**不包含 DIBL（另立一章說明）**
 
+## 28. Drain-Induced Barrier Lowering（DIBL）
+
+本章說明：**在短通道（short-channel）MOS 電晶體中，為何汲極電壓（Vds）會進一步降低 threshold voltage（Vt）**，以及此效應如何加劇短通道效應並導致嚴重的漏電流。此現象稱為 **Drain-Induced Barrier Lowering（DIBL）**。
+
+---
+
+### 28.1 DIBL 在整體短通道效應中的定位
+
+在前一章已知：
+
+- **Short Channel Effect（SCE）**  
+  → 因通道長度 L 縮短，Source / Drain 耗盡區侵入通道  
+  → Threshold voltage 變成通道長度 L 的函數（Vt roll-off）
+
+在此基礎上：
+
+> **DIBL 描述的是：在 short-channel 前提下，  
+> threshold voltage 又進一步成為 drain 電壓 Vds 的函數。**
+
+因此，DIBL 並非獨立於 SCE 的新效應，而是 **短通道條件下，由 drain 偏壓引發的額外 Vt 降低機制**。
+
+---
+
+### 28.2 為何 drain 電壓會影響 threshold voltage？
+
+當汲極電壓 Vds 增加時：
+
+- Drain–Body PN junction 的反向偏壓增加
+- Drain 端的耗盡區（depletion region）向通道方向擴張
+- Drain 端電場開始深入影響通道區域
+
+這個過程的關鍵在於：  
+**Drain 的電場不再只影響汲極附近，而是直接參與通道電位的塑形。**
+
+---
+
+### 28.3 Barrier lowering 的物理意義
+
+在 OFF 狀態（Vg 很低）時：
+
+- Source 端與通道之間存在一個能量障礙（energy barrier）
+- 在長通道中，此 barrier 幾乎完全由 gate 電壓所控制
+
+在短通道且高 Vds 的情況下：
+
+- Drain 耗盡區侵入通道
+- Drain 端電場拉低通道內的電位
+- Source 端看到的「進入通道的障礙高度」被降低
+
+因此：
+
+> **Barrier 被 drain 電壓拉低，而非由 gate 主導，  
+> 這正是 Drain-Induced Barrier Lowering 的名稱由來。**
+
+---
+
+### 28.4 為何 gate supplied charge 會減少？
+
+Threshold voltage 的本質為：
+
+> **Gate 需要提供多少電荷，才能使通道表面反轉**
+
+在 DIBL 情況下：
+
+- Drain 端分擔了部分原本由 gate 負責的電靜控制
+- Gate 需要提供的反轉電荷量減少
+
+結果是：
+
+> **即使 gate 電壓未提高，通道也更容易形成**
+
+---
+
+### 28.5 DIBL 為何在短通道中更嚴重？
+
+DIBL 的強度與通道長度密切相關：
+
+- 在長通道電晶體中  
+  - Drain 與 source 距離遠
+  - Drain 電場在到達 source 前已大幅衰減
+- 在短通道電晶體中  
+  - Drain 與 source 距離近
+  - Drain 電場可直接影響整個通道
+
+因此：
+
+> **通道越短，Drain 對通道電位的控制力越強，DIBL 越明顯。**
+
+---
+
+### 28.6 DIBL 的工程模型表示
+
+在工程分析中，DIBL 常以線性模型表示為：
+
+```
+Vt' = Vt − η · Vds
+```
+
+其中：
+
+- Vt：未考慮 DIBL 的 threshold voltage（已包含 SCE）
+- Vt'：考慮 DIBL 後的有效 threshold voltage
+- η：DIBL 係數（與製程、結構相關）
+
+此模型用來描述：
+
+> **Vds 增加時，等效 Vt 近似線性下降的趨勢**
+
+---
+
+### 28.7 DIBL 對漏電流的影響
+
+由於 DIBL 會降低 threshold voltage：
+
+- 在 OFF 狀態下  
+  - 有效的 (Vgs − Vt') 變得較不負
+- 結果是：
+  - Subthreshold leakage 顯著增加
+  - 電晶體無法完全關閉
+
+因此：
+
+> **高 drain 電壓會導致電流增加，即使 gate 電壓保持不變。**
+
+---
+
+### 28.8 本章重點整理
+
+- DIBL 發生於短通道 MOS 電晶體
+- 汲極電壓透過耗盡區與電場效應降低通道能障
+- Threshold voltage 因 Vds 增加而下降
+- DIBL 加劇 short-channel 的 Vt roll-off
+- DIBL 是造成短通道電晶體 OFF-state leakage 的主要原因之一
+
