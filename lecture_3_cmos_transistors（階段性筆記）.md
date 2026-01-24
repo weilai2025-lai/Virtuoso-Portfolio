@@ -3767,3 +3767,171 @@ Halo Doping 在短通道 MOS 中同時帶來正負效果：
   - 通道形成難度（gate 需跨越高摻雜區）
  兩種觀點理解，兩者本質一致
 
+## 30. Leakage（漏電流）
+
+本章整理 **MOS 電晶體在 cutoff（關閉）狀態下，為何電流不為 0**，並系統性分類現代 CMOS 中的主要 leakage 來源。本章重點在於**物理直覺與現象辨識**；相關數學模型與公式推導將於後續補充，但仍統一歸納於本章。
+
+---
+
+### 30.1 為什麼 cutoff 狀態下仍有電流？
+
+在理想 MOS 模型中：
+
+- 當 \( V_{gs} < V_{t} \)
+- 電晶體處於 cutoff
+- 預期 \( I_{ds} = 0 \)
+
+然而實際模擬與量測結果顯示：
+
+> **MOS 電晶體在 cutoff 狀態下，電流不會趨近於 0。**
+
+這代表「cutoff」僅是邏輯上的關閉，而非物理上的完全阻斷。
+
+---
+
+### 30.2 Subthreshold Region 的物理意義
+
+當 \( V_{gs} < V_{t} \) 時：
+
+- 通道尚未形成強反轉（strong inversion）
+- 但矽表面已進入 **弱反轉（weak inversion）**
+- 表面仍存在少量載子
+
+在 drain 電場的驅動下：
+
+- 這些載子仍可由 source 漂移至 drain
+- 形成 **subthreshold current**
+
+重要觀念：
+
+> **電晶體無法在某一個電壓點「突然」從 ON 變成 OFF。**  
+> 能帶與載子濃度必然是連續變化的。
+
+---
+
+### 30.3 Drain 電壓對 OFF-state 電流的影響（DIBL 回顧）
+
+在 subthreshold 區域中：
+
+- 增加 \( V_{ds} \)
+- 會因 DIBL（Drain-Induced Barrier Lowering）
+- 拉低 source–channel 間的能障
+
+結果是：
+
+> **在相同 \( V_{gs} \) 下，較高的 \( V_{ds} \) 會導致更大的 OFF-state 電流。**
+
+因此，leakage 不僅與 gate 有關，也與 drain 偏壓密切相關。
+
+---
+
+### 30.4 Ioff 的工程定義
+
+實務上常以 **Ioff** 量化 leakage：
+
+- 定義為：
+  - \( V_{gs} = 0 \)
+  - \( V_{ds} = V_{DD} \)
+- 所量得的 drain current
+
+Ioff 是：
+
+- 靜態功耗（static power）的直接來源
+- 製程節點與低功耗設計的重要指標
+
+---
+
+### 30.5 Leakage Sources 的分類總覽
+
+現代 CMOS 中的 leakage 主要可分為三大類：
+
+1. **Subthreshold Leakage**
+2. **Gate Leakage**
+3. **Junction Leakage**
+
+以下分別說明其物理來源。
+
+---
+
+### 30.6 Subthreshold Leakage
+
+**定義**
+
+- 當 \( V_{gs} < V_{t} \) 時
+- 由 source → drain 的漏電流
+
+**物理來源**
+
+- 弱反轉區仍存在載子
+- 載子在 drain 電場作用下漂移
+- 電流隨 \( V_{gs} \) 呈指數變化
+
+**重要性**
+
+- 在先進製程中為 **最主要的 leakage 來源**
+- 與：
+  - Vt 降低（SCE / DIBL）
+  - 溫度上升
+高度相關
+
+---
+
+### 30.7 Gate Leakage
+
+**定義**
+
+- 由 gate 穿越 gate dielectric 的漏電流
+
+**物理來源**
+
+- 為維持高 Cox，gate oxide 需極薄
+- 當氧化層厚度進入數奈米尺度
+- 載子可發生 **量子穿隧（tunneling）**
+
+**特性**
+
+- 電流路徑為：
+  - gate → channel / source / drain / body
+- 與 \( V_{gs} \) 關係較強
+- 與 drain 電壓關係較弱
+
+---
+
+### 30.8 Junction Leakage
+
+**定義**
+
+- Source / Drain 與 body 之間的漏電流
+
+**物理來源**
+
+- 反向偏壓 PN junction 的二極體漏電
+- 包含：
+  - generation current
+  - 表面態與缺陷相關電流
+
+**特性**
+
+- 在高溫、高反向偏壓下增加
+- 在先進製程中非最大宗，但不可忽略
+
+---
+
+### 30.9 Leakage 的整體觀點
+
+綜合而言：
+
+- Leakage 並非單一機制
+- 而是多條電流路徑的總和：
+  - subthreshold（source → drain）
+  - gate tunneling（gate → silicon）
+  - junction leakage（S/D → body）
+
+在先進 CMOS 設計中：
+
+> **Leakage 已成為靜態功耗的主導因素，  
+> 必須從製程、結構與電路層級共同控制。**
+
+---
+
+（本章後續將補充 subthreshold slope、溫度效應與相關公式推導，並統一歸納於本章。）  
