@@ -1227,3 +1227,1855 @@ $$
 > 若 $V_{gs}-V_t$ 很小，  
 > 應進入的是 weak / moderate inversion 的分析框架，  
 > 不再適合直接套用本章公式。
+
+## 18. PMOS I–V 重點整理：與 NMOS 的對稱與差異
+
+本節不重新推導 PMOS 的 I–V 方程式，  
+而是說清楚 **如何從 NMOS 的模型「對稱地理解」PMOS**，  
+以及在電路設計上最重要的幾個直覺差異。
+
+---
+
+### 18.1 一個核心原則：PMOS 是「符號與極性反轉」的 NMOS
+
+對於 long-channel、low-field 的模型而言：
+
+> **PMOS 的 I–V 形式與 NMOS 完全相同，  
+> 只是「載子、摻雜與電壓極性」全部反轉。**
+
+因此在分析時，最重要的不是重背新公式，  
+而是搞清楚「誰是 source、誰是 drain、電壓怎麼定義」。
+
+---
+
+### 18.2 Source / Drain 的定義（這點一定要牢記）
+
+在 PMOS 中：
+
+- **Source 是「電位較高」的端點**
+- Drain 是電位較低的端點
+
+這與 NMOS 相反（NMOS 的 source 是電位較低者）。
+
+因此在 PMOS I–V 圖中你會看到：
+
+- $V_{gs} < 0$
+- $V_{ds} < 0$
+- $I_{ds} < 0$（慣例上電流方向與 NMOS 相反）
+
+⚠️ 這不是物理行為變奇怪，  
+而只是 **符號定義遵守同一套電路慣例**。
+
+---
+
+### 18.3 載子不同 → 遷移率不同（設計上的關鍵差異）
+
+- NMOS：  
+  - 載子為電子（electrons）
+  - 遷移率：$\mu_n$
+- PMOS：  
+  - 載子為電洞（holes）
+  - 遷移率：$\mu_p$
+
+重要事實：
+
+> $\mu_p$ **通常約為** $\mu_n$ **的 1/2 ～ 1/3**
+
+這是材料物理造成的，  
+不是製程或偏壓可以輕易改變的。
+
+---
+
+### 18.4 為什麼 PMOS 通常要做得比較寬？
+
+回到你已經熟悉的參數：
+
+$$
+\beta = \mu C_{ox} \frac{W}{L}
+$$
+
+由於：
+
+$$
+\mu_p < \mu_n
+$$
+
+若希望在 CMOS 中：
+
+- PMOS 與 NMOS 提供**相近的驅動電流**
+- 上拉（PMOS）與下拉（NMOS）速度接近
+
+那就必須：
+
+> **用較大的** $W_p$ **來補償較小的** $\mu_p$
+
+也就是設計上常見的結論：
+
+> **PMOS 必須比 NMOS 做得寬，  
+> 才能提供相同等級的電流能力。**
+
+這正是你之後在 inverter、NAND、NOR sizing 時  
+會反覆看到的比例來源。
+
+---
+
+### 18.5 如何「正確閱讀」PMOS I–V 曲線？
+
+![PMOS I-V 曲線](assets/pmos_iv_curve.png)
+
+在 PMOS I–V 圖中（如上圖）：
+
+- 橫軸：$V_{ds}$（負方向）
+- 縱軸：$I_{ds}$（負方向）
+- 不同曲線：不同 $V_{gs}$（越負 → 驅動越強）
+
+閱讀時請記住：
+
+> **不要被負號嚇到，  
+> 只看「絕對值大小」與「趨勢是否與 NMOS 對稱」。**
+
+在物理行為上：
+
+- Cutoff / Linear / Saturation 的區分完全類比 NMOS
+- Pinch-off、strong inversion 的概念也完全相同
+
+---
+
+### 18.6 一句話總結（CMOS 設計用）
+
+> **PMOS = 極性反轉的 NMOS，  
+> 但因為電洞比較慢，  
+> 所以要做得比較寬。**
+
+---
+
+## 19. Capacitance：MOS 為什麼一定有電容？以及它為什麼決定速度與功耗
+
+> **本章定位**  
+> 本章從 I–V（電流）模型正式轉向 C（電容）模型。  
+> 電容不是附加細節，而是之後決定 **切換速度（delay）與動態功耗（power）** 的核心因素。
+
+---
+
+### 19.1 一個最基本但關鍵的原則
+
+> **Any two conductors separated by an insulator have capacitance**
+
+只要滿足：
+- 兩個導體（metal / heavily doped region）
+- 中間隔著絕緣體（oxide、depletion region）
+
+就一定存在電容。
+
+在 MOS 中，這個條件幾乎無所不在。
+
+---
+
+### 19.2 Gate–Channel 電容：MOS 能運作的根本原因
+
+Gate 與 channel：
+- 都是導體
+- 中間隔著 gate oxide（SiO₂）
+
+因此它們本質上形成一個平行板電容，其單位面積電容為：
+
+$$
+C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}
+$$
+
+**物理意義：**
+
+> Gate–channel 電容的存在，  
+> 才能讓 gate 透過電場「拉出反轉電荷」，  
+> 形成 channel，MOS 才能導通。
+
+沒有這個電容：
+- 就沒有 channel
+- MOS 不可能運作
+
+---
+
+### 19.3 Source / Drain 對 Body 的電容（Diffusion Capacitance）
+
+Source 與 Drain 和 Body 之間形成的是 **反向偏壓的 PN 接面**。
+
+- 反向偏壓 PN 接面
+- 會產生 depletion region
+- depletion region 沒有自由載子 → 等效為絕緣層
+
+因此：
+- Source–Body → $C_{sb}$
+- Drain–Body → $C_{db}$
+
+這類電容因為來自 source / drain 的擴散區，
+故稱為 **diffusion capacitance**。
+
+> **補充提醒（從製程與材料角度理解 diffusion capacitance）**  
+>
+> 以 **NMOS** 為例：
+>
+> - Body（Bulk / Base）為 **p-type 半導體**
+> - Source 與 Drain 為 **n+ 重摻雜區**
+> - 這些 n+ 區域是透過 **擴散（diffusion）或離子佈植製程** 形成的
+>
+> 因此：
+>
+> - Source–Body 與 Drain–Body 之間  
+>   **天然形成 n–p 接面（PN junction）**
+> - 在正常操作下，這些 PN 接面多半處於 **反向偏壓**
+>
+> 對反向偏壓的 PN 接面而言：
+>
+> - 接面附近會形成 **耗盡區（depletion region）**
+> - 耗盡區內幾乎沒有自由載子
+> - 在電氣行為上等效為 **絕緣層**
+>
+> 於是：
+>
+> - n+ diffusion（Source / Drain）與 p-type Body  
+>   就構成了：
+>
+>   > **導體 – 絕緣層 – 導體**
+>
+> 這正是「電容」的定義。
+>
+> 因為這個電容來自 **source / drain 的擴散區（diffusion region）**，
+> 所以稱為 **diffusion capacitance**，
+> 並以 $C_{sb}$、$C_{db}$ 表示。
+
+![MOS 寄生電容圖](assets/mos_parasitic_capacitance.png)
+
+---
+
+### 19.4 核心釐清：電容到底是「越大越好」還是「越小越好」？
+
+這正是你卡住的地方，我們直接用你心中正在打架的兩個式子來解。
+
+---
+
+#### (1) 你目前的直覺來源
+
+你腦中同時存在這兩件事：
+
+- 電流定義：
+$$I_{ds} = \frac{Q}{t}$$
+
+- 電荷與電容關係：
+$$Q = CV$$
+
+於是你自然會想：
+
+> C 變大 → Q 變大 → I 變大  
+> → 充放電更快？  
+> → 電容好像越大越好？
+
+這個推理 **在「單一瞬間」是對的**，但它漏掉了一個關鍵角色。
+
+---
+
+#### (2) 被忽略的關鍵：Q 是「要被充進去的東西」
+
+在數位電路中，真正的問題不是：
+
+> 「瞬間能不能拉很大的電流？」
+
+而是：
+
+> **「要花多久，才能把『該充的電荷』充完？」**
+
+當電容變大時：
+- 你要充的電荷量 $Q = CV$ **也跟著變大**
+- 不是免費的
+
+即使 $I_{ds}$ 很大：
+- 你還是必須把「更多的電荷」搬進去
+- 所需時間 **不一定變短，反而可能變長**
+
+---
+
+#### (3) 換一個更貼近電路的問法（關鍵轉換）
+
+真正的速度問題其實是：
+
+> **「輸出電壓要從 0 變成 $V_{DD}$，需要多久？」**
+
+而不是：
+> 「瞬間電流能不能很大？」
+
+而這個時間尺度，之後你會看到它長成：
+
+$$
+t_{\text{delay}} \sim \frac{C \cdot V}{I}
+$$
+
+現在先不用背，只抓直覺：
+
+- C ↑ → 要搬的電荷 ↑
+- I ↑ → 搬電荷的能力 ↑
+- **速度取決於兩者的平衡**
+
+---
+
+#### (4) 所以結論是什麼？（一句話版本）
+
+> **電容不是越大越好，也不是越小越好。**
+
+更精準地說：
+
+- **對導通能力（drive strength）來說**：  
+  大 $C_{ox}$ 有助於形成更多通道電荷 → $I_{ds}$ 大
+- **對切換速度與功耗來說**：  
+  大電容意味著：
+  - 需要更多能量充放電
+  - 需要更長時間完成電壓切換
+
+因此在 CMOS 設計中，核心永遠是：
+
+> **用「夠大的電流」，  
+> 去驅動「盡可能小的電容」。**
+
+---
+
+### 19.5 本章一句話總結（之後回頭看用）
+
+> **電流決定你「推得多用力」，  
+> 電容決定你「要推多少東西」。**  
+>  
+> 速度與功耗，都是這兩者之間的取捨結果。
+
+---
+
+## 20. Gate–Channel Capacitance：Gate 電容如何建模成電路元件
+
+> **本章定位**  
+> 本章建立「Gate–Channel 電容」的基本模型，  
+> 將 MOS 的幾何結構轉換為之後可用於 delay 與 power 分析的電路電容。
+
+---
+
+### 20.1 建模近似：將 channel 視為與 source 相連
+
+在電容模型中，採用一個常見的工程近似：
+
+> **Approximate channel as connected to source**
+
+也就是在分析 gate 電容時，
+暫時將 channel 視為電氣上與 source 相連的導體節點。
+
+⚠️ 這是一種 **電路模型近似**，
+並非指物理上 channel 與 source 短路。
+
+---
+
+### 20.2 Gate–Channel 電容的總量 $C_g$
+
+Gate 與 channel：
+- 皆為導體
+- 中間隔著 SiO₂ gate oxide（絕緣層）
+
+因此可直接用平行板電容模型描述。
+
+單位面積氧化層電容為：
+
+$$
+C_{ox} = \frac{\varepsilon_{ox}}{t_{ox}}
+$$
+
+Gate 覆蓋的 channel 面積約為 $W \cdot L$，
+因此整體 gate–channel 電容為：
+
+$$
+C_g = \frac{\varepsilon_{ox}WL}{t_{ox}} = C_{ox}WL
+$$
+
+---
+
+### 20.3 Gate 電容在電路中的分解方式
+
+在電路等效模型中，
+Gate 不會直接連接到「channel」這個抽象節點，
+而是透過 source 與 drain 兩個實際端點產生作用。
+
+因此：
+
+$$
+C_g = C_{gs} + C_{gd}
+$$
+
+其中：
+
+- $C_{gs}$：Gate–Source 電容
+- $C_{gd}$：Gate–Drain 電容
+
+這兩個電容的總和，
+等於整個 gate–channel 電容 $C_g$。
+
+---
+
+### 20.4 以設計觀點重寫 Gate 電容
+
+由於在同一製程中：
+
+- $C_{ox}$ 為固定參數
+- $L$ 通常由製程或設計目標決定
+
+可將其合併為一個常數：
+
+$$
+C_{per\_micron} \equiv C_{ox}L
+$$
+
+因此 Gate 電容可寫成：
+
+$$
+C_g = C_{per\_micron} \cdot W
+$$
+
+**重要設計意義：**
+
+> Gate 電容與晶體管寬度 $W$ 成正比。
+
+---
+
+### 20.5 本章重點整理
+
+- Gate–Channel 本質上是一個由 oxide 隔開的電容
+- Gate–Channel 總電容為：
+  $$C_g = C_{ox}WL$$
+- 在電路模型中，Gate 電容需拆分為：
+  $$C_g = C_{gs} + C_{gd}$$
+- Gate 電容大小與晶體管寬度 $W$ 線性相關
+
+---
+
+## 21. Diffusion Capacitance 與 NMOS 串接 Layout 的真正用途
+
+本章的重點不是再背一種電容名稱，  
+而是理解 **為什麼在實際電路與 layout 中，工程師會刻意把 NMOS 的 source / drain 合併**，  
+以及這個動作同時在做兩件事：
+
+1. **實現邏輯功能（例如 NAND 的 AND 條件）**
+2. **降低不必要的 diffusion capacitance（提升速度、降低功耗）**
+
+---
+
+### 21.1 Diffusion Capacitance 的物理來源（從製程角度看）
+
+以 **NMOS** 為例：
+
+- Body（Bulk / Base）：**p-type 半導體**
+- Source / Drain：**n+ 重摻雜擴散區**
+- 這些 n+ 區域是透過 **擴散（diffusion）或離子佈植製程**形成
+
+因此：
+
+- Source–Body 與 Drain–Body 之間
+  **天然形成 PN 接面**
+- 在正常操作下，這些 PN 接面多半處於 **反向偏壓**
+
+對反向偏壓的 PN 接面而言：
+
+- 接面附近形成 **耗盡區（depletion region）**
+- 耗盡區內幾乎沒有自由載子
+- 在電氣行為上等效為 **絕緣層**
+
+於是：
+
+> n+ diffusion（Source / Drain）  
+> + depletion region（絕緣）  
+> + p-type body  
+>  
+> ⇨ 等效為一個電容
+
+這些電容分別記為：
+
+- $C_{sb}$：Source–Body diffusion capacitance  
+- $C_{db}$：Drain–Body diffusion capacitance  
+
+因為它們來自 **source / drain 的擴散區（diffusion region）**，  
+所以稱為 **diffusion capacitance**。
+
+---
+
+### 21.2 為什麼 diffusion capacitance 是「不想要的」？
+
+Diffusion capacitance 的特性是：
+
+- 與 **邏輯功能無關**
+- 只會：
+  - 增加節點負載
+  - 降低切換速度
+  - 增加動態功耗（charging / discharging）
+
+因此在電路設計中，它被歸類為：
+
+> **Parasitic capacitance（寄生電容）**
+
+工程上的目標永遠是：
+
+> **在不影響邏輯功能的前提下，讓 diffusion capacitance 越小越好**
+
+---
+
+### 21.3 Diffusion Capacitance 為什麼與「面積 + 周長」有關？
+
+Diffusion capacitance 主要來自兩個地方：
+
+1. **接面面積（area component）**
+2. **接面邊緣（sidewall / perimeter component）**
+
+因此：
+
+- 擴散區面積越大 → C 越大
+- 擴散區周長越長 → C 越大
+
+這就是為什麼老師在投影片與逐字稿中強調：
+
+> Capacitance depends on **area and perimeter**
+
+---
+
+### 21.4 為什麼「共享 diffusion」可以減少電容？
+
+對比三種 layout 情況：
+
+#### (1) Isolated diffusion（完全分開）
+- 每個 NMOS 都有獨立的 source / drain 擴散區
+- 面積與周長最大
+- diffusion capacitance 最大
+
+#### (2) Shared diffusion（共享擴散區）
+- 相鄰 NMOS 共用一塊 diffusion
+- 總面積與總周長減少
+- diffusion capacitance 下降
+
+#### (3) Merged diffusion（合併擴散區）
+- 中間節點完全合併
+- 甚至可移除不必要的 via
+- diffusion capacitance 最小
+
+這就是投影片底下那條紅字：
+
+![Diffusion Layout 對比](assets/diffusion_layout_comparison.png)
+
+> **Smaller diffusion capacitance**
+
+真正想傳達的意思。
+
+> **補充理解（為什麼已經共用 diffusion，還需要 shared 而不是直接 merged？）**
+>
+> Shared diffusion 與 merged diffusion 的差別，
+> **不在於是否共用矽中的擴散區**，
+> 而在於：
+>
+> 👉 **「中間節點是否需要被當成一個『電氣節點』拉出來使用」**
+>
+> - 若中間節點：
+>   - 需要接到其他電路
+>   - 需要被觀察、回授或控制
+>   - 在電路功能上仍然有意義
+>
+>   那麼即使擴散區可以共用，
+>   **仍必須保留 via 將該節點拉到金屬層**，
+>   這種情況就稱為 **shared diffusion**。
+>
+> - 若中間節點：
+>   - 只是一段導通路徑的一部分
+>   - 不輸出、不回授、不被使用
+>
+>   則可以直接將 diffusion 完全合併，
+>   **不拉出金屬節點、不放 via**，
+>   此時使用 **merged diffusion**，
+>   可進一步減少面積、周長與寄生電容。
+>
+> 因此：
+>
+> > **Shared diffusion 是「在保留中間節點功能的前提下，降低 diffusion capacitance 的折衷方案」；  
+> > Merged diffusion 則是「在中間節點完全不需要存在時的最佳化選擇」。**
+---
+
+### 21.5 關鍵觀念釐清：中間那塊「不是 source 也不是 drain」
+
+你之前會卡住，是因為腦中一直想問：
+
+>「中間那塊到底是 source 還是 drain？」
+
+**正確觀念是：**
+
+> Source 與 Drain **不是由擴散區本身決定的**，  
+> 而是由「當下操作時的電壓高低」決定。
+
+對 NMOS 而言：
+
+- 電壓較低的一端 → source
+- 電壓較高的一端 → drain
+
+因此在 **兩顆 NMOS 串接**時：
+
+Vout
+|
+NMOS2
+|
+（共享 diffusion 節點）
+|
+NMOS1
+|
+GND
+
+- 中間那塊 diffusion：
+  - **沒有固定身分**
+  - 它只是「兩顆 NMOS 共用的內部節點」
+- 當 NMOS1 導通時：
+  - 它是 NMOS1 的 drain
+- 當 NMOS2 導通時：
+  - 它是 NMOS2 的 source
+
+👉 **source / drain 是動態角色，不是靜態標籤**
+
+---
+
+### 21.6 為什麼要把兩顆 NMOS 串接在一起？
+
+這件事其實同時滿足兩個目的：
+
+#### (1) 邏輯功能（Pull-Down Network）
+
+兩顆 NMOS 串接代表：
+
+- 只有 **A = 1 且 B = 1**
+- 才能形成一條完整導通路徑到 GND
+
+這正是 **AND 條件的實體實現**  
+（在 CMOS 中，對應到 NAND 的 pull-down network）。
+
+#### (2) Layout 與效能最佳化
+
+- 串接 → 可以 **共享 diffusion**
+- 共享 diffusion → **減少 area 與 perimeter**
+- area / perimeter 減少 → **diffusion capacitance 下降**
+- diffusion capacitance 下降 → **切換更快、功耗更低**
+
+---
+
+### 21.7 本章一眼回想重點
+
+- Diffusion capacitance 來自 **n+ diffusion 與 p-type body 的 PN 接面**
+- 它是 **寄生電容**，對效能不利
+- 電容大小與 **擴散區的面積與周長** 有關
+- **共享 / 合併 diffusion** 是為了：
+  - 實現邏輯功能
+  - 同時減少 diffusion capacitance
+- 串接 NMOS 中間節點：
+  - **不是固定的 source 或 drain**
+  - 而是依電壓動態決定角色的內部節點
+
+## 22. High Field Effects（高電場效應）— 理想模型開始失效的第一步
+
+在前面的章節中，我們建立的 MOS 行為模型，隱含了幾個重要假設：
+
+- 載子遷移率 $\mu$ 為常數
+- 載子速度 v 與電場 E 呈線性關係（$v = \mu E$）
+- 電場不會影響材料本身的傳輸特性
+
+這些假設在 **低電場（low-field）** 情況下成立，  
+但在實際電晶體中，當電場變得很大時，這些關係會開始失效。
+
+這一章的目的，是指出 **「哪些地方開始不理想」**，  
+而不是立刻修正所有公式。
+
+---
+
+### 22.1 什麼叫 High Field？
+
+所謂的 **High Field**，並不只指一種電場，而是包含兩個方向：
+
+- **垂直電場（vertical field）**
+  - 由 gate 電壓 $V_{gs}$ 造成
+  - 影響電子被壓到 Si–SiO₂ 界面的程度
+- **橫向電場（lateral field）**
+  - 由 $V_{ds}/L$ 造成
+  - 直接推動電子沿著通道移動
+
+High field effects 指的是：  
+> 當這些電場變得很大時，  
+> 載子不再照「理想、線性」模型行為移動。
+
+---
+
+### 22.2 Mobility Degradation（遷移率退化）
+
+#### 22.2.1 為什麼這個效應會出現？
+
+以 NMOS 為例：
+
+- 增加 $V_{gs}$
+  - 會吸引 **更多電子** 到通道（反轉層）
+  - 這件事本身是「好事」，因為通道電荷 $Q$ 變多
+
+但同時也會發生另一件事：
+
+- 強垂直電場會把電子 **壓得非常靠近 Si–SiO₂ 界面**
+- 而這個界面：
+  - 並非完美平滑
+  - 有粗糙度與缺陷
+
+結果是：
+
+> 電子在移動過程中更容易被散射，  
+> 每次加速更容易被打斷。
+
+---
+
+#### 22.2.2 Mobility Degradation 的本質意義
+
+遷移率 $\mu$ 的物理意義是：
+
+> **在給定電場下，電子能否有效被加速的能力**
+
+當散射變多時：
+
+- 電子平均下來「比較跑不動」
+- 在模型中等效為：
+  
+$$
+\mu \downarrow
+$$
+
+因此 mobility degradation 並不是：
+
+- 電子變少  
+兒是：
+- **電子還很多，但每一顆電子都跑得比較不順**
+
+---
+
+#### 22.2.3 對電流的影響（直覺版）
+
+可以用你前面已經熟悉的觀念來理解：
+
+$$
+I \sim Q \times (\text{電子移動效率})
+$$
+
+> ⚠️ 補充說明：這一行不是新公式，而是從你前面已經用過的定義整理出來的直覺寫法。
+
+我們從最基本、你已經學過的定義開始：
+
+### 電流的最原始定義
+電流的物理意義是：
+
+> **單位時間內，有多少電荷通過通道**
+
+因此定義為：
+
+$$
+I = \frac{Q}{t}
+$$
+
+其中：
+- $Q$：通道中可參與導通的總電荷量
+- $t$：載子穿越整條通道所需的時間
+
+---
+
+### 載子穿越通道的時間從哪來？
+在前面的 carrier velocity 模型中，我們已經推過：
+
+$$
+t = \frac{L}{v}
+$$
+
+其中：
+- $L$：通道長度
+- $v$：載子在通道中的平均漂移速度
+
+---
+
+### 代回電流定義
+將 $t = L/v$ 代回 $I = Q/t$：
+
+$$
+I = \frac{Q}{L/v} = Q \cdot \frac{v}{L}
+$$
+
+因此可以看出：
+
+> **電流大小與兩件事成正比：**
+> - 通道中有多少電荷 ($Q$)
+> - 這些電荷移動得有多有效率 ($v$)
+
+---
+
+### 為什麼可以寫成 $I \sim Q \times (\text{電子移動效率})$？
+因為在 low-field 假設下：
+
+$$
+v = \mu E
+$$
+
+而在討論「趨勢與直覺」時，  
+我們可以把 $v$ 的角色理解為：
+
+> **電子在通道中被推動、實際移動的效率**
+
+因此：
+
+$$
+I \sim Q \times (\text{電子移動效率})
+$$
+
+這只是把 $I \propto Q \cdot v$（或 $I \propto Q \cdot \mu$）用直覺語言重新表達，而非引入新的物理模型。
+
+- $V_{gs} \uparrow$  
+  $\rightarrow Q \uparrow$ （通道電子變多）
+- 但同時  
+  $\rightarrow \mu \downarrow$ （電子移動變慢）
+
+結果是：
+
+> 電流仍然會增加，但**增加得比理想模型預期慢**
+
+---
+
+### 22.3 Velocity Saturation（速度飽和）
+
+Velocity saturation 來自 **橫向電場過大**，  
+與 mobility degradation 是不同來源的效應。
+
+當：
+
+$$
+E \approx \frac{V_{ds}}{L}
+$$
+
+變得非常大（例如短通道或高 $V_{ds}$）時：
+
+- 電子速度不再隨電場線性增加
+- 而是趨近一個最大值 $v_{sat}$
+
+這代表：
+
+> 就算再增加 $V_{ds}$，  
+> 電子也無法跑得更快。
+
+---
+
+### 22.4 Mobility Degradation 與 Velocity Saturation 的差異整理
+
+兩者都屬於 High Field Effects，但重點不同：
+
+- **Mobility Degradation**
+  - 關鍵量：$\mu$
+  - 成因：強垂直電場、界面散射
+  - 效果：$v = \mu E$ 中的「$\mu$ 變小」
+- **Velocity Saturation**
+  - 關鍵量：$v$
+  - 成因：強橫向電場
+  - 效果：$v$ 本身有上限，不再線性成長
+
+可以這樣記：
+
+> mobility degradation 改變「斜率」，  
+> velocity saturation 限制「上限」。
+
+---
+
+### 22.5 本章定位（給未來自己的提醒）
+
+本章的 High Field Effects 仍屬於：
+
+> **「修正載子運動模型」的層級**
+
+尚未討論：
+
+- 通道長度調變（CLM）
+- 臨界電壓漂移
+- 各種 leakage 機制
+
+這些將在後續章節中分別引入。
+
+## 23. Electric Field Effects（電場在 MOS 中各自扮演的角色）
+
+> 本章目標：  
+> **把 MOS 中的「電場」清楚分成兩種，並釐清它們各自負責的事情。**  
+> 後續所有 high-field effects，都是在破壞這一章建立的「理想分工」。
+
+---
+
+### 23.1 垂直電場（Vertical Electric Field）
+
+在 MOS 結構中，gate 與 channel 之間隔著一層氧化層（oxide），  
+其厚度為 $t_{ox}$。
+
+當 gate-to-source 電壓 $V_{gs}$ 存在時，  
+在 **垂直方向（由 gate 指向 channel）** 會形成電場：
+
+$$
+E_{\text{vert}} = \frac{V_{gs}}{t_{ox}}
+$$
+
+#### 垂直電場的物理角色
+
+- 方向：**由 gate 向下，穿過 oxide 指向 channel**
+- 功能：**吸引載子進入 channel**
+- 對 NMOS 而言：吸引電子至 Si–SiO₂ 界面，形成反轉層
+
+---
+
+### 23.2 垂直電場與通道電荷的關係（長通道假設）
+
+在 **long-channel、低電場** 的理想條件下：
+
+$$
+Q_{\text{channel}} \propto E_{\text{vert}}
+$$
+
+其直覺意義為：
+
+- $V_{gs}$ 越大  
+- 垂直電場越強  
+- 被拉進 channel 的電子越多  
+- 通道中的總電荷量 $Q_{\text{channel}}$ 越大  
+
+> 此處尚未考慮 mobility degradation 等非理想效應。
+
+---
+
+### 23.3 橫向電場（Lateral Electric Field）
+
+當 drain 與 source 之間存在電壓差 $V_{ds}$ 時，  
+在通道內沿著 **source → drain** 方向會形成橫向電場：
+
+$$
+E_{\text{lat}} = \frac{V_{ds}}{L}
+$$
+
+其中 $L$ 為通道長度。
+
+#### 橫向電場的物理角色
+
+- 方向：**沿著通道方向**
+- 功能：**推動已存在於 channel 中的載子移動**
+- 對 NMOS 而言：推動電子由 source 流向 drain
+
+---
+
+### 23.4 橫向電場與載子速度（長通道、低電場假設）
+
+在理想 long-channel、low-field 條件下，  
+載子的平均漂移速度可寫為：
+
+$$
+v = \mu E_{\text{lat}}
+$$
+
+其中：
+
+- $v$：載子在通道中的平均移動速度  
+- $\mu$：遷移率（mobility），描述材料允許載子移動的能力  
+
+此關係隱含假設：
+
+- 電場尚未高到導致速度飽和
+- mobility 可視為常數
+
+---
+
+### 23.5 本章的核心分工（非常重要）
+
+在理想 MOS 模型中，兩種電場「各司其職」：
+
+- **垂直電場 $E_{\text{vert}}$**
+  - 決定：通道中有多少電荷 $Q$
+  - 功能：把電子拉進 channel
+
+- **橫向電場 $E_{\text{lat}}$**
+  - 決定：電子移動得多快 $v$
+  - 功能：把電子推著沿通道前進
+
+而電流的本質仍可回到你熟悉的直覺：
+
+> **電流大小取決於：  
+> 通道中有多少電荷 × 這些電荷移動得有多快**
+
+---
+
+### 23.6 鋪墊：為什麼接下來要談 High-Field Effects？
+
+後續章節將逐步打破本章的理想假設：
+
+- 垂直電場太強 → mobility 下降  
+- 橫向電場太強 → 速度飽和  
+- 兩種效應都會讓實際電流  
+  **小於理想 long-channel 模型的預測**
+
+因此，本章是理解所有非理想效應的「參考基準點」。
+
+## 24. Linear I–V 的再理解：真正被優化的是 μ（遷移率）
+
+在前一節（Linear I–V），我們已經建立 NMOS 在線性區（$V_{ds}$ 小）的電流模型：
+
+$$
+I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
+
+其中：
+
+- $C_{ox}$ ：氧化層單位面積電容  
+- $W/L$ ：幾何比例（寬越大、長越短，電流越大）
+- $( V_{gs} - V_t - \frac{V_{ds}}{2} )$ ：**平均通道反轉電荷的有效 gate overdrive**
+- $V_{ds}$ ：沿通道的橫向推力
+- **$\mu$** ：電子在通道中移動的「效率係數」（遷移率）
+
+---
+
+### 24.1 這個式子真正的假設是什麼？
+
+這條 Linear I–V 式子，其實隱含了一個很關鍵、但前面不太被強調的假設：
+
+> **遷移率 $\mu$ 是常數**
+
+也就是假設：
+
+- 電場不高  
+- 電子移動速度 $v$ 與橫向電場 $E_{\text{lat}}$ 呈線性關係  
+- $v = \mu E_{\text{lat}}$
+
+這正是 **low-field（低電場）模型**。
+
+---
+
+### 24.2 為什麼老師後面要花那麼多力氣「修正 μ」？
+
+在實際電晶體中，當：
+
+- $V_{ds}$ 變大（橫向電場變強）
+- 或 $V_{gs}$ 很大（垂直電場很強）
+
+電子在矽晶格中會發生更多散射，導致：
+
+- **電子還是很多（$Q$ 很大）**
+- 但 **每顆電子移動得比較慢**
+
+也就是：
+
+$$
+\mu \text{ 不再是常數，而是會隨電場下降}
+$$
+
+因此，老師後面做的事情**不是推翻 Linear I–V 架構**，而是：
+
+> **保留原本的電流形式，但把 $\mu$ 換成「有效遷移率 $\mu_{\text{eff}}$ 」**
+
+---
+
+### 24.3 用一句話看懂後面所有修正模型在幹嘛
+
+你現在可以用這個「工程師版本」來理解：
+
+$$
+I_{ds} = \underbrace{\mu_{\text{eff}}}_{\text{會被高電場壓縮}} C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
+
+- **幾何項 $W/L$** ：設計者能控制  
+- **電荷項 $( V_{gs} - V_t - \frac{V_{ds}}{2} )$** ：bulk charge model 已經給你  
+- **真正不理想的來源：$\mu$**  
+  → 這也是後面「mobility degradation」與「velocity saturation」的切入點
+
+---
+
+### 24.4 這一章你應該帶走的核心結論
+
+- Linear I–V 的數學結構本身沒有錯  
+- 問題不在「電流怎麼算」，而在：
+  - **電子在高電場下跑不動**
+- 所以後續所有 non-ideal model：
+  - mobility degradation  
+  - velocity saturation  
+  - $\alpha$-power law  
+  
+  本質上都是在回答同一件事：
+
+> **「$\mu$ 在真實電晶體裡，到底該怎麼算？」**
+
+---
+
+### 24.5 線性區電流式的修正版：把速度飽和過渡塞進 Linear I–V（完整推導）
+
+本節目的：  
+在維持原本 Linear I–V 架構下，將「高橫向電場時速度不再線性增加」的效應，  
+等效成 **$\mu$** 不再是常數，而是變成一個會隨 $V_{ds}$ 被壓縮的有效遷移率。
+
+---
+
+#### Step 1：從「橫向電場」開始（沿通道方向）
+
+通道內橫向電場（平均近似）為：
+
+$$
+E_{lat} \approx \frac{V_{ds}}{L}
+$$
+
+---
+
+#### Step 2：低電場模型回顧（你已經用過）
+
+低電場時，載子漂移速度：
+
+$$
+v = \mu E_{lat}
+$$
+
+但在高電場下，這個線性關係會失效（速度開始 roll-off）。
+
+---
+
+#### Step 3：引入速度飽和的「過渡模型」（投影片的 better model）
+
+投影片用一個可平滑過渡到飽和速度的模型（在 $E < E_c$ 時）：
+
+$$
+v(E) = \frac{\mu_{\text{eff}} E}{1 + \frac{E}{E_c}}
+$$
+
+其中：
+
+- $\mu_{\text{eff}}$ ：有效遷移率（在高場下會比理想值小）
+- $E_c$ ：臨界電場（critical electric field）
+
+---
+
+#### Step 4：把 $E$ 換成 $V_{ds}$ （用 $E_{lat} = \frac{V_{ds}}{L}$ ）
+
+代入 $E = \frac{V_{ds}}{L}$ ：
+
+$$
+v = \frac{\mu_{\text{eff}} \left( \frac{V_{ds}}{L} \right)}{1 + \frac{\frac{V_{ds}}{L}}{E_c}}
+$$
+
+先把分母整理：
+
+$$
+\frac{\frac{V_{ds}}{L}}{E_c} = \frac{V_{ds}}{E_c L}
+$$
+
+定義「臨界電壓」：
+
+$$
+V_c \triangleq E_c L
+$$
+
+> **註解（這一步怎麼來的？）**  
+> 這裡的想法其實完全來自你前面已經熟到不行的關係：
+>
+> $$
+> E_{lat} \approx \frac{V_{ds}}{L}
+> $$
+>
+> 當橫向電場達到「臨界電場」 $E_c$ 時，代表載子速度即將進入飽和，
+> 因此對應的 drain-to-source 電壓自然就是：
+>
+> $$
+> V_{ds} = E_c \cdot L
+> $$
+>
+> 這個「讓橫向電場剛好等於 $E_c$ 的電壓」，  
+> 我們就定義為 **臨界電壓 $V_c$**。
+>
+> 換句話說：
+>
+> - $E_c$ ：材料／物理層面的「臨界電場」  
+> - $V_c$ ：對應到實際電路端點的「臨界電壓」
+
+因此：
+
+$$
+\frac{V_{ds}}{E_c L} = \frac{V_{ds}}{V_c}
+$$
+
+代回得到：
+
+$$
+v = \frac{\mu_{\text{eff}} \left( \frac{V_{ds}}{L} \right)}{1 + \frac{V_{ds}}{V_c}} = \left( \frac{\mu_{\text{eff}}}{1 + \frac{V_{ds}}{V_c}} \right) \frac{V_{ds}}{L}
+$$
+
+到這一步，你可以把它讀成：
+
+> 原本的 $v = \mu \frac{V_{ds}}{L}$ ，  
+> 現在變成 $v = \mu_{\text{eff,eq}} \frac{V_{ds}}{L}$ ，其中  
+> $\mu_{\text{eff,eq}} = \frac{\mu_{\text{eff}}}{1 + \frac{V_{ds}}{V_c}}$
+
+---
+
+#### Step 5：把「速度模型」塞回 Linear I–V 的架構（保留原本電荷項）
+
+在 bulk charge model 的線性區近似中，通道平均有效 overdrive 仍採：
+
+$$
+V_{\text{eff}} \approx V_{gs} - V_t - \frac{V_{ds}}{2}
+$$
+
+而 Linear I–V 的結構本質是：
+
+$$
+I_{ds} \propto (\text{charge term}) \times (\text{drift term})
+$$
+
+在低場模型下，電流可寫成：
+
+$$
+I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
+
+現在只要把原本的 $\mu$ 換成「被高場壓縮後的等效遷移率」：
+
+$$
+\mu \Rightarrow \frac{\mu_{\text{eff}}}{1 + \frac{V_{ds}}{V_c}}
+$$
+
+即可得到修正版線性區電流：
+
+$$
+I_{ds} = \left( \frac{\mu_{\text{eff}}}{1 + \frac{V_{ds}}{V_c}} \right) C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
+
+這就是投影片在 Linear Region（ $V_{ds} < V_{dsat}$ ）所寫的那條式子。
+
+---
+
+#### 本節重點（和你第 24 章的結論完全對齊）
+
+- 你原本的 Linear I–V 架構不變：  
+  $C_{ox} \frac{W}{L} ( \cdots ) V_{ds}$
+- 真正「被修正」的是 $\mu$ 的表達式：  
+  低電場： $\mu$ 當常數  
+  高電場： $\mu \rightarrow \frac{\mu_{\text{eff}}}{1 + \frac{V_{ds}}{V_c}}$
+
+也就是：  
+> **高 $V_{ds}$ 會讓速度（或等效 $\mu$ ）roll-off，  
+> 因此電流不再像理想模型那樣隨 $V_{ds}$ 成比例增長。**
+
+---
+
+### 24.6 速度飽和模型（Velocity Saturation）：從 Square-Law 自然延伸而來的完整推導
+
+> 本節目標：  
+> 在不推翻 bulk charge 與 square-law 推導骨架的前提下，  
+> 只修正「載子速度如何隨電場變化」，  
+> 從而自然導出提早飽和的 $V_{dsat}$ 與非平方律的 $I_{dsat}$ 。
+>
+> 關鍵觀念：  
+> 通道電荷怎麼來（ $Q = CV$ ）沒有變，  
+> 電流定義（ $I = Q/t$ ）沒有變，  
+> 變的只有「電子實際跑多快」。
+
+---
+
+#### 24.6.1 回顧：Long-Channel Square-Law 的完整邏輯鏈
+
+在長通道、低電場假設下，我們已經建立：
+
+- 通道在位置 $x$ 的反轉電荷（線電荷密度）：
+
+$$
+Q'(x) = C_{ox} W \bigl( V_{gs} - V_t - V(x) \bigr)
+$$
+
+- 電流的最原始定義：
+
+$$
+I = \frac{Q}{t}
+$$
+
+- 載子穿越通道時間：
+
+$$
+t = \frac{L}{v}
+$$
+
+- 因此得到漂移電流形式：
+
+$$
+I = Q'(x) \, v(x)
+$$
+
+- 低電場速度模型：
+
+$$
+v(x) = \mu E(x) = -\mu \frac{dV}{dx}
+$$
+
+接下來把它 **完整積分一次** （這一步就是 square-law 的核心，過程不省略）。
+
+從
+
+$$
+I = Q'(x) v(x)
+$$
+
+代入
+
+$$
+Q'(x) = C_{ox} W ( V_{gs} - V_t - V(x) ), \quad v(x) = -\mu \frac{dV}{dx}
+$$
+
+得到：
+
+$$
+I = C_{ox} W ( V_{gs} - V_t - V(x) ) ( -\mu \frac{dV}{dx} )
+$$
+
+把常數整理出來：
+
+$$
+I = -\mu C_{ox} W ( V_{gs} - V_t - V(x) ) \frac{dV}{dx}
+$$
+
+接著把微分項移項（把 $dx$ 與 $dV$ 分開）：
+
+$$
+I \, dx = -\mu C_{ox} W ( V_{gs} - V_t - V ) \, dV
+$$
+
+現在對整條通道積分。  
+邊界條件是：
+
+- $x : 0 \rightarrow L$
+- $V : V(0) = 0 \rightarrow V(L) = V_{ds}$
+
+因此：
+
+$$
+\int_{0}^{L} I \, dx = -\mu C_{ox} W \int_{0}^{V_{ds}} ( V_{gs} - V_t - V ) \, dV
+$$
+
+左邊因為 $I$ 在穩態下沿通道為常數：
+
+$$
+\int_{0}^{L} I \, dx = I L
+$$
+
+右邊把積分展開（先拆成兩項）：
+
+$$
+\int_{0}^{V_{ds}} ( V_{gs} - V_t - V ) \, dV = \int_{0}^{V_{ds}} ( V_{gs} - V_t ) \, dV - \int_{0}^{V_{ds}} V \, dV
+$$
+
+逐項算：
+
+第一項：
+
+$$
+\int_{0}^{V_{ds}} ( V_{gs} - V_t ) \, dV = ( V_{gs} - V_t ) V_{ds}
+$$
+
+第二項：
+
+$$
+\int_{0}^{V_{ds}} V \, dV = \left. \frac{V^2}{2} \right|_{0}^{V_{ds}} = \frac{V_{ds}^2}{2}
+$$
+
+因此右邊整體為：
+
+$$
+\int_{0}^{V_{ds}} ( V_{gs} - V_t - V ) \, dV = ( V_{gs} - V_t ) V_{ds} - \frac{V_{ds}^2}{2}
+$$
+
+代回主式：
+
+$$
+I L = \mu C_{ox} W \left[ ( V_{gs} - V_t ) V_{ds} - \frac{V_{ds}^2}{2} \right]
+$$
+
+兩邊除以 $L$ ：
+
+$$
+I_{ds} = \mu C_{ox} \frac{W}{L} \left[ ( V_{gs} - V_t ) V_{ds} - \frac{V_{ds}^2}{2} \right]
+$$
+
+最後把 $V_{ds}$ 提出來（整理成你熟悉的形式）：
+
+$$
+I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
+
+---
+
+接著補上「飽和條件」與「飽和電流」的完整收尾，避免筆記讀起來沒頭沒尾。
+
+#### (a) 為什麼飽和點是 $V_{dsat} = V_{gs} - V_t$ ？
+
+在 bulk charge / 漸變通道假設下，通道在位置 $x$ 的線電荷密度為：
+
+$$
+Q'(x) = C_{ox} W ( V_{gs} - V_t - V(x) )
+$$
+
+飽和（ pinch-off ）邊界的定義是： **drain 端的反轉電荷剛好降為 0** ，也就是在 $x = L$ ：
+
+$$
+Q'(L) = 0
+$$
+
+而 drain 端通道電位 $V(L) = V_{ds}$ ，代入：
+
+$$
+0 = C_{ox} W ( V_{gs} - V_t - V_{ds} )
+$$
+
+因此得到飽和邊界電壓：
+
+$$
+V_{dsat} = V_{gs} - V_t
+$$
+
+---
+
+#### (b) 把 $V_{ds} = V_{dsat}$ 代回線性區電流式，得到飽和電流 $I_{dsat}$
+
+從線性區電流式出發：
+
+$$
+I_{ds} = \mu C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
+
+在飽和邊界令 $V_{ds} = V_{dsat} = V_{gs} - V_t$ ，則括號內變成：
+
+$$
+V_{gs} - V_t - \frac{V_{dsat}}{2} = V_{gs} - V_t - \frac{V_{gs} - V_t}{2} = \frac{V_{gs} - V_t}{2}
+$$
+
+同時外面的 $V_{ds}$ 也變成：
+
+$$
+V_{ds} = V_{dsat} = V_{gs} - V_t
+$$
+
+所以飽和電流為：
+
+$$
+I_{dsat} = \mu C_{ox} \frac{W}{L} \left( \frac{V_{gs} - V_t}{2} \right) ( V_{gs} - V_t )
+$$
+
+整理得到你熟悉的 square-law 飽和電流：
+
+$$
+I_{dsat} = \frac{1}{2} \mu C_{ox} \frac{W}{L} ( V_{gs} - V_t )^2
+$$
+
+---
+
+#### 24.6.2 為什麼需要速度飽和模型？
+
+上述 square-law 推導隱含一個關鍵假設：
+
+> 電子速度可以隨橫向電場 $E_{lat}$ 無限線性增加
+
+然而在實際 MOS 中，當：
+
+- 通道很短
+- $V_{ds}$ 很大
+- 橫向電場過強
+
+電子會頻繁與晶格散射，導致：
+
+- 電子數量（通道電荷）仍可增加
+- 但電子速度不再線性成長，最終趨近一個上限 $v_{sat}$ 
+
+因此，square-law 失效的根本原因在於：速度模型 $v = \mu E$ 失效，而不是通道電荷模型錯誤。
+
+---
+
+#### 24.6.3 修正的核心：只換掉「速度–電場關係」
+
+在速度飽和模型中：
+
+- 低電場：
+
+$$
+v \approx \mu_{\text{eff}} E
+$$
+
+- 高電場：
+
+$$
+v \rightarrow v_{sat}
+$$
+
+常用的一個連續模型寫成：
+
+$$
+v(E) = \frac{\mu_{\text{eff}} E}{1 + \dfrac{E}{E_c}}
+$$
+
+其中：
+
+- $E_c$ ：臨界電場（critical field）
+- $\mu_{\text{eff}}$ ：有效遷移率
+- $v_{sat}$ ：速度上限
+
+兩者關係為：
+
+$$
+E_c = \frac{2v_{sat}}{\mu_{\text{eff}}}
+$$
+
+---
+
+#### 24.6.4 由臨界電場引入「臨界電壓」 $V_c$ 
+
+通道平均橫向電場近似為： $E_{lat} \approx \frac{V_{ds}}{L}$ 
+
+因此，對應臨界電場 $E_c$ 的端點電壓定義為：
+
+$$
+V_c \triangleq E_c \, L
+$$
+
+此 $V_c$ 代表：
+
+> 使整條通道平均橫向電場剛好達到速度飽和門檻的 drain 電壓。
+
+---
+
+#### 24.6.5 修正後的線性區電流（速度被壓縮）
+
+將速度模型改寫為端點電壓形式：
+
+$$
+v \approx \frac{\mu_{\text{eff}} (V_{ds}/L)}{1 + \dfrac{V_{ds}}{V_c}}
+$$
+
+等效上，就是把 square-law 線性區中的 $\mu$ 改為：
+
+$$
+\mu \longrightarrow \frac{\mu_{\text{eff}}}{1 + \dfrac{V_{ds}}{V_c}}
+$$
+
+因此得到修正後的線性區電流：
+
+$$
+I_{ds,\text{lin}} = \frac{\mu_{\text{eff}}}{1 + \dfrac{V_{ds}}{V_c}} C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{ds}}{2} \right) V_{ds}
+$$
+
+---
+
+#### 24.6.6 飽和區電流：速度到頂後的物理意義
+
+一旦進入速度飽和區： $v \approx v_{sat}$ 
+
+電流仍由最基本的關係決定：
+
+$$
+I = Q'(x) \, v
+$$
+
+在飽和邊界，採用 bulk charge 模型於該關鍵位置：
+
+$$
+Q' \approx C_{ox} W \bigl( V_{gs} - V_t - V_{dsat} \bigr)
+$$
+
+因此飽和區電流為：
+
+$$
+I_{ds,\text{sat}} = C_{ox} W \bigl( V_{gs} - V_t - V_{dsat} \bigr) v_{sat}
+$$
+
+---
+
+#### 24.6.7 由「線性區 = 飽和區」聯立解出新的 $V_{dsat}$ 
+
+在剛進入飽和的交界點： $I_{ds,lin} (V_{ds} = V_{dsat}) = I_{ds,sat}$ 
+
+聯立前述兩式並整理後（這裡把代數過程完整寫出來，不省略）。
+
+---
+
+#### (1) 先把兩條電流式子完整寫出來
+
+線性區（含速度飽和修正項）在 $V_{ds} = V_{dsat}$ 時：
+
+$$
+I_{ds,lin}(V_{dsat}) = \frac{\mu_{\text{eff}}}{1 + \dfrac{V_{dsat}}{V_c}} C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{dsat}}{2} \right) V_{dsat}
+$$
+
+飽和區（速度到頂 $v \approx v_{sat}$ ）：
+
+$$
+I_{ds,sat} = C_{ox} W ( V_{gs} - V_t - V_{dsat} ) v_{sat}
+$$
+
+---
+
+#### (2) 在交界點令兩者相等
+
+$$
+\frac{\mu_{\text{eff}}}{1 + \dfrac{V_{dsat}}{V_c}} C_{ox} \frac{W}{L} \left( V_{gs} - V_t - \frac{V_{dsat}}{2} \right) V_{dsat} = C_{ox} W ( V_{gs} - V_t - V_{dsat} ) v_{sat}
+$$
+
+兩邊同除以 $C_{ox} W$ （約掉共同因子）：
+
+$$
+\frac{\mu_{\text{eff}}}{1 + \dfrac{V_{dsat}}{V_c}} \frac{1}{L} \left( V_{gs} - V_t - \frac{V_{dsat}}{2} \right) V_{dsat} = ( V_{gs} - V_t - V_{dsat} ) v_{sat}
+$$
+
+---
+
+#### (3) 用 $V_c$ 把 $v_{sat}$ 與 $\mu_{\text{eff}} / L$ 連起來
+
+由投影片的定義：
+
+$$
+E_c = \frac{2 v_{sat}}{\mu_{\text{eff}}}
+$$
+
+且
+
+$$
+V_c \triangleq E_c L
+$$
+
+所以：
+
+$$
+V_{c} = \frac{2 v_{sat}}{\mu_{\text{eff}}} L
+$$
+
+移項解出 $v_{sat}$ ：
+
+$$
+v_{sat} = \frac{\mu_{\text{eff}} V_c}{2 L}
+$$
+
+把這個 $v_{sat}$ 代回剛剛的等式右邊：
+
+$$
+\frac{\mu_{\text{eff}}}{1 + \dfrac{V_{dsat}}{V_c}} \frac{1}{L} \left( V_{gs} - V_t - \frac{V_{dsat}}{2} \right) V_{dsat} = ( V_{gs} - V_t - V_{dsat} ) \frac{\mu_{\text{eff}} V_c}{2 L}
+$$
+
+兩邊同除以 $\mu_{\text{eff}} / L$ （再次約掉共同因子）：
+
+$$
+\frac{1}{1 + \dfrac{V_{dsat}}{V_c}} \left( V_{gs} - V_t - \frac{V_{dsat}}{2} \right) V_{dsat} = ( V_{gs} - V_t - V_{dsat} ) \frac{V_c}{2}
+$$
+
+---
+
+#### (4) 消掉分母並整理成只含 $V_{dsat}$ 的代數式
+
+先把左邊的分母消掉。注意：
+
+$$
+\frac{1}{1 + \dfrac{V_{dsat}}{V_c}} = \frac{V_c}{V_c + V_{dsat}}
+$$
+
+因此等式變成：
+
+$$
+\frac{V_c}{V_c + V_{dsat}} \left( V_{gs} - V_t - \frac{V_{dsat}}{2} \right) V_{dsat} = ( V_{gs} - V_t - V_{dsat} ) \frac{V_c}{2}
+$$
+
+兩邊同除以 $V_c$ ：
+
+$$
+\frac{1}{V_c + V_{dsat}} \left( V_{gs} - V_t - \frac{V_{dsat}}{2} \right) V_{dsat} = \frac{1}{2} ( V_{gs} - V_t - V_{dsat} )
+$$
+
+兩邊同乘 $( V_c + V_{dsat} )$ ：
+
+$$
+\left( V_{gs} - V_t - \frac{V_{dsat}}{2} \right) V_{dsat} = \frac{1}{2} ( V_{gs} - V_t - V_{dsat} ) ( V_c + V_{dsat} )
+$$
+
+兩邊同乘 2 ：
+
+$$
+2 \left( V_{gs} - V_t - \frac{V_{dsat}}{2} \right) V_{dsat} = ( V_{gs} - V_t - V_{dsat} ) ( V_c + V_{dsat} )
+$$
+
+把左邊展開（注意 $2 (\cdot)$ 會消掉 $\frac{1}{2}$ ）：
+
+$$
+\left( 2 ( V_{gs} - V_t ) - V_{dsat} \right) V_{dsat} = ( V_{gs} - V_t - V_{dsat} ) ( V_c + V_{dsat} )
+$$
+
+---
+
+#### (5) 令 $V_{ov} = V_{gs} - V_t$ 使代數更乾淨，解出 $V_{dsat}$
+
+定義：
+
+$$
+V_{ov} \triangleq V_{gs} - V_t
+$$
+
+則上式變成：
+
+$$
+( 2 V_{ov} - V_{dsat} ) V_{dsat} = ( V_{ov} - V_{dsat} ) ( V_c + V_{dsat} )
+$$
+
+展開左邊：
+
+$$
+2 V_{ov} V_{dsat} - V_{dsat}^2
+$$
+
+展開右邊：
+
+$$
+( V_{ov} - V_{dsat} ) V_c + ( V_{ov} - V_{dsat} ) V_{dsat} = V_{ov} V_c - V_{dsat} V_c + V_{ov} V_{dsat} - V_{dsat}^2
+$$
+
+令左右相等並把相同項約掉（注意兩邊都有 $- V_{dsat}^2$ 可消掉）：
+
+$$
+2 V_{ov} V_{dsat} = V_{ov} V_c - V_{dsat} V_c + V_{ov} V_{dsat}
+$$
+
+把右邊的 $V_{ov} V_{dsat}$ 移到左邊：
+
+$$
+V_{ov} V_{dsat} = V_{ov} V_c - V_{dsat} V_c
+$$
+
+把含 $V_{dsat}$ 的項收斂在一起：
+
+$$
+V_{ov} V_{dsat} + V_{c} V_{dsat} = V_{ov} V_c
+$$
+
+提出 $V_{dsat}$ ：
+
+$$
+V_{dsat} ( V_{ov} + V_c ) = V_{ov} V_c
+$$
+
+所以：
+
+$$
+V_{dsat} = \frac{V_{ov} V_c}{V_{ov} + V_c}
+$$
+
+最後代回 $V_{ov} = V_{gs} - V_t$ ：
+
+$$
+V_{dsat} = \frac{( V_{gs} - V_t ) V_c}{V_{gs} - V_t + V_c}
+$$
+
+---
+此結果顯示：在速度飽和存在時，MOS 會比 square-law 預測更早進入飽和。
+
+---
+
+#### 24.6.8 對應的飽和電流 $I_{dsat}$ 
+
+將 $V_{dsat}$ 代回飽和區電流式，可得：
+
+$$
+\boxed{
+I_{dsat} = W C_{ox} v_{sat} \frac{(V_{gs} - V_t)^2}{V_{gs} - V_t + V_c}
+}
+$$
+
+---
+
+#### 24.6.9 與 Square-Law 的連續性檢查（重要直覺）
+
+速度飽和模型的關鍵要求是：
+
+> 在低電場、長通道極限下，  
+> 必須自然退化回我們熟悉的 square-law （ bulk charge ）模型。
+
+我們從速度飽和下的完整飽和電流式出發：
+
+$$
+I_{dsat} = W C_{ox} v_{sat} \frac{( V_{gs} - V_t )^2}{V_{gs} - V_t + V_c}
+$$
+
+---
+
+##### （一）長通道 / 低電場極限
+
+當通道很長、臨界電壓很大時：
+
+$$
+V_c \gg V_{gs} - V_t
+$$
+
+分母可近似為：
+
+$$
+V_{gs} - V_t + V_c \approx V_c
+$$
+
+因此：
+
+$$
+I_{dsat} \approx W C_{ox} v_{sat} \frac{( V_{gs} - V_t )^2}{V_c}
+$$
+
+再代入臨界電壓定義：
+
+$$
+V_c = \frac{2 v_{sat}}{\mu} L
+$$
+
+得到：
+
+$$
+I_{dsat} \approx \frac{1}{2} \mu C_{ox} \frac{W}{L} ( V_{gs} - V_t )^2
+$$
+
+這正是 **long-channel bulk charge model 的 square-law 飽和電流式** 。
+
+---
+
+##### （二）短通道 / 高電場極限
+
+當通道很短、電場很強時：
+
+$$
+V_{gs} - V_t \gg V_c
+$$
+
+此時分母由 $( V_{gs} - V_t )$ 主導：
+
+$$
+V_{gs} - V_t + V_c \approx V_{gs} - V_t
+$$
+
+因此速度飽和模型退化為：
+
+$$
+I_{dsat} \approx W C_{ox} v_{sat} ( V_{gs} - V_t )
+$$
+
+電流不再呈平方成長，
+而是 **線性依賴 overdrive voltage** 。
+
+---
+
+##### （三）核心物理意義（這一頁真正想傳達的）
+
+- Square-law 模型不是錯
+- 它是 **低電場、長通道下的極限情況**
+- Velocity saturation 模型是其在高電場下的自然延伸
+- 真實短通道 MOS 的行為介於兩者之間
+
+這也是為什麼後續會使用：
+
+$$
+I_{ds} \propto V_{DD}^{\alpha}, \quad 1 < \alpha < 2
+$$
+
+來描述實際電晶體的 ON 電流行為。
+
+---
+
+#### 24.6.10 本節一句話總結
+
+> **速度飽和模型保留了 bulk charge 與電流定義的骨架，  
+> 只修正「電子能跑多快」，  
+> 因而解釋了為何短通道 MOS 的 ON current 不再遵循平方律。**
