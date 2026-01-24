@@ -3628,6 +3628,8 @@ Vt' = Vt − η · Vds
 
 ## 29. Halo Doping 與 Reverse Short Channel Effect（RSCE）
 
+![Halo Doping 與 RSCE 示意圖](assets/halo_rsce_diagram.png)
+
 本章說明：**Halo（Pocket）Doping 作為抑制 Short Channel Effect（SCE）與 DIBL 的製程手段，其物理效果與所引入的副作用——Reverse Short Channel Effect（RSCE）**。本章同時從「摻雜濃度」與「通道形成直覺」兩個角度，統一理解 RSCE 的來源。
 
 ---
@@ -3656,10 +3658,11 @@ Vt' = Vt − η · Vds
 
 Halo Doping 的關鍵物理基礎為：
 
-- PN junction 的耗盡區寬度  
-  \[
-  W \propto \frac{1}{\sqrt{N}}
-  \]
+- PN junction 的耗盡區寬度
+
+$$
+W \propto \frac{1}{\sqrt{N}}
+$$
 
 因此：
 
