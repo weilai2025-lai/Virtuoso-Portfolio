@@ -4154,10 +4154,11 @@ $$
   - vT = kT / q，室溫下約為 26 mV
 
 
+
 ### 30.11 Subthreshold Swing 的完整推導與物理意義（逐步，不跳步）
 
 本小節目標只有一個：  
-**從 subthreshold 的指數電流模型，一步一步推導出 subthreshold swing $S$ ，並說清楚為什麼可以把指數式改寫成以 10 為底的形式。**
+**從 subthreshold 的指數電流模型，一步一步推導出 subthreshold swing \(S\)，並說清楚為什麼可以把指數式改寫成以 10 為底的形式。**
 
 ---
 
@@ -4165,16 +4166,21 @@ $$
 
 在 cutoff / subthreshold（弱反轉）區，漏電流可近似為：
 
-$$
-I_{ds} \approx I_{ds0} \exp \! \Big( \frac{V_{gs} - V_t}{n kT/q} \Big)
-$$
+\[
+I_{ds}
+\approx
+I_{ds0}
+\exp\!\Big(
+\frac{V_{gs}-V_t}{n kT/q}
+\Big)
+\]
 
 其中：
 
-- $I_{ds0}$ ：subthreshold 漏電的尺度因子  
-- $V_t$ ：有效 threshold voltage（已包含 DIBL 與 body effect）  
-- $n$ ：subthreshold swing coefficient（製程相關）  
-- $kT/q = v_T \approx 26 \, \text{mV}$ （室溫）
+- \(I_{ds0}\)：subthreshold 漏電的尺度因子  
+- \(V_t\)：有效 threshold voltage（已包含 DIBL 與 body effect）  
+- \(n\)：subthreshold swing coefficient（製程相關）  
+- \(kT/q = v_T \approx 26\,\text{mV}\)（室溫）
 
 ---
 
@@ -4182,49 +4188,69 @@ $$
 
 對上式兩邊同時取自然對數 ln：
 
-$$
-\ln I_{ds} = \ln I_{ds0} + \frac{V_{gs} - V_t}{n kT/q}
-$$
+\[
+\ln I_{ds}
+=
+\ln I_{ds0}
++
+\frac{V_{gs}-V_t}{n kT/q}
+\]
 
 將分子拆開：
 
-$$
-\ln I_{ds} = \ln I_{ds0} + \frac{q}{n kT} V_{gs} - \frac{q}{n kT} V_t
-$$
+\[
+\ln I_{ds}
+=
+\ln I_{ds0}
++
+\frac{q}{n kT}V_{gs}
+-
+\frac{q}{n kT}V_t
+\]
 
 ---
 
 #### (3) 定義常數項，得到線性關係
 
-在 subthreshold swing 的分析中，我們掃描的是 $V_{gs}$ ，而 $V_t$ 在固定操作條件下視為常數，因此定義：
+在 subthreshold swing 的分析中，我們掃描的是 \(V_{gs}\)，而 \(V_t\) 在固定操作條件下視為常數，因此定義：
 
-$$
-A \equiv \ln I_{ds0} - \frac{q}{n kT} V_t
-$$
+\[
+A
+\equiv
+\ln I_{ds0}
+-
+\frac{q}{n kT}V_t
+\]
 
 則電流與 gate 電壓的關係可寫為：
 
-$$
-\boxed{ \ln I_{ds} = A + \frac{q}{n kT} V_{gs} }
-$$
+\[
+\boxed{
+\ln I_{ds}
+=
+A
++
+\frac{q}{n kT}V_{gs}
+}
+\]
 
-這表示在 subthreshold 區， $\ln I_{ds}$ 對 $V_{gs}$ 是一條直線。
+這表示在 subthreshold 區，\(\ln I_{ds}\) 對 \(V_{gs}\) 是一條直線。
 
 ---
 
-#### (4) 定義問題：電流增加 10 倍，需要多少 $\Delta V_{gs}$ ？
+#### (4) 定義問題：電流增加 10 倍，需要多少 \(\Delta V_{gs}\)？
 
 「10 倍電流變化」在數學上表示為：
 
-$$
+\[
 I'_{ds} = 10 I_{ds}
-$$
+\]
 
 同時 gate 電壓增加：
 
-$$
+\[
 V'_{gs} = V_{gs} + \Delta V_{gs}
-$$
+\]
 
 ---
 
@@ -4232,15 +4258,21 @@ $$
 
 原本關係式為：
 
-$$
-\ln I_{ds} = A + m V_{gs} \quad \text{其中 } m = \frac{q}{n kT}
-$$
+\[
+\ln I_{ds} = A + m V_{gs},
+\qquad
+m = \frac{q}{n kT}
+\]
 
 新狀態必須滿足：
 
-$$
-\ln(10 I_{ds}) = A + m (V_{gs} + \Delta V_{gs})
-$$
+\[
+\ln(10 I_{ds})
+=
+A
++
+m (V_{gs} + \Delta V_{gs})
+\]
 
 ---
 
@@ -4248,80 +4280,120 @@ $$
 
 左邊利用對數性質：
 
-$$
-\ln(10 I_{ds}) = \ln 10 + \ln I_{ds}
-$$
+\[
+\ln(10 I_{ds})
+=
+\ln 10
++
+\ln I_{ds}
+\]
 
 代回：
 
-$$
-\ln 10 + (A + m V_{gs}) = A + m V_{gs} + m \Delta V_{gs}
-$$
+\[
+\ln 10
++
+(A + m V_{gs})
+=
+A
++
+m V_{gs}
++
+m \Delta V_{gs}
+\]
 
-左右同時消去 $A + m V_{gs}$ ，得到：
+左右同時消去 \(A + m V_{gs}\)，得到：
 
-$$
+\[
 \ln 10 = m \Delta V_{gs}
-$$
+\]
 
 ---
 
-#### (7) 解出 subthreshold swing $S$
+#### (7) 解出 subthreshold swing \(S\)
 
 由上式：
 
-$$
-\Delta V_{gs} = \frac{\ln 10}{m} = \ln 10 \cdot \frac{n kT}{q}
-$$
+\[
+\Delta V_{gs}
+=
+\frac{\ln 10}{m}
+=
+\ln 10
+\cdot
+\frac{n kT}{q}
+\]
 
 定義：
 
-$$
-\boxed{ S \equiv \Delta V_{gs} = n \frac{kT}{q} \ln 10 }
-$$
+\[
+\boxed{
+S
+\equiv
+\Delta V_{gs}
+=
+n
+\frac{kT}{q}
+\ln 10
+}
+\]
 
-這就是 **subthreshold swing** ，單位通常為 mV/decade。
+這就是 **subthreshold swing**，單位通常為 mV/decade。
 
 ---
 
 #### (8) 將自然指數形式改寫為以 10 為底的形式
 
-由 $S$ 的定義，可得：
+由 \(S\) 的定義，可得：
 
-$$
-n \frac{kT}{q} = \frac{S}{\ln 10}
-$$
+\[
+n\frac{kT}{q}
+=
+\frac{S}{\ln 10}
+\]
 
 代回原本的指數模型：
 
-$$
-\exp \! \Big( \frac{V_{gs} - V_t}{n kT/q} \Big) = \exp \! \Big( \frac{(V_{gs} - V_t) \ln 10}{S} \Big)
-$$
+\[
+\exp\!\Big(
+\frac{V_{gs}-V_t}{n kT/q}
+\Big)
+=
+\exp\!\Big(
+\frac{(V_{gs}-V_t)\ln 10}{S}
+\Big)
+\]
 
 利用數學恆等式：
 
-$$
+\[
 e^{x \ln 10} = 10^x
-$$
+\]
 
 得到：
 
-$$
-\boxed{ I_{ds} \approx I_{ds0} \cdot 10^{\frac{V_{gs} - V_t}{S}} }
-$$
+\[
+\boxed{
+I_{ds}
+\approx
+I_{ds0}
+\cdot
+10^{\frac{V_{gs}-V_t}{S}}
+}
+\]
 
 ---
 
 #### (9) 物理意義總結（務必理解）
 
-- Subthreshold swing $S$ ：  
+- Subthreshold swing \(S\)：  
   **電流增加一個 decade（10 倍）所需的 gate 電壓變化**
-- $S$ 越小：
-  - 漏電隨 $V_{gs}$ 下降得越快
+- \(S\) 越小：
+  - 漏電隨 \(V_{gs}\) 下降得越快
   - 電晶體「關得越乾淨」
 - 在室溫下：
   - 理論極限為約 **60 mV/dec**
-  - 實際製程中 $S > 60 \, \text{mV/dec}$ ，因為 $n > 1$
+  - 實際製程中 \(S > 60\,\text{mV/dec}\)，因為 \(n > 1\)
 
 ---
 
