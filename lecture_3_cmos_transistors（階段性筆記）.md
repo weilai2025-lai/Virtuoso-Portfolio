@@ -4134,12 +4134,21 @@ $$
 
 #### (7) 本小節重點總結（不要背錯）
 
-- **藍框公式不是新模型，而是完整模型在 $V_{ds}$ 足夠大時的近似**
-- $V_t$ 本身已經包含：
-  - DIBL（ $-\eta V_{ds}$ ）
-  - Body Effect（ $+k_{\gamma} V_{sb}$ ）
-- subthreshold 區的漏電流：
-  - 對 $V_{gs}$ 呈 **指數關係**
-  - 對 $V_{ds}$ 在常見偏壓下只剩弱影響
-- $I_{ds0}$ ： 設定漏電「尺度」
-- $n v_T$ ： 決定指數變化的「快慢」
+- **藍框公式不是新模型，而是完整 subthreshold 模型在 Vds 足夠大時的近似**
+
+- 有效的 threshold voltage（Vt）本身已經包含：
+  - DIBL：Vt 會隨 Vds 增加而下降（−η·Vds）
+  - Body Effect：Vt 會隨 Vsb 增加而上升（+kγ·Vsb）
+
+- 在 subthreshold（cutoff）區：
+  - 漏電流 Ids 對 Vgs 呈「指數關係」
+  - 在常見偏壓下，Ids 對 Vds 只剩弱影響（主要影響已經被吸收到 Vt 裡）
+
+- Ids0：
+  - 決定 subthreshold 漏電的「尺度大小」
+  - 與元件尺寸有關（Ids0 ∝ W / L）
+
+- n·vT：
+  - 決定指數變化的「快慢」
+  - n 為製程相關的 subthreshold swing coefficient
+  - vT = kT / q，室溫下約為 26 mV
