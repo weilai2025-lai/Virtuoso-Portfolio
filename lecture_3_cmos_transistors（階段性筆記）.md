@@ -4158,7 +4158,7 @@ $$
 
 #### 30.11 Subthreshold Swing（逐步推導，不跳步，GitHub 版）
 
-本小節目標：從 subthreshold（弱反轉）漏電的指數模型，推到 subthreshold swing（記為 $S$ ），並把模型改寫成以 10 為底的表示法。
+本小節目標：從 subthreshold（弱反轉）漏電的指數模型，推到 subthreshold swing（記為 S ），並把模型改寫成以 10 為底的表示法。
 
 ---
 
@@ -4172,10 +4172,10 @@ $$
 
 其中符號意義（先用文字說明，避免中文夾公式造成渲染問題）：
 
-- $I_{ds0}$ ：subthreshold 漏電的尺度因子（決定整條曲線高低）
-- $V_t$ ：有效 threshold voltage（已把 DIBL 與 body effect 的影響吸收進來）
-- $n$ ：subthreshold swing coefficient（製程相關）
-- $kT/q$ ：熱電壓 $v_T$ ，室溫約為 26 mV
+- I<sub>ds0</sub> ：subthreshold 漏電的尺度因子（決定整條曲線高低）
+- V<sub>t</sub> ：有效 threshold voltage（已把 DIBL 與 body effect 的影響吸收進來）
+- n ：subthreshold swing coefficient（製程相關）
+- kT/q ：熱電壓 v<sub>T</sub> ，室溫約為 26 mV
 
 ---
 
@@ -4199,9 +4199,9 @@ $$
 
 在 subthreshold swing 的分析中，我們把 gate 電壓當成掃描變數。
 
-在固定操作條件下， $V_t$ 可視為常數。
+在固定操作條件下， V<sub>t</sub> 可視為常數。
 
-因此把所有「不隨 gate 電壓變化」的項合併為常數 $A$ ：
+因此把所有「不隨 gate 電壓變化」的項合併為常數 A ：
 
 $$
 A \equiv \ln I_{ds0} - \frac{q}{n kT} V_t
@@ -4233,7 +4233,7 @@ $$
 
 #### (5) 把新狀態代回同一條線性方程
 
-先定義斜率 $m$ ：
+先定義斜率 m ：
 
 $$
 m = \frac{q}{n kT}
@@ -4279,7 +4279,7 @@ $$
 \ln 10 + (A + m V_{gs}) = A + m V_{gs} + m \, \Delta V_{gs}
 $$
 
-左右同時消去 $A$ 與 $m V_{gs}$ ：
+左右同時消去 A 與 m V<sub>gs</sub> ：
 
 $$
 \ln 10 = m \, \Delta V_{gs}
@@ -4287,7 +4287,7 @@ $$
 
 ---
 
-#### (7) 解出 subthreshold swing（ $S$ 的定義）
+#### (7) 解出 subthreshold swing（ S 的定義）
 
 由上式可得：
 
@@ -4295,13 +4295,13 @@ $$
 \Delta V_{gs} = \frac{\ln 10}{m}
 $$
 
-代入 $m$ 的定義：
+代入 m 的定義：
 
 $$
 \Delta V_{gs} = \ln 10 \cdot \frac{n kT}{q}
 $$
 
-定義 subthreshold swing $S$ 為「電流增加一個 decade（10 倍）所需的 gate 電壓變化」：
+定義 subthreshold swing S 為「電流增加一個 decade（10 倍）所需的 gate 電壓變化」：
 
 $$
 S \equiv \Delta V_{gs} = n \frac{kT}{q} \ln 10
@@ -4311,7 +4311,7 @@ $$
 
 #### (8) 把自然指數形式改寫成以 10 為底的形式
 
-由 $S$ 的定義可反推：
+由 S 的定義可反推：
 
 $$
 n \frac{kT}{q} = \frac{S}{\ln 10}
@@ -4339,5 +4339,5 @@ $$
 
 #### (9) 物理意義（用一句話抓住重點）
 
-$S$ 越小，表示只要更小的 gate 電壓變化，就能讓漏電流下降一個 decade，電晶體在 cutoff 區就越「關得乾淨」。
+S 越小，表示只要更小的 gate 電壓變化，就能讓漏電流下降一個 decade，電晶體在 cutoff 區就越「關得乾淨」。
 
