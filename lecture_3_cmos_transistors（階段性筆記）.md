@@ -3944,19 +3944,19 @@ Ioff 是：
 本節針對投影片「Subthreshold Leakage」頁面中的模型：
 
 $$
-I_{ds}=I_{ds0}\;\exp\!\Big(\frac{V_{gs}-V_{t0}+\eta V_{ds}-k_{\gamma}V_{sb}}{n v_T}\Big)\Big(1-e^{-V_{ds}/v_T}\Big)
+I_{ds} = I_{ds0} \; \exp \! \Big( \frac{V_{gs} - V_{t0} + \eta V_{ds} - k_{\gamma} V_{sb}}{n v_T} \Big) \Big( 1 - e^{-V_{ds}/v_T} \Big)
 $$
 
 說明兩個常見疑問：
 
 1. $I_{ds0}$ 到底代表什麼？
-2. 這個模型是否只適用於 cutoff（ $V_{gs}<V_t$ ）的討論？
+2. 這個模型是否只適用於 cutoff（ $V_{gs} < V_t$ ）的討論？
 
 ---
 
 #### (1) $I_{ds0}$ 是什麼？
 
-在 subthreshold（弱反轉）區的電流模型裡， $I_{ds0}$ 是**指數式前面的尺度因子（prefactor / 前因子）**，可視為：
+在 subthreshold（弱反轉）區的電流模型裡， $I_{ds0}$ 是 **指數式前面的尺度因子（prefactor / 前因子）** ，可視為：
 
 > **在特定製程與器件結構下，subthreshold 電流的「基準電流尺度」。**  
 > 後續電流如何放大或縮小，主要由指數項決定。
@@ -3964,20 +3964,20 @@ $$
 把模型寫成投影片藍框的形式更好理解：
 
 $$
-I_{ds}\approx I_{ds0}\;\exp\!\Big(\frac{V_{gs}-V_t}{n v_T}\Big)
+I_{ds} \approx I_{ds0} \; \exp \! \Big( \frac{V_{gs} - V_t}{n v_T} \Big)
 $$
 
 其中：
 
-- $\exp\!\big(\frac{V_{gs}-V_t}{n v_T}\big)$  
-  決定 **電流對 $V_{gs}$ 的指數敏感度**（也就是「subthreshold leakage exponential with $V_{gs}$」的核心）。
+- $\exp \! \big( \frac{V_{gs} - V_t}{n v_T} \big)$  
+  決定 **電流對 $V_{gs}$ 的指數敏感度** （也就是「subthreshold leakage exponential with $V_{gs}$ 」的核心）。
 - $I_{ds0}$  
-  決定 **整條 subthreshold 曲線的垂直位置（整體有多高）**。
+  決定 **整條 subthreshold 曲線的垂直位置（整體有多高）** 。
 
 投影片同時標註：
 
 $$
-I_{ds0}\propto \frac{W}{L}
+I_{ds0} \propto \frac{W}{L}
 $$
 
 其物理意義是：
@@ -3996,18 +3996,18 @@ $$
 是的。此一模型是用來描述 **cutoff / subthreshold（弱反轉）區** 的漏電流，也就是：
 
 $$
-V_{gs}<V_t
+V_{gs} < V_t
 $$
 
 可從三個角度（都與投影片內容一致）判斷其適用範圍：
 
 1. **投影片標題即為 Subthreshold Leakage**  
-   直接限定討論主題在 subthreshold（ $V_{gs}<V_t$ ）的漏電，而非強反轉導通電流。
+   直接限定討論主題在 subthreshold（ $V_{gs} < V_t$ ）的漏電，而非強反轉導通電流。
 
 2. **模型的核心結構是「指數型」對 $V_{gs}$ 變化**  
-   在 $V_{gs}\gg V_t$ 的強反轉區，電流不會再用這種單純的指數式描述；若硬套用，會導致不合理的過大電流估計。因此此式的設計用途就是描述 $V_{gs}$ 低於 $V_t$ 時的行為。
+   在 $V_{gs} \gg V_t$ 的強反轉區，電流不會再用這種單純的指數式描述；若硬套用，會導致不合理的過大電流估計。因此此式的設計用途就是描述 $V_{gs}$ 低於 $V_t$ 時的行為。
 
-3. **括號項 $1-e^{-V_{ds}/v_T}$ 的存在是 subthreshold 常見寫法**  
+3. **括號項 $1 - e^{-V_{ds}/v_T}$ 的存在是 subthreshold 常見寫法**  
    其目的是描述 $V_{ds}$ 很小時電流會接近 0、 $V_{ds}$ 夠大時該項趨近 1 的現象；搭配指數項一起使用，正是用來刻畫弱反轉（cutoff 附近）電流的典型形式。
 
 ---
@@ -4015,7 +4015,131 @@ $$
 #### 小結（本節你要記住的兩句話）
 
 - ** $I_{ds0}$ 是 subthreshold 指數模型的前因子，決定漏電曲線的整體高度，且通常與 $W/L$ 成正比。**  
-- **這組 subthreshold $I_{ds}$ 公式是用來描述 cutoff / 弱反轉（ $V_{gs}<V_t$ ）的漏電，並不適用於強反轉導通區。**
+- **這組 subthreshold $I_{ds}$ 公式是用來描述 cutoff / 弱反轉（ $V_{gs} < V_t$ ）的漏電，並不適用於強反轉導通區。**
 
+（本章後續將補充 subthreshold slope、溫度效應與相關公式推導，並統一歸納於本章。）
 
-（本章後續將補充 subthreshold slope、溫度效應與相關公式推導，並統一歸納於本章。） 
+---
+
+### 30.10.1 從完整模型推導至投影片藍框形式（逐步不跳步）
+
+本小節補齊 **投影片藍框公式的來由** ，並將 **Vt 的定義、DIBL、Body Effect、以及 $V_{ds} > 78 \, \mathrm{mV}$** 的簡化條件全部明確寫出。
+
+---
+
+#### (1) 起點：完整的 subthreshold 漏電模型
+
+投影片給出的完整形式為：
+
+$$
+I_{ds} = I_{ds0} \; \exp \! \Big( \frac{V_{gs} - V_{t0} + \eta V_{ds} - k_{\gamma} V_{sb}}{n v_T} \Big) \Big( 1 - e^{-V_{ds}/v_T} \Big)
+$$
+
+其中：
+- $v_T = \dfrac{kT}{q} \approx 26 \, \mathrm{mV}$ （室溫）
+- $n$ ：subthreshold swing coefficient（製程相關）
+
+---
+
+#### (2) 明確寫出「有效 threshold voltage」的定義
+
+老師在同一頁下方直接給出 **包含 DIBL 與 body effect 的 threshold voltage 定義** ：
+
+$$
+\boxed{ V_t = V_{t0} - \eta V_{ds} + k_{\gamma} V_{sb} }
+$$
+
+這一步非常關鍵，因為它說明：
+
+- $-\eta V_{ds}$ ： **DIBL** （drain 電壓拉低位能障 → $V_t$ 下降）
+- $+k_{\gamma} V_{sb}$ ： **Body Effect** （source–body 反向偏壓 → $V_t$ 上升）
+
+---
+
+#### (3) 將 $V_t$ 定義代回指數分子（不省略任何一步）
+
+原本指數分子為：
+
+$$
+V_{gs} - V_{t0} + \eta V_{ds} - k_{\gamma} V_{sb}
+$$
+
+將第 (2) 步的 $V_t$ 展開後可得：
+
+$$
+\begin{aligned}
+V_{gs} - V_t
+&= V_{gs} - \big( V_{t0} - \eta V_{ds} + k_{\gamma} V_{sb} \big) \\
+&= V_{gs} - V_{t0} + \eta V_{ds} - k_{\gamma} V_{sb}
+\end{aligned}
+$$
+
+也就是說：
+
+$$
+\boxed{ V_{gs} - V_{t0} + \eta V_{ds} - k_{\gamma} V_{sb} \equiv V_{gs} - V_t }
+$$
+
+這一步 **只是代換定義，沒有任何近似** 。
+
+---
+
+#### (4) 代換後的電流表達式
+
+將上式代回原本的 $I_{ds}$ ：
+
+$$
+I_{ds} = I_{ds0} \; \exp \! \Big( \frac{V_{gs} - V_t}{n v_T} \Big) \Big( 1 - e^{-V_{ds}/v_T} \Big)
+$$
+
+到此為止，仍然是 **完整、未簡化的 subthreshold 模型** 。
+
+---
+
+#### (5) 為什麼可以假設 $V_{ds} > 78 \, \mathrm{mV}$ ？
+
+投影片右側直接標註：
+
+> $1 - e^{-V_{ds}/v_T} \approx 1$ when $V_{ds} > 78 \, \mathrm{mV}$
+
+理由如下（數值完全來自本頁）：
+
+- $v_T \approx 26 \, \mathrm{mV}$
+- $78 \, \mathrm{mV} = 3 v_T$
+
+因此：
+
+$$
+e^{-V_{ds}/v_T} = e^{-3} \approx 0.05 \quad \Rightarrow \quad 1 - e^{-V_{ds}/v_T} \approx 0.95 \approx 1
+$$
+
+**物理意義：**
+- 當 drain–source 電壓已達數十 mV
+- 載子已可被 drain 有效收集
+- 電流不再受 $V_{ds}$ 限制，而主要由 gate 控制
+
+---
+
+#### (6) 得到投影片藍框的近似形式
+
+在 $V_{ds} > 78 \, \mathrm{mV}$ 的常見操作條件下：
+
+$$
+\boxed{ I_{ds} \approx I_{ds0} \; \exp \! \Big( \frac{V_{gs} - V_t}{n v_T} \Big) }
+$$
+
+這正是投影片藍框中標示的 subthreshold leakage 近似模型。
+
+---
+
+#### (7) 本小節重點總結（不要背錯）
+
+- **藍框公式不是新模型，而是完整模型在 $V_{ds}$ 足夠大時的近似**
+- $V_t$ 本身已經包含：
+  - DIBL（ $-\eta V_{ds}$ ）
+  - Body Effect（ $+k_{\gamma} V_{sb}$ ）
+- subthreshold 區的漏電流：
+  - 對 $V_{gs}$ 呈 **指數關係**
+  - 對 $V_{ds}$ 在常見偏壓下只剩弱影響
+- $I_{ds0}$ ：設定漏電「尺度」
+- $n v_T$ ：決定指數變化的「快慢」
