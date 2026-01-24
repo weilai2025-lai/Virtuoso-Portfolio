@@ -4156,10 +4156,9 @@ $$
 
 
 
-#### 30.11 Subthreshold Swing 的完整推導與物理意義（逐步，不跳步）
+#### 30.11 Subthreshold Swing（逐步推導，不跳步，GitHub 版）
 
-本小節目標只有一個：  
-**從 subthreshold 的指數電流模型，一步一步推導出 subthreshold swing $S$，並說清楚為什麼可以把指數式改寫成以 10 為底的形式。**
+本小節目標：從 subthreshold（弱反轉）漏電的指數模型，推到 subthreshold swing（記為 S），並把模型改寫成以 10 為底的表示法。
 
 ---
 
@@ -4171,21 +4170,21 @@ $$
 I_{ds}
 \approx
 I_{ds0}
-\exp\!\left(
+\exp\left(
 \frac{V_{gs}-V_t}{n kT/q}
 \right)
 $$
 
-其中：
+其中符號意義（先用文字說明，避免中文夾公式造成渲染問題）：
 
-- $I_{ds0}$：subthreshold 漏電的尺度因子  
-- $V_t$：有效 threshold voltage（已包含 DIBL 與 body effect）  
-- $n$：subthreshold swing coefficient（製程相關）  
-- $kT/q = v_T \approx 26\,\text{mV}$（室溫）
+- Ids0：subthreshold 漏電的尺度因子（決定整條曲線高低）
+- Vt：有效 threshold voltage（已把 DIBL 與 body effect 的影響吸收進來）
+- n：subthreshold swing coefficient（製程相關）
+- kT/q：熱電壓 vT，室溫約為 26 mV
 
 ---
 
-#### (2) 對電流取自然對數（將指數關係線性化）
+#### (2) 對電流取自然對數（把指數變直線）
 
 對上式兩邊同時取自然對數：
 
@@ -4197,7 +4196,7 @@ $$
 \frac{V_{gs}-V_t}{n kT/q}
 $$
 
-將分子展開：
+把分子展開（只是在做代數展開，沒有近似）：
 
 $$
 \ln I_{ds}
@@ -4213,7 +4212,11 @@ $$
 
 #### (3) 定義常數項，得到線性關係
 
-在 subthreshold swing 的分析中，我們掃描的是 $V_{gs}$，而 $V_t$ 在固定操作條件下視為常數，因此定義：
+在 subthreshold swing 的分析中，我們把 gate 電壓當成掃描變數。
+
+在固定操作條件下，Vt 可視為常數。
+
+因此把所有「不隨 gate 電壓變化」的項合併為常數 A：
 
 $$
 A
@@ -4223,7 +4226,7 @@ A
 \frac{q}{n kT} V_t
 $$
 
-則電流與 gate 電壓的關係可寫為：
+則電流與 gate 電壓的線性關係為：
 
 $$
 \ln I_{ds}
@@ -4233,19 +4236,17 @@ A
 \frac{q}{n kT} V_{gs}
 $$
 
-這表示在 subthreshold 區，$\ln I_{ds}$ 對 $V_{gs}$ 是一條直線。
-
 ---
 
-#### (4) 定義問題：電流增加 10 倍，需要多少 $\Delta V_{gs}$？
+#### (4) 問題定義：電流增加 10 倍，需要多少 gate 電壓變化？
 
-「10 倍電流變化」在數學上表示為：
+「電流增加 10 倍」表示：
 
 $$
-I'_{ds} = 10 \, I_{ds}
+I'_{ds} = 10\, I_{ds}
 $$
 
-同時 gate 電壓增加：
+同時假設 gate 電壓增加：
 
 $$
 V'_{gs} = V_{gs} + \Delta V_{gs}
@@ -4253,141 +4254,135 @@ $$
 
 ---
 
-#### (5) 將新狀態代入同一條線性方程
+#### (5) 把新狀態代回同一條線性方程
 
-原本關係式為：
+先定義斜率 m：
 
 $$
-\ln I_{ds} = A + m V_{gs},
-\qquad
 m = \frac{q}{n kT}
+$$
+
+原本的線性式可寫成：
+
+$$
+\ln I_{ds} = A + m V_{gs}
 $$
 
 新狀態必須滿足：
 
 $$
-\ln ( 10 I_{ds} )
+\ln(10 I_{ds})
 =
 A
 +
-m ( V_{gs} + \Delta V_{gs} )
+m (V_{gs} + \Delta V_{gs})
 $$
 
 ---
 
-#### (6) 展開並與原式相減（關鍵步驟）
+#### (6) 展開並相減（核心步驟）
 
-左邊利用對數性質：
+利用對數性質：
 
 $$
-\ln ( 10 I_{ds} )
+\ln(10 I_{ds}) = \ln 10 + \ln I_{ds}
+$$
+
+代回上式：
+
+$$
+\ln 10 + \ln I_{ds}
 =
-\ln 10
-+
-\ln I_{ds}
+A + m V_{gs} + m\,\Delta V_{gs}
 $$
 
-代回後得到：
+再把原本的關係式
 
 $$
-\ln 10
-+
-( A + m V_{gs} )
+\ln I_{ds} = A + m V_{gs}
+$$
+
+代入，得到：
+
+$$
+\ln 10 + (A + m V_{gs})
 =
-A
-+
-m V_{gs}
-+
-m \Delta V_{gs}
+A + m V_{gs} + m\,\Delta V_{gs}
 $$
 
-左右同時消去 $A + m V_{gs}$，得到：
+左右同時消去 A 與 m Vgs：
 
 $$
-\ln 10 = m \, \Delta V_{gs}
+\ln 10 = m\,\Delta V_{gs}
 $$
 
 ---
 
-#### (7) 解出 subthreshold swing $S$
+#### (7) 解出 subthreshold swing（S 的定義）
 
 由上式可得：
 
 $$
+\Delta V_{gs} = \frac{\ln 10}{m}
+$$
+
+代入 m 的定義：
+
+$$
 \Delta V_{gs}
-=
-\frac{\ln 10}{m}
 =
 \ln 10 \cdot \frac{n kT}{q}
 $$
 
-定義 subthreshold swing 為：
+定義 subthreshold swing S 為「電流增加一個 decade（10 倍）所需的 gate 電壓變化」：
 
 $$
 S
 \equiv
 \Delta V_{gs}
 =
-n \, \frac{kT}{q} \, \ln 10
+n\,\frac{kT}{q}\,\ln 10
 $$
-
-其單位通常為 mV/decade。
 
 ---
 
-#### (8) 將自然指數形式改寫為以 10 為底的形式
+#### (8) 把自然指數形式改寫成以 10 為底的形式
 
-由 $S$ 的定義可得：
-
-$$
-n \frac{kT}{q}
-=
-\frac{S}{\ln 10}
-$$
-
-代回原本的指數模型：
+由 S 的定義可反推：
 
 $$
-\exp\!\left(
+n\,\frac{kT}{q} = \frac{S}{\ln 10}
+$$
+
+代回一開始的指數模型：
+
+$$
+\exp\left(
 \frac{V_{gs}-V_t}{n kT/q}
 \right)
 =
-\exp\!\left(
-\frac{( V_{gs}-V_t ) \ln 10}{S}
+\exp\left(
+\frac{(V_{gs}-V_t)\ln 10}{S}
 \right)
 $$
 
-利用數學恆等式：
+使用恆等式：
 
 $$
-e^{x \ln 10} = 10^x
+e^{x\ln 10} = 10^x
 $$
 
-得到最常用的工程表示式：
+得到常用的工程表示式：
 
 $$
 I_{ds}
 \approx
-I_{ds0}
-\cdot
-10^{\frac{V_{gs}-V_t}{S}}
+I_{ds0}\cdot 10^{\frac{V_{gs}-V_t}{S}}
 $$
 
 ---
 
-#### (9) 物理意義總結（務必理解）
+#### (9) 物理意義（用一句話抓住重點）
 
-- Subthreshold swing $S$：  
-  電流增加一個 decade（10 倍）所需的 gate 電壓變化
-- $S$ 越小：
-  - 漏電隨 $V_{gs}$ 下降得越快
-  - 電晶體「關得越乾淨」
-- 在室溫下：
-  - 理論極限約為 $60\,\text{mV/dec}$
-  - 實際製程中 $S > 60\,\text{mV/dec}$，因為 $n > 1$
+S 越小，表示只要更小的 gate 電壓變化，就能讓漏電流下降一個 decade，電晶體在 cutoff 區就越「關得乾淨」。
 
----
-
-#### (10) 本小節一句話記憶
-
-**Subthreshold swing 並非額外假設，而是直接從 subthreshold 指數電流模型推導出的量，用來衡量電晶體在 cutoff 區被關閉的效率。**
