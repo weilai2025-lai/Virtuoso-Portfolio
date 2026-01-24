@@ -3079,3 +3079,773 @@ $$
 > **速度飽和模型保留了 bulk charge 與電流定義的骨架，  
 > 只修正「電子能跑多快」，  
 > 因而解釋了為何短通道 MOS 的 ON current 不再遵循平方律。**
+
+## 25. Channel Length Modulation（通道長度調變）
+
+本節說明：**為何在「飽和區（saturation）」中，實際電晶體的汲極電流 $I_{ds}$ 仍會隨 $V_{ds}$ 增加**，以及工程上如何修正理想模型。
+
+---
+
+### 25.1 物理起源（老師逐字稿重點）
+
+在理想 long-channel MOS 模型中：
+
+- 進入飽和區後，通道在 drain 端 pinch-off
+- 假設 $I_{ds}$ 與 $V_{ds}$ 無關（ $I_{ds}$ 為常數）
+
+但在真實電晶體中，此假設不成立。
+
+原因來自 **drain–body 的 PN 接面效應**：
+
+- 在飽和區時，drain–body PN junction 為反向偏壓
+- 反向偏壓增加會使耗盡區（depletion region）擴張
+- 耗盡區會由 drain 端向 source 方向侵入通道
+
+因此：
+
+- 原本設計的通道長度為 $L$
+- 部分通道被耗盡區「吃掉」，無法導電
+- 有效導電通道長度變為  
+  $L_{eff} = L - L_d$
+
+---
+
+### 25.2 為何 $I_{ds}$ 會在飽和區隨 $V_{ds}$ 上升？
+
+隨著 $V_{ds}$ 增加：
+
+$V_{ds} \uparrow$  
+→ drain–body 反向偏壓 $\uparrow$  
+→ depletion region 寬度 $L_d \uparrow$  
+→ 有效通道長度 $L_{eff} \downarrow$  
+
+由於電流模型中：
+
+$I_{ds} \propto W / L$
+
+當 $L$ 以 $L_{eff}$ 取代，且 $L_{eff}$ 隨 $V_{ds}$ 變小時：
+
+- 等效 $W / L_{eff}$ 增加
+- **即使在飽和區， $I_{ds}$ 仍會隨 $V_{ds}$ 上升**
+
+這個現象稱為 **Channel Length Modulation**。
+
+---
+
+### 25.3 工程模型：$\lambda$ 的引入（經驗式修正）
+
+由於直接以物理方式計算 $L_d(V_{ds})$ 與 $L_{eff}$ 會使模型過於複雜，  
+工程上採用 **經驗式（empirical）修正**：
+
+- 觀察到：飽和區的 $I_{ds} – V_{ds}$ 關係近似線性上升
+- 以一個線性項補償此效應
+
+修正後的飽和區電流模型為：
+
+$$
+I_{ds} = \frac{\beta}{2} (V_{gs} - V_t)^2 (1 + \lambda V_{ds})
+$$
+
+其中：
+
+- $\beta = \mu C_{ox} \frac{W}{L}$
+- $\lambda$ 為 **channel length modulation coefficient**
+- $\lambda$ 並非由物理推導而來，而是由 I–V 曲線擬合得到
+
+---
+
+### 25.4 $\lambda$ 的物理與工程意義
+
+- $\lambda$ 反映 **飽和區 $I_{ds}$ 對 $V_{ds}$ 的敏感度**
+- $\lambda$ 越大：
+  - 飽和區斜率越明顯
+  - channel length modulation 越嚴重
+- **通道越長（$L$ 越大），$\lambda$ 越小**
+  - 因為 depletion 區相對佔比變小
+  - $L_{eff}$ 對 $V_{ds}$ 的變化較不敏感
+
+---
+
+### 25.5 本節理解重點整理（對齊自己的理解）
+
+- 本節僅針對 **飽和區模型修正**
+- 此修正 **基於低電場假設**
+  - 不處理 velocity saturation 或 mobility degradation
+- 物理本質：
+  - $V_{ds}$ 增加 → drain–body 耗盡區擴張
+  - → 有效通道長度縮短 → $I_{ds}$ 上升
+- 工程處理方式：
+  - 不直接計算 $L_{eff}$
+  - 以 $\lambda$ 將 $V_{ds}$ 對 $I_{ds}$ 的影響封裝進模型
+
+## 26. Body Effect（體效應）
+
+本節說明：**為何 MOS 電晶體的 threshold voltage（$V_t$）會隨 source–body 電壓改變**，以及體效應在物理模型與工程實務（近似與偏壓操作）中的完整意義。
+
+---
+
+### 26.1 Body 是第四個電晶體端點
+
+MOS 電晶體不只有 Gate / Source / Drain 三個端點，**Body（Bulk）是實質存在且具有電氣影響的第四端點**。
+
+- Gate：控制是否形成通道  
+- Body：控制「形成通道需要多少電荷」
+
+因此，Body 並非只是固定接地的背景端點，而是會影響電晶體開關難易度（$V_t$）的關鍵因素。
+
+---
+
+### 26.2 體效應的物理來源（耗盡區觀點）
+
+以 **NMOS（p-type substrate）** 為例：
+
+- Source / Drain 為 $n^+$
+- Body 為 p-type
+- Source–Body 本身形成 PN junction
+
+當 **$V_{sb} = V_s - V_b$ 增加**（例如 source 電位上升、body 電位下降）時：
+
+- Source–Body PN junction 的反向偏壓增加
+- 耗盡區（depletion region）變寬
+- 耗盡區位於 gate 下方、通道形成之前即存在
+
+耗盡區變寬代表：
+
+- 可被 gate 反轉成通道的矽區域變少
+- 需要更多 gate 電荷才能完成反轉
+
+結果是：
+
+> **Threshold voltage（$V_t$）上升**
+
+這個現象稱為 **Body Effect（體效應）**。
+
+---
+
+### 26.3 Threshold Voltage 的體效應完整模型
+
+體效應下的 threshold voltage 表示為：
+
+$$
+V_t = V_{t0} + \gamma \left( \sqrt{\phi_s + V_{sb}} - \sqrt{\phi_s} \right)
+$$
+
+此公式用來描述 **$V_t$ 如何隨 $V_{sb}$ 改變**，而非用來直接計算電流。
+
+---
+
+### 26.4 體效應模型中各項參數的物理意義
+
+#### (1) $V_{t0}$：零體效應下的 threshold voltage
+
+- 定義為 **$V_{sb} = 0$** 時的 $V_t$
+- Source 與 Body 同電位，無體效應存在
+- 可視為 baseline threshold voltage
+
+---
+
+#### (2) $V_{sb}$：Source–Body 電壓
+
+$$
+V_{sb} = V_s - V_b
+$$
+
+- 為體效應的直接驅動來源
+- 只要 source 與 body 不同電位，體效應就會存在
+
+---
+
+#### (3) $\phi_s$：Surface Potential（表面位能）
+
+$\phi_s$ 定義為 **矽表面在 threshold 時所需承受的位能差**，其大小與摻雜濃度有關：
+
+$$
+\phi_s = 2V_T \ln \left( \frac{N_A}{n_i} \right)
+$$
+
+其中：
+
+- $N_A$：body 的摻雜濃度（NMOS 為 p-type）
+- $n_i$：本徵載子濃度
+- $V_T = kT / q \approx 26 \text{ mV}$（室溫）
+
+結論：
+
+- Body 摻雜越重 → $\phi_s$ 越大 → 本來就越難反轉
+
+---
+
+#### (4) $\gamma$：Body Effect Coefficient（體效應係數）
+
+$$
+\gamma = \frac{\sqrt{2 q \epsilon_{si} N_A}}{C_{ox}}
+$$
+
+$\gamma$ 描述 **$V_{sb}$ 對 $V_t$ 影響的強度**，其大小與下列因素相關：
+
+- Body 摻雜濃度 $N_A$（越大 → 體效應越嚴重）
+- Gate 氧化層電容 $C_{ox}$（越大 → gate 控制力越強 → 體效應越小）
+
+---
+
+#### (5) 電荷常數 $q$ 在體效應模型中的角色
+
+- $q$ 為 **基本電荷量（elementary charge）**
+- 數值約為： $q \approx 1.6 \times 10^{-19} \text{ C}$
+
+$q$ 的物理意義在於：
+
+- 將 **摻雜濃度（每單位體積的離子數）**
+- 轉換為 **實際的電荷量（庫倫）**
+
+換言之：
+
+> **$q$ 是把「材料中的原子數量」轉換成「電性影響強度」的尺度因子**
+
+因此 $\gamma$ 本質上反映的是：
+- 耗盡區電荷量
+- 與 gate 電壓之間的耦合強度
+
+---
+
+### 26.5 為何體效應公式呈平方根形式？
+
+體效應的本質來自 PN junction 的耗盡區行為，而：
+
+- **耗盡區寬度 $\propto \sqrt{\text{反向偏壓}}$**
+
+因此：
+
+- $V_t$ 對 $V_{sb}$ 的依賴自然呈現 **平方根關係**
+- 屬於非線性效應
+
+---
+
+### 26.6 NMOS 為何在 source 接地時看不到體效應？
+
+若單顆 NMOS 滿足：
+
+- Source = $0 \text{ V}$
+- Body = $0 \text{ V}$
+
+則：
+
+$$
+V_{sb} = 0
+$$
+
+此時 **體效應不存在**。
+
+---
+
+### 26.7 體效應實際出現的常見情境
+
+體效應是否存在，**不是由電晶體顆數決定，而是由 source 是否被抬高決定**。
+
+常見情況包括：
+
+- 串接 NMOS（如 NAND gate）
+  - 上方 NMOS 的 source 電位被抬高 → $V_{sb} > 0$
+- Pass transistor
+  - Source / Drain 角色交換，body 固定
+- 類比電路（current mirror、cascode）
+  - Source 非接地，body 無法自由調整
+
+只要 source 電位高於 body，**體效應必然存在**。
+
+---
+
+### 26.8 小 $V_{sb}$ 下的線性近似模型
+
+完整體效應模型為非線性平方根形式。  
+當 **$V_{sb}$ 很小（接近操作點）** 時，可在該點做一階近似：
+
+$$
+V_t \approx V_{t0} + k_{\gamma} \cdot V_{sb}
+$$
+
+其中 **線性體效應係數** 為：
+
+$$
+k_{\gamma} = \frac{\gamma}{2 \sqrt{\phi_s}} = \frac{\sqrt{2 q \epsilon_{si} N_A}}{2 C_{ox} \sqrt{\phi_s}}
+$$
+
+---
+
+### 26.9 線性近似模型的工程意義
+
+線性模型提供一個直觀估算方式：
+
+$$
+\Delta V_t \approx k_{\gamma} \cdot \Delta V_{sb}
+$$
+
+其用途在於：
+
+- 不需處理平方根非線性
+- 便於電路層級的 hand calculation 與 sensitivity analysis
+
+此為工程近似，並未引入新物理。
+
+---
+
+### 26.10 Reverse / Forward Body Bias（以 NMOS 為例）
+
+#### Reverse Body Bias（RBB）
+
+$$
+V_s > V_b \rightarrow V_{sb} > 0
+$$
+
+- Source–Body PN junction 反向偏壓增加
+- 耗盡區變寬
+- **$V_t$ 上升**
+
+電路影響：
+- Leakage power 降低
+- 速度變慢
+
+---
+
+#### Forward Body Bias（FBB）
+
+$$
+V_s < V_b \rightarrow V_{sb} < 0
+$$
+
+- 反向偏壓減小
+- 耗盡區變窄
+- **$V_t$ 下降**
+
+電路影響：
+- Leakage 增加
+- 速度變快
+
+---
+
+### 26.11 NMOS 與 PMOS 體效應差異（理論 vs 實務）
+
+#### 器件層（理論比較）
+
+- NMOS body：p-type substrate（摻雜較低）
+- PMOS body：n-well（摻雜通常較高）
+
+由於：
+
+$$
+\gamma \propto \sqrt{N_A}
+$$
+
+因此在 **相同 $V_{sb}$ 下**：
+
+> **PMOS 的 $\gamma$ 通常大於 NMOS**  
+> → 理論上 PMOS 體效應較強
+
+---
+
+#### 電路層（實務觀察）
+
+- NMOS body 幾乎固定接 GND，無法獨立調整
+- NMOS 常出現在：
+  - 串接結構
+  - Pass transistor
+  - Pull-down network 上層
+
+→ **Source 容易被抬高，$V_{sb}$ 經常出現且為動態值**
+
+相對地：
+
+- PMOS 位於 n-well
+- n-well 通常接 VDD
+- PMOS source 多半也接近 VDD
+
+→ **$V_{sb} \approx 0$，體效應很少實際發生**
+
+---
+
+### 26.12 本章總結
+
+- 體效應描述 $V_t$ 對 $V_{sb}$ 的依賴
+- 物理起源為 Source–Body PN junction 耗盡區變化
+- 完整模型為平方根形式
+- 小 $V_{sb}$ 下可用線性模型近似（ $k_{\gamma}$ ）
+- $q$ 為將摻雜濃度轉換為電荷影響的基本尺度
+- 理論上 PMOS $\gamma$ 較大
+- 實務上 NMOS 更常受到體效應影響
+
+## 27. Short Channel Effect（短通道效應）
+
+本章說明：**當 MOS 電晶體的通道長度 $L$ 縮短時，為何 threshold voltage（ $V_t$ ）會下降，以及 gate 為何逐漸失去對通道的控制能力**。此現象稱為 Short Channel Effect（SCE），是短通道製程中的關鍵問題之一。
+
+---
+
+### 27.1 Short Channel Effect 的核心觀念
+
+在長通道（large $L$）MOS 電晶體中，通道底下的耗盡電荷主要由 **gate 電極** 來支撐，因此：
+
+- Gate 對 channel 具有良好的電靜控制能力
+- Threshold voltage 幾乎與通道長度 $L$ 無關
+
+然而，當通道長度縮短時，這個假設會失效。
+
+---
+
+### 27.2 Source / Drain 耗盡區侵入通道
+
+在短通道電晶體中：
+
+- Source / Drain 與 body 形成的 PN junction 耗盡區
+- 不再只侷限於接面附近
+- 而是 **向通道中央延伸**
+
+結果是：
+
+> **Source / Drain 的耗盡區開始侵入原本屬於 channel 的區域**
+
+---
+
+### 27.3 耗盡電荷的「支撐者」改變
+
+Threshold voltage 的物理本質為：
+
+> **Gate 需要提供多少電荷，才能將矽表面反轉形成通道**
+
+在不同通道長度下，耗盡電荷的支撐來源不同：
+
+#### (1) Large $L$（長通道）
+
+- Source / Drain 耗盡區彼此距離遠
+- 通道中央的耗盡電荷
+  - 幾乎完全由 gate 來支撐
+- Gate 對 channel 具有完整控制能力
+
+---
+
+#### (2) Small $L$（短通道）
+
+- Source / Drain 耗盡區彼此接近
+- 耗盡區向通道中央延伸並重疊
+- 原本應由 gate 支撐的耗盡電荷
+  - **部分改由 Source / Drain 來分擔**
+
+關鍵結果是：
+
+> **Gate 對通道的電靜控制能力下降**
+
+---
+
+### 27.4 Short Channel Effect 對 $V_t$ 的影響（Vt roll-off）
+
+由於 Source / Drain 分擔了部分耗盡電荷：
+
+- Gate 需要提供的電荷量減少
+- 通道更容易形成反轉
+
+因此：
+
+$L \downarrow \rightarrow V_t \downarrow$
+
+這種 **$V_t$ 隨通道長度縮短而下降** 的現象稱為：
+
+> **Threshold voltage roll-off**
+
+---
+
+### 27.5 為何 Short Channel Effect 會導致漏電增加？
+
+當 $V_t$ 因短通道效應下降時：
+
+- 即使 Gate 電壓為 0
+- 有效的 $(V_{gs} - V_t)$ 變得較不負
+
+結果是：
+
+- 電晶體在 OFF 狀態下仍有顯著電流
+- **Subthreshold leakage 明顯增加**
+- 電晶體「無法完全關閉」
+
+因此 Short Channel Effect 是：
+
+> **短通道 CMOS 製程中的 critical drawback**
+
+---
+
+### 27.6 本章重點整理
+
+- Short Channel Effect 來自 Source / Drain 耗盡區侵入通道
+- 通道變短時，耗盡電荷不再完全由 gate 支撐
+- Gate 對 channel 的控制能力下降
+- Threshold voltage 隨通道長度縮短而下降（Vt roll-off）
+- $V_t$ 下降導致 OFF-state leakage 增加
+- 本章僅討論 SCE 本身，**不包含 DIBL（另立一章說明）**
+
+## 28. Drain-Induced Barrier Lowering（DIBL）
+
+本章說明：**在短通道（short-channel）MOS 電晶體中，為何汲極電壓（ $V_{ds}$ ）會進一步降低 threshold voltage（ $V_t$ ）**，以及此效應如何加劇短通道效應並導致嚴重的漏電流。此現象稱為 **Drain-Induced Barrier Lowering（DIBL）**。
+
+---
+
+### 28.1 DIBL 在整體短通道效應中的定位
+
+在前一章已知：
+
+- **Short Channel Effect（SCE）**  
+  → 因通道長度 $L$ 縮短，Source / Drain 耗盡區侵入通道  
+  → Threshold voltage 變成通道長度 $L$ 的函數（Vt roll-off）
+
+在此基礎上：
+
+> **DIBL 描述的是：在 short-channel 前提下，  
+> threshold voltage 又進一步成為 drain 電壓 $V_{ds}$ 的函數。**
+
+因此，DIBL 並非獨立於 SCE 的新效應，而是 **短通道條件下，由 drain 偏壓引發的額外 $V_t$ 降低機制**。
+
+---
+
+### 28.2 為何 drain 電壓會影響 threshold voltage？
+
+當汲極電壓 $V_{ds}$ 增加時：
+
+- Drain–Body PN junction 的反向偏壓增加
+- Drain 端的耗盡區（depletion region）向通道方向擴張
+- Drain 端電場開始深入影響通道區域
+
+這個過程的關鍵在於：  
+**Drain 的電場不再只影響汲極附近，而是直接參與通道電位的塑形。**
+
+---
+
+### 28.3 Barrier lowering 的物理意義
+
+在 OFF 狀態（ $V_g$ 很低）時：
+
+- Source 端與通道之間存在一個能量障礙（energy barrier）
+- 在長通道中，此 barrier 幾乎完全由 gate 電壓所控制
+
+在短通道且高 $V_{ds}$ 的情況下：
+
+- Drain 耗盡區侵入通道
+- Drain 端電場拉低通道內的電位
+- Source 端看到的「進入通道的障礙高度」被降低
+
+因此：
+
+> **Barrier 被 drain 電壓拉低，而非由 gate 主導，  
+> 這正是 Drain-Induced Barrier Lowering 的名稱由來。**
+
+---
+
+### 28.4 為何 gate supplied charge 會減少？
+
+Threshold voltage 的本質為：
+
+> **Gate 需要提供多少電荷，才能使通道表面反轉**
+
+在 DIBL 情況下：
+
+- Drain 端分擔了部分原本由 gate 負責的電靜控制
+- Gate 需要提供的反轉電荷量減少
+
+結果是：
+
+> **即使 gate 電壓未提高，通道也更容易形成**
+
+---
+
+### 28.5 DIBL 為何在短通道中更嚴重？
+
+DIBL 的強度與通道長度密切相關：
+
+- 在長通道電晶體中  
+  - Drain 與 source 距離遠
+  - Drain 電場在到達 source 前已大幅衰減
+- 在短通道電晶體中  
+  - Drain 與 source 距離近
+  - Drain 電場可直接影響整個通道
+
+因此：
+
+> **通道越短，Drain 對通道電位的控制力越強，DIBL 越明顯。**
+
+---
+
+### 28.6 DIBL 的工程模型表示
+
+在工程分析中，DIBL 常以線性模型表示為：
+
+$$
+V_t' = V_t - \eta \cdot V_{ds}
+$$
+
+其中：
+
+- $V_t$：未考慮 DIBL 的 threshold voltage（已包含 SCE）
+- $V_t'$：考慮 DIBL 後的有效 threshold voltage
+- $\eta$：DIBL 係數（與製程、結構相關）
+
+此模型用來描述：
+
+> **$V_{ds}$ 增加時，等效 $V_t$ 近似線性下降的趨勢**
+
+---
+
+### 28.7 DIBL 對漏電流的影響
+
+由於 DIBL 會降低 threshold voltage：
+
+- 在 OFF 狀態下  
+  - 有效的 $(V_{gs} - V_t')$ 變得較不負
+- 結果是：
+  - Subthreshold leakage 顯著增加
+  - 電晶體無法完全關閉
+
+因此：
+
+> **高 drain 電壓會導致電流增加，即使 gate 電壓保持不變。**
+
+---
+
+### 28.8 本章重點整理
+
+- DIBL 發生於短通道 MOS 電晶體
+- 汲極電壓透過耗盡區與電場效應降低通道能障
+- Threshold voltage 因 $V_{ds}$ 增加而下降
+- DIBL 加劇 short-channel 的 Vt roll-off
+- DIBL 是造成短通道電晶體 OFF-state leakage 的主要原因之一
+
+## 29. Halo Doping 與 Reverse Short Channel Effect（RSCE）
+
+![Halo Doping 與 RSCE 示意圖](assets/halo_rsce_diagram.png)
+
+本章說明：**Halo（Pocket）Doping 作為抑制 Short Channel Effect（SCE）與 DIBL 的製程手段，其物理效果與所引入的副作用——Reverse Short Channel Effect（RSCE）**。本章同時從「摻雜濃度」與「通道形成直覺」兩個角度，統一理解 RSCE 的來源。
+
+---
+
+### 29.1 為何需要 Halo Doping？
+
+在短通道 MOS 電晶體中：
+
+- Source / Drain 與 body 形成的 PN junction 耗盡區
+- 會向通道方向侵入
+- 導致 gate 對通道的電靜控制能力下降
+
+其後果包括：
+
+- Threshold voltage 隨 $L$ 縮短而下降（SCE）
+- 高 $V_{ds}$ 時進一步惡化（DIBL）
+
+**Halo（Pocket）Doping** 的目的即是：
+
+> **在 Source / Drain 附近、通道底下局部提高 body 摻雜濃度，  
+> 以抑制耗盡區侵入通道。**
+
+---
+
+### 29.2 Halo Doping 如何抑制 SCE / DIBL？
+
+Halo Doping 的關鍵物理基礎為：
+
+- PN junction 的耗盡區寬度 $W \propto \frac{1}{\sqrt{N}}$
+
+因此：
+
+- 在 Source / Drain 鄰近通道處引入 **$P^+$ halo**
+- 提高局部 body 摻雜濃度
+- 使 S/D–body 接面的耗盡區變窄
+- 阻止耗盡區向通道中央延伸
+
+結果是：
+
+> **SCE 與 DIBL 得到有效抑制。**
+
+---
+
+### 29.3 RSCE 的實驗現象：$V_t$ 在短 $L$ 反而上升
+
+實際量測顯示：
+
+- 無 halo implant 時：
+  - 通道越短，$V_t$ 持續下降（典型 SCE）
+- 有 halo implant 時：
+  - 在某一短通道區間內
+  - **$V_t$ 反而隨 $L$ 縮短而上升**
+
+此現象稱為：
+
+> **Reverse Short Channel Effect（RSCE）**
+
+---
+
+### 29.4 RSCE 的第一個理解角度：等效摻雜濃度（ $N_A$ ）的觀點
+
+在 Body Effect 中已知：
+
+- Body / channel 摻雜濃度 $N_A \uparrow$
+- → 表面位能 $\phi_s \uparrow$
+- → 需要更多 gate 電荷才能反轉
+- → Threshold voltage $V_t \uparrow$
+
+Halo Doping 在短通道下會導致：
+
+- 原本只存在於 Source / Drain 角落的 $P^+$ halo
+- 因通道長度 $L$ 縮短而佔據通道的主要比例
+- Gate 所控制的通道區域，其**平均（等效）摻雜濃度上升**
+
+因此：
+
+> **短 $L \rightarrow$ channel 等效 $N_A \uparrow \rightarrow V_t \uparrow$**
+
+這裡的「等效摻雜」並非整條通道實際皆為 $P^+$，  
+而是指 **gate 在電氣上所感受到的平均摻雜濃度變高**。
+
+---
+
+### 29.5 RSCE 的第二個理解角度：通道形成的直覺觀點
+
+除了摻雜濃度的數學描述，RSCE 亦可從「通道連通難度」來理解。
+
+在短通道且具有 halo implant 的情況下：
+
+- $P^+$ halo 在通道兩側的實體寬度幾乎固定
+- 當 $L$ 變短時，halo 區域在通道中所佔比例迅速增加
+- 對 gate 而言，通道連接 Source 與 Drain 時：
+  - 必須穿越更大比例的 **高摻雜 $P^+$ 區域**
+
+因此可直覺地理解為：
+
+> **通道要形成連通，  
+> gate 需要克服更高的局部摻雜障礙，  
+> 必須付出更多電荷與電壓，  
+> 才能使整段通道反轉導通。**
+
+此直覺描述與前述的「等效摻雜濃度上升」在物理上完全一致。
+
+---
+
+### 29.6 Halo Doping 的完整因果關係總結
+
+Halo Doping 在短通道 MOS 中同時帶來正負效果：
+
+**正面效果**
+- 抑制 S/D 耗盡區侵入通道
+- 降低 SCE 與 DIBL
+- 改善 OFF-state leakage
+
+**副作用（RSCE）**
+- 短 $L$ 時 channel 等效摻雜濃度上升
+- 通道反轉變得更困難
+- Threshold voltage 反而上升
+
+---
+
+### 29.7 本章重點整理
+
+- Halo（Pocket）Doping 是對抗 SCE / DIBL 的關鍵製程手段
+- Halo 透過提高局部 body 摻雜，抑制耗盡區擴張
+- 在短通道中，halo 區域佔據通道主要比例
+- Gate 所控制的有效通道呈現較高等效摻雜
+- Threshold voltage 在短 $L$ 區間上升，形成 RSCE
+- RSCE 可同時從：
+  - 摻雜濃度（ $N_A$、$\phi_s$ ）
+  - 通道形成難度（gate 需跨越高摻雜區）
+ 兩種觀點理解，兩者本質一致
