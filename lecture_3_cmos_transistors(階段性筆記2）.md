@@ -415,7 +415,7 @@ $S$ 越小，表示只要更小的 gate 電壓變化，就能讓漏電流下降�
 
 本節不再做數學推導，而是對照老師投影片的圖與逐字稿，整理每一個標示在圖上的物理意義。
 
-![Subthreshold Swing 曲線圖](ss_curve.png)
+![Subthreshold Swing 曲線圖](assets/ss_curve.png)
 
 ---
 
