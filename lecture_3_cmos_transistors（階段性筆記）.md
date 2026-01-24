@@ -3085,3 +3085,167 @@ Ids = (β / 2) · (Vgs − Vt)² · (1 + λVds)
 - 工程處理方式：
   - 不直接計算 Leff
   - 以 λ 將 Vds 對 Ids 的影響封裝進模型
+## 26. Body Effect（體效應）
+
+本節說明：**為何 MOS 電晶體的 threshold voltage（Vt）會隨 source–body 電壓改變**，以及體效應在物理與工程模型中的真正意義。
+
+---
+
+### 26.1 Body 是第四個電晶體端點
+
+MOS 電晶體不只有 Gate / Source / Drain 三個端點，**Body（Bulk）是實質存在且具有電氣影響的第四端點**。
+
+- Gate：控制是否形成通道  
+- Body：控制「形成通道需要多少電荷」
+
+因此，Body 並非只是固定接地的背景端點，而是會影響電晶體開關難易度的關鍵因素。
+
+---
+
+### 26.2 體效應的物理來源（耗盡區觀點）
+
+以 **NMOS（p-type substrate）** 為例：
+
+- Source / Drain 為 n⁺
+- Body 為 p-type
+- Source–Body 本身形成 PN junction
+
+當 **Vsb = Vs − Vb 增加**（例如 source 電位上升、body 電位下降）時：
+
+- Source–Body PN junction 的反向偏壓增加
+- 耗盡區（depletion region）變寬
+- 耗盡區位於 gate 下方、通道形成之前即存在
+
+耗盡區變寬代表：
+
+- 可被 gate 反轉成通道的矽區域變少
+- 需要更多 gate 電荷才能完成反轉
+
+結果是：
+
+> **Threshold voltage（Vt）上升**
+
+這個現象稱為 **Body Effect（體效應）**。
+
+---
+
+### 26.3 Threshold Voltage 的體效應模型
+
+體效應下的 threshold voltage 表示為：
+
+```
+Vt = Vt0 + γ(√(φs + Vsb) − √φs)
+```
+
+此公式用來描述 **Vt 如何隨 Vsb 改變**，而非用來直接計算電流。
+
+---
+
+### 26.4 各項參數的物理意義
+
+#### (1) Vt0：零體效應下的 threshold voltage
+
+- 定義為 **Vsb = 0** 時的 Vt
+- Source 與 Body 同電位，無體效應存在
+- 可視為 baseline threshold voltage
+
+---
+
+#### (2) Vsb：Source–Body 電壓
+
+```
+Vsb = Vs − Vb
+```
+
+- 為體效應的直接驅動來源
+- 只要 source 與 body 不同電位，體效應就會存在
+
+---
+
+#### (3) φs：Surface Potential（表面位能）
+
+φs 定義為 **矽表面在 threshold 時所需承受的位能差**，其大小與摻雜濃度有關：
+
+```
+φs = 2VT ln(NA / ni)
+```
+
+其中：
+
+- NA：p-type body 的摻雜濃度
+- ni：本徵載子濃度
+- VT = kT/q ≈ 26 mV（室溫）
+
+結論：
+
+- Body 摻雜越重 → φs 越大 → 本來就越難反轉
+
+---
+
+#### (4) γ：Body Effect Coefficient（體效應係數）
+
+```
+γ = √(2qεsiNA) / Cox
+```
+
+γ 描述 **Vsb 對 Vt 影響的強度**，其大小與下列因素相關：
+
+- Body 摻雜濃度 NA（越大 → 體效應越嚴重）
+- Gate 氧化層電容 Cox（越大 → gate 控制力越強 → 體效應越小）
+
+---
+
+### 26.5 為何公式呈平方根形式？
+
+體效應的本質來自 PN junction 的耗盡區行為，而：
+
+- **耗盡區寬度 ∝ √(反向偏壓)**
+
+因此：
+
+- Vt 對 Vsb 的依賴自然呈現 **平方根關係**
+- 屬於非線性效應
+
+---
+
+### 26.6 NMOS 為何在 source 接地時看不到體效應？
+
+若單顆 NMOS 滿足：
+
+- Source = 0V
+- Body = 0V
+
+則：
+
+```
+Vsb = 0
+```
+
+此時 **體效應不存在**。
+
+---
+
+### 26.7 體效應實際出現的常見情境
+
+體效應是否存在，**不是由電晶體顆數決定，而是由 source 是否被抬高決定**。
+
+常見情況包括：
+
+- 串接 NMOS（如 NAND gate）
+  - 上方 NMOS 的 source 電位被抬高 → Vsb > 0
+- Pass transistor
+  - Source / Drain 角色交換，body 固定
+- 類比電路（current mirror、cascode）
+  - Source 非接地，body 無法自由調整
+
+只要 source 電位高於 body，**體效應必然存在**。
+
+---
+
+### 26.8 本節重點總結
+
+- Body 是實質影響 Vt 的第四端點
+- Vsb 改變 Source–Body PN junction 的反向偏壓
+- 反向偏壓增加 → 耗盡區變寬 → Vt 上升
+- 體效應僅在 source 與 body 電位不同時出現
+- 是否存在體效應，取決於 source 電位，而非 NMOS 的顆數
