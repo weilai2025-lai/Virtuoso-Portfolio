@@ -358,7 +358,7 @@ $$
 
 #### (4) 問題定義：電流增加 10 倍，需要多少 gate 電壓變化？
 
-假設 $I^{\prime}_{ds} = 10 I_{ds}$ 且 $V^{\prime}_{gs} = V_{gs} + \Delta V_{gs}$。
+假設 $I'_{ds} = 10 I_{ds}$ 且 $V'_{gs} = V_{gs} + \Delta V_{gs}$ 。
 
 ---
 
